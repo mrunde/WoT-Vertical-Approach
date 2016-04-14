@@ -1,6 +1,8 @@
-MIDlet-Jar-URL: SensorController.jar
-MIDlet-Name: SensorController MIDlet Suite
-MIDlet-Vendor: MIDlet Suite Vendor
 MIDlet-Version: 1.0.0
+MIDlet-Vendor: MIDlet Suite Vendor
+MIDlet-Permission-2: jdk.dio.gpio.GPIOPinPermission "*:*"
+MIDlet-Permission-1: jdk.dio.DeviceMgmtPermission "*:*" "open"
+MIDlet-Jar-URL: SensorController.jar
 MicroEdition-Configuration: CLDC-1.8
 MicroEdition-Profile: MEEP-8.0
+MIDlet-Name: SensorController MIDlet Suite
