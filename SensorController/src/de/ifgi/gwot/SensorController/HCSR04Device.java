@@ -17,6 +17,8 @@ public class HCSR04Device {
 	private final int PULSE = 10000;
 	// speed of sound = 34029 cm/s
 	private final int SPEEDOFSOUND = 34029;
+	// configuration 
+	private HCSR04Config configuration = new HCSR04Config(0.0,0.0,5000L,0.0);
 
 	private GPIOPin trigger = null;
 	private GPIOPin echo = null;
@@ -92,6 +94,70 @@ public class HCSR04Device {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public HCSR04Config getHCSR04Config(){
+		return this.configuration;
+	}
+	
+	/**
+	 * Inner class providing metadata and 
+	 * configuration for the Sensor.
+	 */
+	class HCSR04Config{
+		
+		private double latitude;
+		private double longitude;
+		private long delay;
+		private double waterLevelReference;
+		
+		/**
+		 * Creates a new Configuration file.
+		 * @param latitude The latitude value of the sensor position.
+		 * @param longitude The longitude value of the sensor position.
+		 * @param delay The time to wait between taking measurements.
+		 * @param waterLevelReference The water level reference required to derive the actual water level.
+		 */
+		HCSR04Config(double latitude, double longitude, long delay, double waterLevelReference){
+			this.latitude = latitude;
+			this.longitude = longitude;
+			this.delay = delay;
+			this.waterLevelReference = waterLevelReference;
+		}
+
+		public double getLatitude() {
+			return latitude;
+		}
+
+		public void setLatitude(final double latitude) {
+			this.latitude = latitude;
+		}
+
+		public double getLongitude() {
+			return longitude;
+		}
+
+		public void setLongitude(final double longitude) {
+			this.longitude = longitude;
+		}
+
+		public long getDelay() {
+			return delay;
+		}
+
+		public void setDelay(final long delay) {
+			this.delay = delay;
+		}
+
+		public double getWaterLevelReference() {
+			return waterLevelReference;
+		}
+
+		public void setWaterLevelReference(final double waterLevelReference) {
+			this.waterLevelReference = waterLevelReference;
+		}
+		
+		
 	}
 
 }

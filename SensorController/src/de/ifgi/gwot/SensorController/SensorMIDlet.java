@@ -10,8 +10,6 @@ public class SensorMIDlet extends MIDlet {
 	
 	private volatile boolean shouldRun = true;
 	private ReadSensors sensorsTask;
-	// time between measurements
-	private int delay = 5000;
 
 	/**
 	 * Stops the Thread to take measurements and closes the GPIO connections.
@@ -54,7 +52,7 @@ public class SensorMIDlet extends MIDlet {
 				if(distance > 0)
 //					MQTTPublisher.publish(new String(distance + ""));
 					System.out.println("Object detected at " + distance + " cm.");
-				I2CUtils.I2Cdelay(delay);
+				I2CUtils.I2Cdelay((int)hcsr04.getHCSR04Config().getDelay());
 			}
 		}
 	}
