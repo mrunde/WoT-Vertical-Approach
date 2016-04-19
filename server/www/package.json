@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/mrunde/WoT-Vertical-Approach#readme",
   "dependencies": {
+    "apidoc": "^0.15.1",
     "express": "^4.13.4",
     "pm2": "^1.1.1"
   }
