@@ -1,8 +1,11 @@
+MIDlet-1: SensorMIDlet,,de.ifgi.gwot.SensorController.SensorMIDlet
+MIDlet-Jar-URL: SensorController.jar
+MIDlet-Permission-4: javax.microedition.io.SocketProtocolPermission "socket://195.37.120.26:1883"
+MIDlet-Permission-3: java.util.PropertyPermission "*" "read,write"
+MIDlet-Permission-2: jdk.dio.gpio.GPIOPinPermission "*:*"
+MicroEdition-Configuration: CLDC-1.8
+MIDlet-Permission-1: jdk.dio.DeviceMgmtPermission "*:*" "open"
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: MIDlet Suite Vendor
-MIDlet-Permission-2: jdk.dio.gpio.GPIOPinPermission "*:*"
-MIDlet-Permission-1: jdk.dio.DeviceMgmtPermission "*:*" "open"
-MIDlet-Jar-URL: SensorController.jar
-MicroEdition-Configuration: CLDC-1.8
-MicroEdition-Profile: MEEP-8.0
 MIDlet-Name: SensorController MIDlet Suite
+MicroEdition-Profile: MEEP-8.0

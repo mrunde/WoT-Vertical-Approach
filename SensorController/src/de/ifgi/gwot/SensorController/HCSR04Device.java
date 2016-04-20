@@ -18,7 +18,7 @@ public class HCSR04Device {
 	// speed of sound = 34029 cm/s
 	private final int SPEEDOFSOUND = 34029;
 	// configuration 
-	private HCSR04Config configuration = new HCSR04Config(0.0,0.0,5000L,0.0);
+	private HCSR04Config configuration = new HCSR04Config("Sensor01", 0.0,0.0,5000L,0.0);
 
 	private GPIOPin trigger = null;
 	private GPIOPin echo = null;
@@ -106,6 +106,7 @@ public class HCSR04Device {
 	 */
 	class HCSR04Config{
 		
+		private String id;
 		private double latitude;
 		private double longitude;
 		private long delay;
@@ -118,11 +119,20 @@ public class HCSR04Device {
 		 * @param delay The time to wait between taking measurements.
 		 * @param waterLevelReference The water level reference required to derive the actual water level.
 		 */
-		HCSR04Config(double latitude, double longitude, long delay, double waterLevelReference){
+		HCSR04Config(String id, double latitude, double longitude, long delay, double waterLevelReference){
+			this.id = id;
 			this.latitude = latitude;
 			this.longitude = longitude;
 			this.delay = delay;
 			this.waterLevelReference = waterLevelReference;
+		}
+		
+		public String getId(){
+			return this.id;
+		}
+		
+		public void setId(final String id){
+			this.id = id;
 		}
 
 		public double getLatitude() {
