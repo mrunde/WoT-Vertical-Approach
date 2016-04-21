@@ -21,7 +21,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	
 	private MqttClient pubClient;
 	private int qualityOfService = 2;
-	private String brokerURL = "195.37.120.26"; //has to be changed manually in the socket permission
+	private String brokerURL = "giv-gwot-va.uni-muenster.de"; //has to be changed manually in the socket permission
 	private int port = 1883;
 
 	/**
@@ -63,7 +63,6 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			while(shouldRun){
 				distance = hcsr04.pulse();
 				if(distance > 0){
-					System.out.println("Object detected at " + distance + " cm.");
 					// TODO: adjust to api
 					String message = "{"
 							+ "\"id\":\"" + hcsr04.getHCSR04Config().getId() + "\","
@@ -74,6 +73,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 								"\"latitude\":" + hcsr04.getHCSR04Config().getLatitude() + "," +
 								"\"longitude\":" + hcsr04.getHCSR04Config().getLongitude() + "}"
 							+ "}";
+					System.out.println(message);
 					try {
 						publish(message);
 					} catch (MqttException e) {
