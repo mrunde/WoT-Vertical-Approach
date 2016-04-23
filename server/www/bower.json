@@ -1,0 +1,24 @@
+{
+  "name": "wot-vertical-approach",
+  "description": "Vertical Approach of the Geospatial Web of Things for Mobile Water Gauges",
+  "main": "server.js",
+  "authors": [
+    "Marius Runde"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "wot"
+  ],
+  "homepage": "https://github.com/mrunde/WoT-Vertical-Approach",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-css": "^3.3.6"
+  }
+}
