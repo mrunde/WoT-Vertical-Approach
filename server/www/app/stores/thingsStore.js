@@ -1,6 +1,5 @@
-
 // Required modules
-var dispatcher = require('../dispatcher');
+var dispatcher   = require('../dispatcher');
 var thingService = require('../services/thingService');
 
 function ThingStore() {

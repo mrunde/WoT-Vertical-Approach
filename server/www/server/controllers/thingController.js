@@ -1,7 +1,7 @@
 // Required modules
 var mongoose = require('mongoose');
-var Thing = require('../data/thing');
-var _ = require('underscore');
+var Thing    = require('../data/thing');
+var _        = require('underscore');
 
 // Create express router
 var router = require('express').Router();

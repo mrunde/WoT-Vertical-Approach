@@ -1,6 +1,6 @@
 // Required modules
-var $ = require('jquery');
-var promise = require('es6-promise');
+var $           = require('jquery');
+var promise     = require('es6-promise');
 var resourceUrl = 'http://localhost:3000/api/things';
 
 module.exports = {
