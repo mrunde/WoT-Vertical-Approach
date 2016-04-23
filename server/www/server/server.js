@@ -20,3 +20,12 @@ app.listen(3000, function() {
 
 // Connect to mongodb
 mongoose.connect('mongodb://localhost/wot-vertical-approach');
+
+// Test database connection
+var db = mongoose.connection;
+db.on('error', function callback() {
+    console.log("Connection to MongoDB failed!");
+});
+db.once('open', function callback() {
+    console.log("Connection to MongoDB successfull!");
+});
