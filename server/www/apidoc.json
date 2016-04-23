@@ -1,0 +1,13 @@
+{
+	"name": "API - Vertical Approach",
+	"version": "1.0.0",
+	"description": "This is the documentation of the Vertical Approach group's API. The work is part of the course Geospatial Web of Things at the Institute for Geoinformatics, Münster, Germany.",
+	"title": "API - Vertical Approach",
+	"url": "http://localhost/TODO",
+	"order": [
+		"Feature",
+		"Thing",
+		"Sensor",
+		"Measurement"
+	]
+}
