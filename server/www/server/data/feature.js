@@ -1,9 +1,15 @@
 // Required modules
 var mongoose = require('mongoose');
 
-var featureSchema = mongoose.Schema({
-	description: String,
-	unit: String
+var FeatureSchema = mongoose.Schema({
+	description: {
+		type: String,
+		required: true
+	},
+	unit: {
+		type: String,
+		required: true
+	}
 });
 
-module.exports = mongoose.model('feature', featureSchema);
+module.exports = mongoose.model('Feature', FeatureSchema);

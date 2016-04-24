@@ -1,9 +1,15 @@
 // Required modules
 var mongoose = require('mongoose');
 
-var measurementSchema = mongoose.Schema({
-	date: Date,
-	value: Number
+var MeasurementSchema = mongoose.Schema({
+	date: {
+		type: Date,
+		required: true
+	},
+	value: {
+		type: Number,
+		required: true
+	}
 });
 
-module.exports = mongoose.model('measurement', measurementSchema);
+module.exports = mongoose.model('Measurement', MeasurementSchema);
