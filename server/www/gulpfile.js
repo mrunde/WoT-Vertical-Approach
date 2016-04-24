@@ -34,7 +34,7 @@ gulp.task('copy', ['bundle'], function() {
 // Gulp task to build the API documentation
 gulp.task('apidoc', ['copy'], function(done) {
 	return apidoc({
-		src: "server/",
+		src: "server/controllers/",
 		dest: "app/dist/docs/"
 	}, done);
 });

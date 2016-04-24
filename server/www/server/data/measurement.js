@@ -9,6 +9,10 @@ var MeasurementSchema = mongoose.Schema({
 	value: {
 		type: Number,
 		required: true
+	},
+	sensorId: {
+		type: String,
+		required: true
 	}
 });
 

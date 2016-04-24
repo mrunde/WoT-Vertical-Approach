@@ -5,6 +5,14 @@ var SensorSchema = mongoose.Schema({
 	description: {
 		type: String,
 		required: true
+	},
+	thingId: {
+		type: String,
+		required: true
+	},
+	featureId: {
+		type: String,
+		required: true
 	}
 });
 
