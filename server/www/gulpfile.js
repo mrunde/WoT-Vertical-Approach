@@ -1,11 +1,20 @@
 // Required modules
-var gulp = require('gulp');
+var gulp       = require('gulp');
+var del        = require('del');
 var browserify = require('browserify');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
+var reactify   = require('reactify');
+var source     = require('vinyl-source-stream');
+var apidoc     = require('gulp-apidoc');
+
+// Gulp task to clean the "dist" directory
+gulp.task('clean', function() {
+	del(['app/dist/*']).then(paths => {
+		console.log('Deleted files and folders:\n', paths.join('\n'));
+	});
+});
 
 // Gulp task to convert jsx files to js files and copy them into the "dist" directory
-gulp.task('bundle', function() {
+gulp.task('bundle', ['clean'], function() {
 	return browserify({
 		entries: './app/main.jsx',
 		debug: true
@@ -22,7 +31,15 @@ gulp.task('copy', ['bundle'], function() {
 		.pipe(gulp.dest('app/dist'));
 });
 
+// Gulp task to build the API documentation
+gulp.task('apidoc', ['copy'], function(done) {
+	return apidoc({
+		src: "server/",
+		dest: "app/dist/docs/"
+	}, done);
+});
+
 // End of gulp tasks
-gulp.task('default', ['copy'], function() {
+gulp.task('default', ['apidoc'], function() {
 	console.log('Gulp completed...');
 });
