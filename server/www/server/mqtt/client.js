@@ -9,10 +9,9 @@ var request = require('request');
 // Set up the mqtt client and connect it to the mqtt broker
 var client = mqtt.connect(config.mqtt_host);
 
+// Subscribe to the API's topics
 client.once('connect', function () {
 	console.log('Connection to MQTT broker successfull!');
-	client.subscribe('demo/test');
-	client.publish('demo/test', '[ { "test": "Hello mqtt" }, { "test": "Hello world" } ]');
 
 	client.subscribe('features/delete');
 	client.subscribe('features/get');
@@ -47,17 +46,6 @@ function handleMessage(topic, payload) {
 
 	// Handle the received message
 	switch (topic.split('/')[0]) {
-		case 'demo':
-			switch (action) {
-				case 'test':
-					console.log('This is a test');
-					console.log(json[1].test);
-					break;
-				default:
-					console.log('This test went wrong');
-					break;
-			}
-			break;
 		// --------------------------------------------------
 		// Features
 		// --------------------------------------------------
@@ -77,9 +65,6 @@ function handleMessage(topic, payload) {
 						}, function(error, response, body) {
 							console.log(error);
 					});
-					break;
-				default:
-					console.log('Wrong action. Please check the API documentation for the right usage.');
 					break;
 			}
 			break;
@@ -103,9 +88,6 @@ function handleMessage(topic, payload) {
 							console.log(error);
 					});
 					break;
-				default:
-					console.log('Wrong action. Please check the API documentation for the right usage.');
-					break;
 			}
 			break;
 		// --------------------------------------------------
@@ -127,9 +109,6 @@ function handleMessage(topic, payload) {
 						}, function(error, response, body) {
 							console.log(error);
 					});
-					break;
-				default:
-					console.log('Wrong action. Please check the API documentation for the right usage.');
 					break;
 			}
 			break;
@@ -153,13 +132,7 @@ function handleMessage(topic, payload) {
 							console.log(error);
 					});
 					break;
-				default:
-					console.log('Wrong action. Please check the API documentation for the right usage.');
-					break;
 			}
-			break;
-		default:
-			console.log('Wrong topic. Please check the API documentation for the right usage.');
 			break;
 	}
 }
