@@ -4,45 +4,45 @@
 
 /**
  * @apiDefine ThingNotFoundError
- * @apiError (404) ThingNotFound The <code>id</code> of the Thing was not found.
+ * @apiError (404) ThingNotFound The <code>thingId</code> of the Thing was not found.
  *
  * @apiErrorExample {json} ThingNotFound:
  *     HTTP/1.1 404 Not Found
  *     {
- *       'error': 'ThingNotFound'
+ *       "error": "ThingNotFound"
  *     }
  */
 
 /**
  * @apiDefine SensorNotFoundError
- * @apiError (404) SensorNotFound The <code>id</code> of the Sensor was not found.
+ * @apiError (404) SensorNotFound The <code>sensorId</code> of the Sensor was not found.
  *
  * @apiErrorExample {json} SensorNotFound:
  *     HTTP/1.1 404 Not Found
  *     {
- *       'error': 'SensorNotFound'
+ *       "error": "SensorNotFound"
  *     }
  */
 
 /**
  * @apiDefine MeasurementNotFoundError
- * @apiError (404) MeasurementNotFound The <code>id</code> of the Measurement was not found.
+ * @apiError (404) MeasurementNotFound The <code>measurementId</code> of the Measurement was not found.
  *
  * @apiErrorExample {json} MeasurementNotFound:
  *     HTTP/1.1 404 Not Found
  *     {
- *       'error': 'MeasurementNotFound'
+ *       "error": "MeasurementNotFound"
  *     }
  */
 
 /**
  * @apiDefine FeatureNotFoundError
- * @apiError (404) FeatureNotFound The <code>id</code> of the Feature was not found.
+ * @apiError (404) FeatureNotFound The <code>featureId</code> of the Feature was not found.
  *
  * @apiErrorExample {json} FeatureNotFound:
  *     HTTP/1.1 404 Not Found
  *     {
- *       'error': 'FeatureNotFound'
+ *       "error": "FeatureNotFound"
  *     }
  */
 
@@ -53,6 +53,6 @@
  * @apiErrorExample {json} ServerError:
  *     HTTP/1.1 500 Server Error
  *     {
- *       'error': 'ServerError'
+ *       "error": "ServerError"
  *     }
  */
