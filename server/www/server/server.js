@@ -1,3 +1,7 @@
+// --------------------------------------------------
+// Imports
+// --------------------------------------------------
+
 // Load the application's configuration
 var config = require('./config');
 
@@ -12,6 +16,16 @@ var features     = require('./routes/features');
 var things       = require('./routes/things');
 var sensors      = require('./routes/sensors');
 var measurements = require('./routes/measurements');
+
+// --------------------------------------------------
+// MQTT Client
+// --------------------------------------------------
+
+var client = require('./mqtt/client');
+
+// --------------------------------------------------
+// Express Web Server
+// --------------------------------------------------
 
 // Set up the express web server
 var app = express();
@@ -29,14 +43,18 @@ app.listen(config.express_port, function() {
 	console.log('Express server listening on port', config.express_port);
 });
 
+// --------------------------------------------------
+// MongoDB Connection
+// --------------------------------------------------
+
 // Connect to mongodb
-mongoose.connect('mongodb://' + config.host + '/wot-vertical-approach');
+mongoose.connect(config.mongodb_host);
 
 // Test the database connection
 var db = mongoose.connection;
 db.on('error', function callback() {
-	console.log("Connection to MongoDB failed!");
+	console.log('Connection to MongoDB failed!');
 });
 db.once('open', function callback() {
-	console.log("Connection to MongoDB successfull!");
+	console.log('Connection to MongoDB successfull!');
 });
