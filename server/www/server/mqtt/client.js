@@ -15,7 +15,6 @@ client.once('connect', function () {
 
 client.on('message', function (topic, message) {
 	console.log('New message "' + message.toString() + '" in topic "' + topic.toString() + '"');
-	client.end();
 });
 
 module.exports = client;
