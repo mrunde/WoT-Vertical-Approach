@@ -1,7 +1,9 @@
 // Required modules
 var mongoose = require('mongoose');
-var Thing    = require('../../data/thing');
 var _        = require('underscore');
+
+// Required data schema
+var Thing    = require('../../data/thing');
 
 /**
  * @api {post} /things POST - Create a Thing

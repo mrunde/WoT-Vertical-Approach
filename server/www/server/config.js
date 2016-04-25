@@ -1,6 +1,9 @@
+var host = 'giv-gwot-va.uni-muenster.de';
+var port = 3000;
+
 module.exports = {
-	express_host: 'giv-gwot-va.uni-muenster.de',
-	express_port: 3000,
-	mongodb_host: 'mongodb://giv-gwot-va.uni-muenster.de/wot-vertical-approach',
-	mqtt_host: 'mqtt://giv-gwot-va.uni-muenster.de/'
+	express_host: 'http://' + host + ':' + port,
+	express_port: port,
+	mongodb_host: 'mongodb://' + host + '/wot-vertical-approach',
+	mqtt_host: 'mqtt://' + host + '/'
 };

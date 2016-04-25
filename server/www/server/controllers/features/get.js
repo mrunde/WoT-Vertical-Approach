@@ -1,5 +1,7 @@
 // Required modules
 var mongoose = require('mongoose');
+
+// Required data schema
 var Feature  = require('../../data/feature');
 
 /**

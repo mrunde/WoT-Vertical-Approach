@@ -1,7 +1,9 @@
 // Required modules
 var mongoose    = require('mongoose');
-var Measurement = require('../../data/measurement');
 var _           = require('underscore');
+
+// Required data schema
+var Measurement = require('../../data/measurement');
 
 /**
  * @api {post} /measurements POST - Create a Measurement

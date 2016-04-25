@@ -1,7 +1,9 @@
 // Required modules
 var mongoose = require('mongoose');
-var Feature  = require('../../data/feature');
 var _        = require('underscore');
+
+// Required data schema
+var Feature  = require('../../data/feature');
 
 /**
  * @api {post} /feature POST - Create a Feature
