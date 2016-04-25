@@ -1,6 +1,9 @@
+// Load the application's configuration
+var config = require('./config');
+
 // Required modules
-var express    = require('express');
 var bodyParser = require('body-parser');
+var express    = require('express');
 var mongoose   = require('mongoose');
 var path       = require('path');
 
@@ -10,7 +13,7 @@ var things       = require('./routes/things');
 var sensors      = require('./routes/sensors');
 var measurements = require('./routes/measurements');
 
-// Set up the web server
+// Set up the express web server
 var app = express();
 app.use(express.static(path.join(__dirname, '../app/dist')));
 app.use(bodyParser.json());
@@ -22,12 +25,12 @@ app.use('/api', sensors);
 app.use('/api', measurements);
 
 // Start the web server
-app.listen(3000, function() {
-	console.log('Express server listening on port', 3000);
+app.listen(config.express_port, function() {
+	console.log('Express server listening on port', config.express_port);
 });
 
 // Connect to mongodb
-mongoose.connect('mongodb://localhost/wot-vertical-approach');
+mongoose.connect('mongodb://' + config.host + '/wot-vertical-approach');
 
 // Test the database connection
 var db = mongoose.connection;
