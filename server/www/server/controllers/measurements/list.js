@@ -1,5 +1,5 @@
 // Required modules
-var mongoose    = require('mongoose');
+var mongoose = require('mongoose');
 
 // Required data schema
 var Measurement = require('../../data/measurement');
@@ -24,8 +24,8 @@ var Measurement = require('../../data/measurement');
  *       },
  *       {
  *         "_id": "<< generated MongoDB ID >>",
- *         "date": "2016-04-23T22:54:00.000Z",
- *         "value": 7,
+ *         "date": "2016-04-23T22:55:00.000Z",
+ *         "value": 7.5,
  *         "sensorId": "<< generated MongoDB ID >>",
  *         "__v": 0
  *       }

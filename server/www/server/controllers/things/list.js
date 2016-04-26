@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Thing    = require('../../data/thing');
+var Thing = require('../../data/thing');
 
 /**
  * @api {get} /things GET - Request all Thing information

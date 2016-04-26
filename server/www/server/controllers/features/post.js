@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
-var Feature  = require('../../data/feature');
+var Feature = require('../../data/feature');
 
 /**
  * @api {post} /feature POST - Create a Feature

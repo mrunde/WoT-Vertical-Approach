@@ -1,7 +1,10 @@
+// Load the application's configuration
+var config      = require('../../server/config');
+var resourceUrl = config.express_host + '/api/things';
+
 // Required modules
-var $           = require('jquery');
-var promise     = require('es6-promise');
-var resourceUrl = 'http://localhost:3000/api/things';
+var $       = require('jquery');
+var promise = require('es6-promise');
 
 module.exports = {
 	addThing: function(thing) {

@@ -5,12 +5,14 @@ var mongoose = require('mongoose');
 var Sensor = require('../../data/sensor');
 
 /**
- * @api {get} /sensors GET - Request all Sensor information
- * @apiName ListSensor
- * @apiGroup Sensor
+ * @api {get} /things/:thingId/sensors GET - Request all Thing's sensors
+ * @apiName ListThingSensors
+ * @apiGroup Thing
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} sensors		Array of Sensor information.
+ * @apiParam {String} thingId	Thing's unique ID.
+ *
+ * @apiSuccess {Array} sensors	Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -31,14 +33,17 @@ var Sensor = require('../../data/sensor');
  *       }
  *     ]
  *
+ * @apiUse ThingNotFoundError
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	Sensor.find(function(err, sensors) {
+	var id = req.params.thingId;
+
+	Sensor.find({ thingId: id }, function(err, things) {
 		if (err) {
 			res.send(err);
 		} else {
-			res.json(sensors);
+			res.json(things);
 		}
 	});
 }

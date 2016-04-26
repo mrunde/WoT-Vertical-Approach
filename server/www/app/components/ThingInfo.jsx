@@ -1,5 +1,7 @@
 // Required modules
 var React = require('react');
+
+// Required actions
 var actions = require('../actions/ThingActions');
 
 module.exports = React.createClass({

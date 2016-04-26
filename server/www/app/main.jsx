@@ -1,8 +1,12 @@
 // Required modules
-var React = require('react');
+var React    = require('react');
 var ReactDOM = require('react-dom');
-var ThingsList = require('./components/ThingsList.jsx');
+
+// Required stores
 var thingsStore = require('./stores/thingsStore');
+
+// Required components
+var ThingsList = require('./components/ThingsList.jsx');
 
 // Get the things from the associated store
 var _things = [];

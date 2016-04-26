@@ -1,6 +1,6 @@
 // Required modules
-var mongoose    = require('mongoose');
-var _           = require('underscore');
+var mongoose = require('mongoose');
+var _        = require('underscore');
 
 // Required data schema
 var Measurement = require('../../data/measurement');

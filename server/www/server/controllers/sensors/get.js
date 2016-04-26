@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Sensor   = require('../../data/sensor');
+var Sensor = require('../../data/sensor');
 
 /**
  * @api {get} /sensors/:sensorId GET - Request single Sensor information

@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Feature  = require('../../data/feature');
+var Feature = require('../../data/feature');
 
 /**
  * @api {get} /features/:id GET - Request single Feature information

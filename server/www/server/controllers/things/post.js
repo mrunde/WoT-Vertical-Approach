@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
-var Thing    = require('../../data/thing');
+var Thing = require('../../data/thing');
 
 /**
  * @api {post} /things POST - Create a Thing

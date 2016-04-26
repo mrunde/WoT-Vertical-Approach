@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Sensor   = require('../../data/sensor');
+var Sensor = require('../../data/sensor');
 
 /**
  * @api {delete} /sensors/:sensorId DELETE - Delete a Sensor

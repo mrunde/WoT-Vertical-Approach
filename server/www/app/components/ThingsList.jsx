@@ -1,7 +1,11 @@
 // Required modules
 var React = require('react');
-var ThingInfo = require('./ThingInfo.jsx');
+
+// Required actions
 var AddThing = require('./AddThing.jsx');
+
+// Required components
+var ThingInfo = require('./ThingInfo.jsx');
 
 module.exports = React.createClass({
 	render: function() {

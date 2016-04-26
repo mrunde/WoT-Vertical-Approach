@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Thing    = require('../../data/thing');
+var Thing = require('../../data/thing');
 
 /**
  * @api {delete} /things/:thingId DELETE - Delete a Thing

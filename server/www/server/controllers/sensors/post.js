@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
-var Sensor   = require('../../data/sensor');
+var Sensor = require('../../data/sensor');
 
 /**
  * @api {post} /sensors POST - Create a Sensor
