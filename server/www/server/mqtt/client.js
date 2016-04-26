@@ -23,6 +23,11 @@ client.once('connect', function () {
 	console.log('Subscribed to things');
 });
 
+// Error handling
+client.on('error', function() {
+	console.log('Connection to MQTT broker failed!');
+});
+
 // Listen on incoming messages
 client.on('message', handleMessage);
 
