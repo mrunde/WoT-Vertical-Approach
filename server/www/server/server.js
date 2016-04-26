@@ -9,6 +9,7 @@ var config = require('./config');
 var bodyParser = require('body-parser');
 var express    = require('express');
 var mongoose   = require('mongoose');
+var morgan     = require('morgan');
 var path       = require('path');
 
 // Required routes
@@ -31,6 +32,7 @@ var client = require('./mqtt/client');
 var app = express();
 app.use(express.static(path.join(__dirname, '../app/dist')));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 // Set up the REST API
 app.use('/api', features);
