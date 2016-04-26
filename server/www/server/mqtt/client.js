@@ -13,34 +13,20 @@ var client = mqtt.connect(config.mqtt_host);
 client.once('connect', function () {
 	console.log('Connection to MQTT broker successfull!');
 
-	client.subscribe('features/delete');
-	client.subscribe('features/get');
-	client.subscribe('features/list');
-	client.subscribe('features/post');
-
-	client.subscribe('measurements/delete');
-	client.subscribe('measurements/get');
-	client.subscribe('measurements/list');
-	client.subscribe('measurements/post');
-
-	client.subscribe('sensors/delete');
-	client.subscribe('sensors/get');
-	client.subscribe('sensors/list');
-	client.subscribe('sensors/post');
-
-	client.subscribe('things/delete');
-	client.subscribe('things/get');
-	client.subscribe('things/list');
-	client.subscribe('things/post');
+	client.subscribe('features');
+	console.log('Subscribed to features');
+	client.subscribe('measurements');
+	console.log('Subscribed to measurements');
+	client.subscribe('sensors');
+	console.log('Subscribed to sensors');
+	client.subscribe('things');
+	console.log('Subscribed to things');
 });
 
 // Listen on incoming messages
 client.on('message', handleMessage);
 
 function handleMessage(topic, payload) {
-	// Get the desired action
-	var action = topic.split('/')[1];
-
 	// Convert the payload into JSON data format
 	var json = JSON.parse(payload);
 
@@ -50,89 +36,49 @@ function handleMessage(topic, payload) {
 		// Features
 		// --------------------------------------------------
 		case 'features':
-			switch (action) {
-				case 'delete':
-					break;
-				case 'get':
-					break;
-				case 'list':
-					break;
-				case 'post':
-					request.post({
-						headers: {'content-type': 'application/json'},
-						url: url + '/features',
-						json: json
-						}, function(error, response, body) {
-							console.log(error);
-					});
-					break;
-			}
+			request.post({
+				headers: {'content-type': 'application/json'},
+				url: url + '/features',
+				json: json
+				}, function(error, response, body) {
+					console.log(error);
+			});
 			break;
 		// --------------------------------------------------
 		// Measurements
 		// --------------------------------------------------
 		case 'measurements':
-			switch (action) {
-				case 'delete':
-					break;
-				case 'get':
-					break;
-				case 'list':
-					break;
-				case 'post':
-					request.post({
-						headers: {'content-type': 'application/json'},
-						url: url + '/measurements',
-						json: json
-						}, function(error, response, body) {
-							console.log(error);
-					});
-					break;
-			}
+			request.post({
+				headers: {'content-type': 'application/json'},
+				url: url + '/measurements',
+				json: json
+				}, function(error, response, body) {
+					console.log(error);
+			});
 			break;
 		// --------------------------------------------------
 		// Sensors
 		// --------------------------------------------------
 		case 'sensors':
-			switch (action) {
-				case 'delete':
-					break;
-				case 'get':
-					break;
-				case 'list':
-					break;
-				case 'post':
-					request.post({
-						headers: {'content-type': 'application/json'},
-						url: url + '/sensors',
-						json: json
-						}, function(error, response, body) {
-							console.log(error);
-					});
-					break;
-			}
+			request.post({
+				headers: {'content-type': 'application/json'},
+				url: url + '/sensors',
+				json: json
+				}, function(error, response, body) {
+					console.log(error);
+			});
 			break;
 		// --------------------------------------------------
 		// Things
 		// --------------------------------------------------
 		case 'things':
-			switch (action) {
-				case 'delete':
-					break;
-				case 'get':
-					break;
-				case 'list':
-					break;
-				case 'post':
-					request.post({
-						headers: {'content-type': 'application/json'},
-						url: url + '/things',
-						json: json
-						}, function(error, response, body) {
-							console.log(error);
-					});
-					break;
-			}
+			request.post({
+				headers: {'content-type': 'application/json'},
+				url: url + '/things',
+				json: json
+				}, function(error, response, body) {
+					console.log(error);
+			});
 			break;
 	}
 }
