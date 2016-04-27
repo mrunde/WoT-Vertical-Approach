@@ -1,5 +1,6 @@
 package de.ifgi.gwot.SensorController;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
@@ -9,6 +10,8 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import de.ifgi.gwot.SensorController.util.JSONUtil;
 
 public class SensorMIDlet extends MIDlet implements MqttCallback {
 	
@@ -23,6 +26,9 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	private int qualityOfService = 2;
 	private String brokerURL = "giv-gwot-va.uni-muenster.de"; //has to be changed manually in the socket permission
 	private int port = 1883;
+	
+	private static final String PUB_TOPIC = "measurements";
+	private static final String SUB_TOPIC = "piconfig";
 
 	/**
 	 * Stops the Thread to take measurements and closes the GPIO connections.
@@ -31,6 +37,14 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
 		shouldRun = false;
 		hcsr04.close();
+		
+		if(pubClient.isConnected()){
+			try{
+				pubClient.disconnect();
+			} catch(MqttException ex){
+				ex.printStackTrace();
+			}
+		}			
 	}
 
 	/**
@@ -61,6 +75,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		@Override
 		public void run(){
 			while(shouldRun){
+				
 				distance = hcsr04.pulse();
 				if(distance > 0){
 					// TODO: adjust to api
@@ -73,7 +88,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 								"\"latitude\":" + hcsr04.getHCSR04Config().getLatitude() + "," +
 								"\"longitude\":" + hcsr04.getHCSR04Config().getLongitude() + "}"
 							+ "}";
-					System.out.println(message);
+					//System.out.println(message);
 					try {
 						publish(message);
 					} catch (MqttException e) {
@@ -93,7 +108,6 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	 */
 	private void publish(String payload) throws MqttException, IOException{
 		String clientId = "Sensor" + hcsr04.getHCSR04Config().getId();
-		String pubTopic = "measurements";
 		
 		String url = "tcp://" + brokerURL + ":" + port;
 		
@@ -101,17 +115,16 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		pubClient.setCallback(this);
 		pubClient.connect();
 		
+		// connect to configuration channel
+		pubClient.subscribe(SUB_TOPIC);
+		
 		// create and configure the message
 		MqttMessage message = new MqttMessage(payload.getBytes());
 		message.setQos(qualityOfService);
 		
 		// send the message to the server, control is not returned until
 		// it has been delivered to the server meeting the specified qos
-		pubClient.publish(pubTopic, message);
-		
-		// disconnect the client from the server
-		pubClient.disconnect();
-		pubClient = null;
+		pubClient.publish(PUB_TOPIC, message);
 	}
 
 
@@ -124,11 +137,25 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	public void messageArrived(String topic, MqttMessage message)
 			throws Exception {
 		System.out.println("Message Arrived. ( " + topic + ", " + new String(message.getPayload()) + ")");
+		
+		if(topic.equals(SUB_TOPIC)){
+			try{
+				HashMap<String,Object> configs = JSONUtil.decodeConfiguration(new String(message.getPayload()));
+				if(configs.containsKey("latitude"))	hcsr04.getHCSR04Config().setLatitude((double)configs.get("latitude"));
+				if(configs.containsKey("longitude"))	hcsr04.getHCSR04Config().setLongitude((double)configs.get("longitude"));
+				if(configs.containsKey("delay"))	hcsr04.getHCSR04Config().setDelay((long)configs.get("delay"));
+				if(configs.containsKey("waterLevelReference"))	hcsr04.getHCSR04Config().setWaterLevelReference((double)configs.get("waterLevelReference"));
+			
+				System.out.println("Sensor Configuration changed! " + hcsr04.getHCSR04Config().toString());
+			} catch(Exception ex){
+				System.out.println("Corrupted configuration message!");
+			}						
+		}
 	}
 
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token) {
-		System.out.println("Delivery Complete (MessageID: " + token.getMessageId() + ").");		
+		 System.out.println("Delivery Complete (MessageID: " + token.getMessageId() + ").");		
 	}
 
 }

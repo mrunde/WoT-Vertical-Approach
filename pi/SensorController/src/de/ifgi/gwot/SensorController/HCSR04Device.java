@@ -165,8 +165,15 @@ public class HCSR04Device {
 
 		public void setWaterLevelReference(final double waterLevelReference) {
 			this.waterLevelReference = waterLevelReference;
-		}
+		}		
 		
+		public String toString(){
+			return "Id: " + getId() +
+					", Latitude: " + getLatitude() + 
+					", Longitude: " + getLongitude() + 
+					", Delay: " + getDelay() + 
+					", WaterLevelReference: " + getWaterLevelReference(); 
+		}
 		
 	}
 
