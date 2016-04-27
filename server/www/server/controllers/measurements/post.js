@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
+var Errors      = require('../../data/errors');
 var Measurement = require('../../data/measurement');
+var Sensor      = require('../../data/sensor');
 
 /**
  * @api {post} /measurements POST - Create a Measurement
@@ -28,17 +30,24 @@ var Measurement = require('../../data/measurement');
  *     }
  *
  * @apiUse SensorNotFoundError
- * @apiUse FeatureNotFoundError
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
 	var measurement = new Measurement(_.extend({}, req.body));
 
-	measurement.save(function(err) {
+	var id = measurement.sensorId;
+
+	Sensor.findOne({ _id: id }, function(err, sensor) {
 		if (err) {
-			res.send(err);
+			res.send(Errors.SensorNotFoundError);
 		} else {
-			res.json(measurement);
+			measurement.save(function(err) {
+				if (err) {
+					res.send(Errors.ServerError);
+				} else {
+					res.json(measurement);
+				}
+			});
 		}
 	});
 }

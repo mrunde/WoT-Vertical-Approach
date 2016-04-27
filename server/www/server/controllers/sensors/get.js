@@ -30,7 +30,7 @@ var Sensor = require('../../data/sensor');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id      = req.params.sensorId;
+	var id = req.params.sensorId;
 
 	Sensor.findOne({ _id: id }, function(err, sensor) {
 		if (err) {
