@@ -18,14 +18,12 @@ function MeasurementStore() {
 
 	function addMeasurement(measurement) {
 		measurementService.addMeasurement(measurement).then(function(res) {
-			console.log(res);
 			triggerListeners();
 		});
 	}
 
 	function deleteMeasurement(measurement) {
 		measurementService.deleteMeasurement(measurement).then(function(res) {
-			console.log(res);
 			triggerListeners();
 		});
 	}

@@ -41,7 +41,7 @@ app.use('/api', sensors);
 app.use('/api', measurements);
 
 // Start the web server
-app.listen(config.express_port, function() {
+var server = app.listen(config.express_port, function() {
 	console.log('Express server listening on port', config.express_port);
 });
 

@@ -18,14 +18,12 @@ function ThingStore() {
 
 	function addThing(thing) {
 		thingService.addThing(thing).then(function(res) {
-			console.log(res);
 			triggerListeners();
 		});
 	}
 
 	function deleteThing(thing) {
 		thingService.deleteThing(thing).then(function(res) {
-			console.log(res);
 			triggerListeners();
 		});
 	}

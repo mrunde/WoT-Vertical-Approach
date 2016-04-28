@@ -18,14 +18,12 @@ function FeatureStore() {
 
 	function addFeature(feature) {
 		featureService.addFeature(feature).then(function(res) {
-			console.log(res);
 			triggerListeners();
 		});
 	}
 
 	function deleteFeature(feature) {
 		featureService.deleteFeature(feature).then(function(res) {
-			console.log(res);
 			triggerListeners();
 		});
 	}
