@@ -7,3 +7,47 @@ Here you can find the source code for the web server.
 * Install all *bower* modules with `bower install`
 * Perform the *gulp* tasks with `gulp`
 * Then you can start the web server with `pm2 start server\server.js`
+
+## REST API
+
+Here you can see an overview of the available REST API functions and whether they have been implemented already or are still in development.
+
+### Features
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/features` | DELETE, GET, POST | all features
+:white_check_mark: | `api/features/:featureId` | DELETE, GET, POST | one feature
+
+### Things
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/things` | GET, POST | all things
+:white_check_mark: | `api/things/:thingId` | DELETE, GET | one thing
+:white_check_mark: | `api/things/:thingId/sensors` | GET | all sensors of one thing
+:white_large_square: | `api/things/:thingId/measurements` | GET | all measurements of one thing
+:white_large_square: | `api/things/temporal/date` | GET | all things within one time frame
+:white_large_square: | `api/things/spatial/bbox` | GET | all things within one bounding box
+:white_large_square: | `api/things/temporal/date/spatial/bbox` | GET | all things within one time frame and one bounding box
+
+### Sensors
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/sensors` | GET, POST | all sensors
+:white_check_mark: | `api/sensors/:sensorId` | DELETE, GET | one sensor
+:white_check_mark: | `api/sensors/:sensorId/measurements` | GET | all measurements of one sensor
+:white_large_square: | `api/sensors/temporal/date` | GET | all sensors within one time frame
+:white_large_square: | `api/sensors/spatial/bbox` | GET | all sensors within one bounding box
+:white_large_square: | `api/sensors/temporal/date/spatial/bbox` | GET | all sensors within one time frame and one bounding box
+
+### Measurements
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/measurements` | GET, POST | all measurements
+:white_check_mark: | `api/measurements/:measurementId` | DELETE, GET | one measurement
+:white_large_square: | `api/measurements/temporal/date` | GET | all measurements within one time frame
+:white_large_square: | `api/measurements/spatial/bbox` | GET | all measurements within one bounding box
+:white_large_square: | `api/measurements/temporal/date/spatial/bbox` | GET | all measurements within one time frame and one bounding box
