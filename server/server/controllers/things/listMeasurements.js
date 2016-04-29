@@ -2,7 +2,9 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Sensor = require('../../data/measurement');
+var Sensor = require('../../data/sensor');
+var Measurement = require('../../data/measurement');
+var Thing = require('../../data/thing');
 
 /**
  * @api {get} /things/:thingId/measurements GET - Request all Thing's measurements
@@ -39,11 +41,30 @@ var Sensor = require('../../data/measurement');
 exports.request = function(req, res) {
 	var id = req.params.thingId;
 
-	Measurement.find({ thingId: id }, function(err, measurements) {
+	Sensor.find({ thingId: id }, function(err, sensors) {
 		if (err) {
 			res.send(err);
 		} else {
-			res.json(measurements);
+			console.log(sensors.length);
+			//var result = [];
+			result = aggregateMeasurements(sensors, 0, [], res);
+		}
+	});
+}
+
+function aggregateMeasurements(sensors, pos, result, res){
+	if(pos == sensors.length){
+		console.log(result);
+		res.json(result);
+		return result;
+	}
+
+	Measurement.find({sensorId: sensors[pos].id}, function(err, measurements){
+		if(err){
+			res.send(err);
+			return;
+		} else{
+			aggregateMeasurements(sensors, pos+1, result.concat(measurements), res);
 		}
 	});
 }
