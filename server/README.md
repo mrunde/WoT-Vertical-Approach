@@ -16,8 +16,8 @@ Here you can see an overview of the available REST API functions and whether the
 
 Status | URL | Method | Description
 -------|-----|--------|------------
-:white_check_mark: | `api/features` | DELETE, GET, POST | all features
-:white_check_mark: | `api/features/:featureId` | DELETE, GET, POST | one feature
+:white_check_mark: | `api/features` | GET, POST | all features
+:white_check_mark: | `api/features/:featureId` | DELETE, GET | one feature
 
 ### Things
 
