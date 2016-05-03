@@ -2,33 +2,34 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Sensor = require('../../data/sensor');
-var Thing  = require('../../data/thing');
+var Measurement = require('../../data/measurement');
+var Sensor      = require('../../data/sensor');
+var Thing       = require('../../data/thing');
 
 /**
- * @api {get} /sensors/spatial/:bbox GET - Request all Sensor information within one bounding box
- * @apiName ListSpatialSensor
- * @apiGroup Sensor
+ * @api {get} /measurements/spatial/:bbox GET - Request all Measurement information within one bounding box
+ * @apiName ListSpatialMeasurement
+ * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
  * @apiParam {String} bbox 		Bounding box information.
  *
- * @apiSuccess {Array} things	Array of Sensor information.
+ * @apiSuccess {Array} things	Array of Measurement information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     [
  *       {
- *         "description": "water gauge",
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
+ *         "date": "2016-04-23T22:54:00.000Z",
+ *         "value": 7,
+ *         "sensorId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0
  *       },
  *       {
- *         "description": "water gauge",
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
+ *         "date": "2016-05-03T15:46:55.000Z",
+ *         "value": 15,
+ *         "sensorId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0
  *       }
@@ -67,7 +68,21 @@ function aggregateSensors(things, pos, result, res) {
 			if (err) {
 				res.send(err);
 			} else {
-				aggregateSensors(things, pos+1, result.concat(sensors), res);
+				aggregateMeasurements(things, sensors, pos, 0, result, res);
+			}
+		});
+	}
+}
+
+function aggregateMeasurements(things, sensors, posThing, pos, result, res) {
+	if (pos == sensors.length) {
+		aggregateSensors(things, posThing+1, result, res);
+	} else {
+		Measurement.find({ sensorId: sensors[pos].id }, function(err, measurements) {
+			if (err) {
+				res.send(err);
+			} else {
+				aggregateMeasurements(things, sensors, posThing, pos+1, result.concat(measurements), res);
 			}
 		});
 	}

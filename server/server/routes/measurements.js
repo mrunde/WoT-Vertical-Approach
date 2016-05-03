@@ -2,10 +2,11 @@
 var express = require('express');
 
 // Required controllers
-var del  = require('../controllers/measurements/delete');
-var get  = require('../controllers/measurements/get');
-var list = require('../controllers/measurements/list');
-var post = require('../controllers/measurements/post');
+var del         = require('../controllers/measurements/delete');
+var get         = require('../controllers/measurements/get');
+var list        = require('../controllers/measurements/list');
+var listSpatial = require('../controllers/measurements/listSpatial');
+var post        = require('../controllers/measurements/post');
 
 // Set up the express router
 var router = express.Router();
@@ -23,6 +24,8 @@ router.delete('/measurements/:measurementId', del.request);
 router.get('/measurements/:measurementId', get.request);
 // Get all measurements
 router.get('/measurements', list.request);
+// Get all measurements within one bounding box
+router.get('/measurements/spatial/:bbox', listSpatial.request);
 
 // --------------------------------------------------
 // POST

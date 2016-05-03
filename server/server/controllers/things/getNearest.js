@@ -33,33 +33,32 @@ var Thing  = require('../../data/thing');
  */
 exports.request = function(req, res) {
 	var id = req.params.thingId;
-	var location;
+	var location = '';
 
 	Thing.findOne({ _id: id }, function(err, thing) {
 		if (err) {
 			res.send(Errors.ThingNotFoundError);
 		} else {
 			location = thing.toObject().location;
-		}
-	});
 
-	Thing.findOne({
-		location: {
-			$near: {
-				$geometry: {
-					type: "Point",
-					coordinates: location
-				},
-				$minDistance: 10,
-				$maxDistance: 100000000
-			}
-		}
-	}, function(err, thing) {
-		if (err) {
-			res.send(err);
-			//res.send(Errors.ThingNotFoundError);
-		} else {
-			res.json(thing);
+			Thing.find({
+				location: {
+					$near: {
+						$geometry: {
+							type: "Point",
+							coordinates: location
+						},
+						$minDistance: 1
+					}
+				}
+			}, function(err, things) {
+				console.log(things);
+				if (err) {
+					res.send(err);
+				} else {
+					res.json(things);
+				}
+			});
 		}
 	});
 }
