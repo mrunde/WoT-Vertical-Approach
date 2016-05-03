@@ -6,6 +6,7 @@ var ReactDOM = require('react-dom');
 var thingsStore = require('./stores/thingsStore');
 
 // Required components
+var LiveMap    = require('./components/LiveMap.jsx');
 var ThingsList = require('./components/ThingsList.jsx');
 
 // Get the things from the associated store
@@ -18,5 +19,6 @@ thingsStore.onChange(function(things) {
 // Render the frontend
 function render() {
 	ReactDOM.render(<ThingsList things={_things} />, document.getElementById('container'));
+	ReactDOM.render(<LiveMap />, document.getElementById('livemap'));
 }
 render();

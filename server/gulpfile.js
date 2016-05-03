@@ -27,7 +27,12 @@ gulp.task('bundle', ['clean'], function() {
 
 // Gulp task to copy files into the "dist" directory
 gulp.task('copy', ['bundle'], function() {
-	return gulp.src(['app/index.html', 'app/lib/bootstrap-css/css/bootstrap.min.css', 'app/style.css'])
+	return gulp.src([
+			'app/index.html',
+			'app/lib/bootstrap-css/css/bootstrap.min.css',
+			'node_modules/leaflet/dist/leaflet.css',
+			'app/style.css'
+		])
 		.pipe(gulp.dest('app/dist'));
 });
 
