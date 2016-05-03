@@ -28,6 +28,7 @@ gulp.task('copy', ['bundle'], function() {
 	return gulp.src([
 			'app/index.html',
 			'app/lib/bootstrap-css/css/bootstrap.min.css',
+			'app/lib/bootstrap-css/css/bootstrap.min.css.map',
 			'node_modules/font-awesome/**/*',
 			'node_modules/leaflet/dist/leaflet.css',
 			'app/style.css'
