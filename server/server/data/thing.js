@@ -9,7 +9,6 @@ var ThingSchema = mongoose.Schema({
 	},
 	location: {
 		type: GeoJSON.Feature,
-		index: '2d',
 		required: true
 	}
 });
