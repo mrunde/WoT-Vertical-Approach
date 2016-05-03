@@ -1,5 +1,6 @@
 // Required modules
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	GeoJSON = require('mongoose-geojson-schema'),;
 
 var ThingSchema = mongoose.Schema({
 	description: {
@@ -7,7 +8,7 @@ var ThingSchema = mongoose.Schema({
 		required: true
 	},
 	location: {
-		type: [Number],
+		type: GeoJSON.Feature,
 		index: '2d',
 		required: true
 	}

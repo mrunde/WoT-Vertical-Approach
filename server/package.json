@@ -35,6 +35,7 @@
     "jquery": "^2.2.3",
     "leaflet": "^0.7.7",
     "mongoose": "^4.4.13",
+	"mongoose-geojson-schema": "~0.0.2",
     "morgan": "^1.7.0",
     "mqtt": "^1.8.0",
     "pm2": "^1.1.1",
