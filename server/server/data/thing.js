@@ -7,7 +7,8 @@ var ThingSchema = mongoose.Schema({
 		required: true
 	},
 	location: {
-		type: String,
+		type: [Number],
+		index: '2d',
 		required: true
 	}
 });
