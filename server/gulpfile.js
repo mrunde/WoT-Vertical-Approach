@@ -8,9 +8,7 @@ var apidoc     = require('gulp-apidoc');
 
 // Gulp task to clean the "dist" directory
 gulp.task('clean', function() {
-	del(['app/dist/*']).then(paths => {
-		console.log('Deleted files and folders:\n', paths.join('\n'));
-	});
+	del(['app/dist/*']);
 });
 
 // Gulp task to convert jsx files to js files and copy them into the "dist" directory
@@ -30,6 +28,7 @@ gulp.task('copy', ['bundle'], function() {
 	return gulp.src([
 			'app/index.html',
 			'app/lib/bootstrap-css/css/bootstrap.min.css',
+			'node_modules/font-awesome/**/*',
 			'node_modules/leaflet/dist/leaflet.css',
 			'app/style.css'
 		])
