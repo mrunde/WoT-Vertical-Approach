@@ -8,6 +8,7 @@ var getNearest       = require('../controllers/things/getNearest');
 var list             = require('../controllers/things/list');
 var listSensors      = require('../controllers/things/listSensors');
 var listMeasurements = require('../controllers/things/listMeasurements');
+var listSpatial      = require('../controllers/things/listSpatial');
 var post             = require('../controllers/things/post');
 
 // Set up the express router
@@ -32,6 +33,8 @@ router.get('/things/:thingId/sensors', listSensors.request);
 router.get('/things/:thingId/measurements', listMeasurements.request);
 // Get the nearest other thing
 router.get('/things/:thingId/nearest', getNearest.request);
+// Get all things within one bounding box
+router.get('/things/spatial/:bbox', listSpatial.request);
 
 // --------------------------------------------------
 // POST
