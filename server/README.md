@@ -50,5 +50,5 @@ Status | URL | Method | Description
 :white_check_mark: | `api/measurements` | GET, POST | all measurements
 :white_check_mark: | `api/measurements/:measurementId` | DELETE, GET | one measurement
 :white_large_square: | `api/measurements/temporal/:date` | GET | all measurements within one time frame
-:white_large_square: | `api/measurements/spatial/:bbox` | GET | all measurements within one bounding box
+:white_check_mark: | `api/measurements/spatial/:bbox` | GET | all measurements within one bounding box
 :white_large_square: | `api/measurements/temporal/:date/spatial/:bbox` | GET | all measurements within one time frame and one bounding box
