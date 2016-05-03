@@ -4,6 +4,7 @@ var express = require('express');
 // Required controllers
 var del              = require('../controllers/things/delete');
 var get              = require('../controllers/things/get');
+var getNearest       = require('../controllers/things/getNearest');
 var list             = require('../controllers/things/list');
 var listSensors      = require('../controllers/things/listSensors');
 var listMeasurements = require('../controllers/things/listMeasurements');
@@ -29,6 +30,8 @@ router.get('/things', list.request);
 router.get('/things/:thingId/sensors', listSensors.request);
 // Get all measurements of one thing
 router.get('/things/:thingId/measurements', listMeasurements.request);
+// Get the nearest other thing
+router.get('/things/:thingId/nearest', getNearest.request);
 
 // --------------------------------------------------
 // POST

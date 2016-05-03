@@ -27,6 +27,7 @@ Status | URL | Method | Description
 :white_check_mark: | `api/things/:thingId` | DELETE, GET | one thing
 :white_check_mark: | `api/things/:thingId/sensors` | GET | all sensors of one thing
 :white_check_mark: | `api/things/:thingId/measurements` | GET | all measurements of one thing
+:white_check_mark: | `api/things/:thingId/nearest` | GET | nearest other thing
 :white_large_square: | `api/things/temporal/date` | GET | all things within one time frame
 :white_large_square: | `api/things/spatial/bbox` | GET | all things within one bounding box
 :white_large_square: | `api/things/temporal/date/spatial/bbox` | GET | all things within one time frame and one bounding box
