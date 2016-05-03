@@ -6,6 +6,7 @@ var del              = require('../controllers/sensors/delete');
 var get              = require('../controllers/sensors/get');
 var list             = require('../controllers/sensors/list');
 var listMeasurements = require('../controllers/sensors/listMeasurements');
+var listSpatial      = require('../controllers/sensors/listSpatial');
 var post             = require('../controllers/sensors/post');
 
 // Set up the express router
@@ -26,6 +27,8 @@ router.get('/sensors/:sensorId', get.request);
 router.get('/sensors', list.request);
 // Get all measurements of one sensor
 router.get('/sensors/:sensorId/measurements', listMeasurements.request);
+// Get all sensors within one bounding box
+router.get('/sensors/spatial/:bbox', listSpatial.request);
 
 // --------------------------------------------------
 // POST

@@ -40,7 +40,7 @@ Status | URL | Method | Description
 :white_check_mark: | `api/sensors/:sensorId` | DELETE, GET | one sensor
 :white_check_mark: | `api/sensors/:sensorId/measurements` | GET | all measurements of one sensor
 :white_large_square: | `api/sensors/temporal/:date` | GET | all sensors within one time frame
-:white_large_square: | `api/sensors/spatial/:bbox` | GET | all sensors within one bounding box
+:white_check_mark: | `api/sensors/spatial/:bbox` | GET | all sensors within one bounding box
 :white_large_square: | `api/sensors/temporal/:date/spatial/:bbox` | GET | all sensors within one time frame and one bounding box
 
 ### Measurements
