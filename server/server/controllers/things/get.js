@@ -18,10 +18,13 @@ var Thing = require('../../data/thing');
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "_id": "<< generated MongoDB ID >>",
- *       "description": "WoT - Vertical Approach",
- *       "location": "51.973331,7.700220",
- *       "__v": 0
+ *       "__v": 0,
+ *       "description": "ifgi",
+ *       "location": [
+ *         51.969113,
+ *         7.595793
+ *       ],
+ *       "_id": "<< generated MongoDB ID >>"
  *     }
  *
  * @apiUse ThingNotFoundError

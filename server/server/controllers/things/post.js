@@ -12,7 +12,7 @@ var Thing = require('../../data/thing');
  * @apiVersion 1.0.0
  *
  * @apiParam {String} description	Description of the Thing.
- * @apiParam {LatLng} location		Location of the Thing.
+ * @apiParam {Point} location		Location of the Thing.
  *
  * @apiSuccess {String} thingId 	Thing's unique ID.
  *
@@ -20,8 +20,11 @@ var Thing = require('../../data/thing');
  *     HTTP/1.1 200 OK
  *     {
  *       "__v": 0,
- *       "description": "WoT - Vertical Approach",
- *       "location": "51.973331,7.700220",
+ *       "description": "ifgi",
+ *       "location": [
+ *         51.969113,
+ *         7.595793
+ *       ],
  *       "_id": "<< generated MongoDB ID >>"
  *     }
  *

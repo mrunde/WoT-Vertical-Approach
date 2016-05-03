@@ -16,15 +16,21 @@ var Thing = require('../../data/thing');
  *     HTTP/1.1 200 OK
  *     [
  *       {
+ *         "description": "REST API Test",
+ *         "location": [
+ *           52,
+ *           7
+ *         ],
  *         "_id": "<< generated MongoDB ID >>",
- *         "description": "Wersehaus",
- *         "location": "51.973331,7.700220",
  *         "__v": 0
  *       },
  *       {
+ *         "description": "ifgi",
+ *         "location": [
+ *           51.969113,
+ *           7.595793
+ *         ],
  *         "_id": "<< generated MongoDB ID >>",
- *         "description": "WoT - Vertical Approach",
- *         "location": "51.973331,7.700220",
  *         "__v": 0
  *       }
  *     ]
