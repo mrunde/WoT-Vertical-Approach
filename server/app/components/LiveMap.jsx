@@ -1,32 +1,25 @@
+// Load the application's configuration
+var config = require('../../server/config');
+
 // Required modules
-var L     = require('leaflet');
+require('mapbox.js');
 var React = require('react');
 
-// Required actions
-var actions = require('../actions/ThingActions');
-
 module.exports = React.createClass({
+
 	componentDidMount: function() {
-		var map = this.map = L.map('livemap', {
-			minZoom: 2,
-			maxZoom: 20,
-			layers: [
-				L.tileLayer(
-					'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-					{attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
-			],
-			attributionControl: false,
-		});
-		map.on('click', this.onMapClick);
-		map.fitWorld();
+		L.mapbox.accessToken = config.mapbox_token;
+		L.mapbox.map('livemap', 'mapbox.streets').setView([51.973387, 7.700213], 10);
 	},
+
 	componentWillUnmount: function() {
-		this.map.off('click', this.onMapClick);
-		this.map = null;
+		// TODO
 	},
+
 	onMapClick: function() {
-		// Do some wonderful map things...
+		// TODO
 	},
+
 	render: function() {
 		return (
 			<div className='map'></div>

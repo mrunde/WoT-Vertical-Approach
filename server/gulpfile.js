@@ -30,7 +30,6 @@ gulp.task('copy', ['bundle'], function() {
 			'app/lib/bootstrap-css/css/bootstrap.min.css',
 			'app/lib/bootstrap-css/css/bootstrap.min.css.map',
 			'node_modules/font-awesome/**/*',
-			'node_modules/leaflet/dist/leaflet.css',
 			'app/style.css'
 		])
 		.pipe(gulp.dest('app/dist'));
