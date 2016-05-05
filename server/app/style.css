@@ -1,3 +1,22 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	max-width: 100%;
+}
+
+.navbar {
+	margin-bottom: 0px;
+}
+
 #livemap {
 	height: 400px;
+	width: 100%;
+}
+
+#charts {
+	width: 100%;
 }
