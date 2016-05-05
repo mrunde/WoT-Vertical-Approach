@@ -43,7 +43,7 @@ exports.request = function(req, res) {
 	var upperRight  = [ coordinates[2], coordinates[3] ];
 
 	Thing.find({
-		location: {
+		loc: {
 			$geoWithin: {
 				$box: [
 					bottomLeft,

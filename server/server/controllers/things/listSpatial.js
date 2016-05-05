@@ -41,11 +41,11 @@ var Thing = require('../../data/thing');
  */
 exports.request = function(req, res) {
 	var coordinates = req.params.bbox.split(',');
-	var bottomLeft  = [ coordinates[0], coordinates[1] ];
-	var upperRight  = [ coordinates[2], coordinates[3] ];
+	var bottomLeft  = [ parseFloat(coordinates[0]), parseFloat(coordinates[1]) ];
+	var upperRight  = [ parseFloat(coordinates[2]), parseFloat(coordinates[3]) ];
 
 	Thing.find({
-		location: {
+		loc: {
 			$geoWithin: {
 				$box: [
 					bottomLeft,

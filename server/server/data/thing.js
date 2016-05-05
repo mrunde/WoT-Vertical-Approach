@@ -2,11 +2,11 @@
 var mongoose = require('mongoose');
 
 var ThingSchema = mongoose.Schema({
-	'type': {
+	name: {
 		type: String,
-		default: 'Feature'
+		required: true
 	},
-	geometry: {
+	loc: {
 		'type': {
 			type: String,
 			default: 'Point'
@@ -15,15 +15,9 @@ var ThingSchema = mongoose.Schema({
 			type: [Number],
 			required: true
 		}
-	},
-	properties: {
-		description: {
-			type: String,
-			required: true
-		}
 	}
 });
 
-ThingSchema.index({ geometry : '2dsphere' });
+ThingSchema.index({ loc : '2dsphere' });
 
 module.exports = mongoose.model('Thing', ThingSchema);
