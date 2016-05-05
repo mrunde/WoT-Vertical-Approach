@@ -8,6 +8,7 @@
 		"Feature",
 		"Thing",
 		"Sensor",
-		"Measurement"
+		"Measurement",
+		"User"
 	]
 }

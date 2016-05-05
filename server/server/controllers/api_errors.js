@@ -47,6 +47,17 @@
  */
 
 /**
+ * @apiDefine UserNotFoundError
+ * @apiError (404) UserNotFound The <code>userId</code> of the User was not found.
+ *
+ * @apiErrorExample {json} UserNotFound:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "UserNotFound"
+ *     }
+ */
+
+/**
  * @apiDefine ServerError
  * @apiError (500) ServerError An internal server error occured.
  *

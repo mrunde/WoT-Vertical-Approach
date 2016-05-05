@@ -10,9 +10,10 @@ gulp.task('clean', function() {
 
 // Gulp task to build the API documentation
 gulp.task('apidoc', ['clean'], function(done) {
-	return apidoc({
+	apidoc({
 		src: "server/controllers/",
-		dest: "app/docs/"
+		dest: "app/docs/",
+		debug: true
 	}, done);
 });
 
