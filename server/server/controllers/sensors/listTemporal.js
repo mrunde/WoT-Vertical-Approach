@@ -13,6 +13,23 @@ var Sensor = require('../../data/sensor');
  * @apiSuccess {Array} sensors	Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {
+ *         "description": "water gauge",
+ *         "thingId": "<< generated MongoDB ID >>",
+ *         "featureId": "<< generated MongoDB ID >>",
+ *         "_id": "<< generated MongoDB ID >>",
+ *         "__v": 0
+ *       },
+ *       {
+ *         "description": "water gauge",
+ *         "thingId": "<< generated MongoDB ID >>",
+ *         "featureId": "<< generated MongoDB ID >>",
+ *         "_id": "<< generated MongoDB ID >>",
+ *         "__v": 0
+ *       }
+ *     ]
  *
  * @apiUse ServerError
  */

@@ -17,17 +17,17 @@ var Measurement = require('../../data/measurement');
  *     HTTP/1.1 200 OK
  *     [
  *       {
- *         "_id": "<< generated MongoDB ID >>",
  *         "date": "2016-04-23T22:54:00.000Z",
  *         "value": 7,
  *         "sensorId": "<< generated MongoDB ID >>",
+ *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0
  *       },
  *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "date": "2016-04-23T22:55:00.000Z",
- *         "value": 7.5,
+ *         "date": "2016-05-03T15:46:55.000Z",
+ *         "value": 15,
  *         "sensorId": "<< generated MongoDB ID >>",
+ *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0
  *       }
  *     ]
