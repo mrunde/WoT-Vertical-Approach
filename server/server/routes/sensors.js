@@ -7,9 +7,8 @@ var get              = require('../controllers/sensors/get');
 var list             = require('../controllers/sensors/list');
 var listMeasurements = require('../controllers/sensors/listMeasurements');
 var listSpatial      = require('../controllers/sensors/listSpatial');
+var listTemporal     = require('../controllers/sensors/listTemporal');
 var post             = require('../controllers/sensors/post');
-
-var sensordate		 = require('../controllers/sensors/temporal:date');
 
 // Set up the express router
 var router = express.Router();
@@ -31,9 +30,8 @@ router.get('/sensors', list.request);
 router.get('/sensors/:sensorId/measurements', listMeasurements.request);
 // Get all sensors within one bounding box
 router.get('/sensors/spatial/:bbox', listSpatial.request);
-
 // Get all all sensors within one time frame
-router.get('/sensors/temporal/:date', sensordate.request);
+router.get('/sensors/temporal/:date', listTemporal.request);
 
 // --------------------------------------------------
 // POST

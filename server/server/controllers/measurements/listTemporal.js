@@ -1,14 +1,13 @@
 // Required modules
+var moment   = require('moment-interval');
 var mongoose = require('mongoose');
-//var moment = require('moment');
-var moment = require('moment-interval');
 
 // Required data schema 	
 var Measurement = require('../../data/measurement');
 
 /**
- * @api {get} /measurements/temporal/:interval GET - Request all Measurements within time interval
- * @apiName ListMeasurementsByDate
+ * @api {get} /measurements/temporal/:interval GET - Request all Measurement information within one time interval
+ * @apiName ListTemporalMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
@@ -41,27 +40,22 @@ exports.request = function(req, res) {
 
 	var startDate, endDate;
 
-	if(dateFrom.toUpperCase().charAt(0) == 'P'){
+	if (dateFrom.toUpperCase().charAt(0) == 'P') {
 		startDate = moment(dateTo).subtract(moment.duration(dateFrom)).toISOString();
 		endDate = moment(dateTo).toISOString();
-	} else if(dateTo.toUpperCase().charAt(0) == 'P'){
-				startDate = moment(dateFrom).toISOString();
-				endDate = moment(dateFrom).add(moment.duration(dateTo)).toISOString();
-			} else{
-				startDate = moment(dateFrom).toISOString();
-				endDate = moment(dateTo).toISOString();
-			}
+	} else if (dateTo.toUpperCase().charAt(0) == 'P') {
+		startDate = moment(dateFrom).toISOString();
+		endDate = moment(dateFrom).add(moment.duration(dateTo)).toISOString();
+	} else {
+		startDate = moment(dateFrom).toISOString();
+		endDate = moment(dateTo).toISOString();
+	}
 
-
-	Measurement.find({date: {$gte: startDate, $lte: endDate }}, function(err, measurements){
-		if(err){
+	Measurement.find({ date: { $gte: startDate, $lte: endDate } }, function(err, measurements) {
+		if (err) {
 			res.send(err);
-		} else{
+		} else {
 			res.json(measurements);
 		}
 	});
 }
-
-// moment bib in package.json
-// unterscheidet in moments und duration
-// 

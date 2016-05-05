@@ -31,18 +31,13 @@
     "gulp": "^3.9.1",
     "gulp-apidoc": "^0.2.3",
     "mapbox.js": "^2.4.0",
+    "moment-interval": "^0.2.1",
     "mongoose": "^4.4.13",
-    "mongoose-geojson-schema": "~0.0.2",
+    "mongoose-geojson-schema": "^1.0.0",
     "morgan": "^1.7.0",
     "mqtt": "^1.8.0",
     "pm2": "^1.1.1",
     "request": "^2.72.0",
-<<<<<<< HEAD
-    "underscore": "^1.8.3",
-    "vinyl-source-stream": "^1.1.0",
-    "moment": "^2.13.0"
-=======
     "underscore": "^1.8.3"
->>>>>>> 09bc62d5039caa11991d00fbcc97004b5d14a117
   }
 }

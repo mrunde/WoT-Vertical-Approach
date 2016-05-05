@@ -2,13 +2,12 @@
 var express = require('express');
 
 // Required controllers
-var del        	= require('../controllers/measurements/delete');
-var get         = require('../controllers/measurements/get');
-var list        = require('../controllers/measurements/list');
-var listSpatial = require('../controllers/measurements/listSpatial');
-var post        = require('../controllers/measurements/post');
-
-var measursdate = require('../controllers/measurements/temporal/:interval');
+var del          = require('../controllers/measurements/delete');
+var get          = require('../controllers/measurements/get');
+var list         = require('../controllers/measurements/list');
+var listSpatial  = require('../controllers/measurements/listSpatial');
+var listTemporal = require('../controllers/measurements/listTemporal');
+var post         = require('../controllers/measurements/post');
 
 // Set up the express router
 var router = express.Router();
@@ -28,12 +27,8 @@ router.get('/measurements/:measurementId', get.request);
 router.get('/measurements', list.request);
 // Get all measurements within one bounding box
 router.get('/measurements/spatial/:bbox', listSpatial.request);
-
 // Get all measurements within one time frame
-router.get('/measurements/temporal/:interval', measursdate.request);
-
-
-
+router.get('/measurements/temporal/:date', listTemporal.request);
 
 // --------------------------------------------------
 // POST

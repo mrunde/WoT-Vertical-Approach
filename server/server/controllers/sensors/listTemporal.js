@@ -6,14 +6,13 @@ var Sensor = require('../../data/sensor');
 
 /**
  * @api {get} /sensors/temporal/:date GET - Request all sensors within one time frame
- * @apiName ListMeasurementsBySensor
+ * @apiName ListTemporalSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} measurements	Array of Sensor information.
+ * @apiSuccess {Array} sensors	Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
- *    
  *
  * @apiUse ServerError
  */
@@ -23,22 +22,21 @@ exports.request = function(req, res) {
 
 	var startDate, endDate;
 
-	if(dateFrom.toUpperCase().charAt(0) == 'P'){
+	if (dateFrom.toUpperCase().charAt(0) == 'P') {
 		startDate = moment(dateTo).subtract(moment.duration(dateFrom)).toISOString();
 		endDate = moment(dateTo).toISOString();
-	} else if(dateTo.toUpperCase().charAt(0) == 'P'){
-				startDate = moment(dateFrom).toISOString();
-				endDate = moment(dateFrom).add(moment.duration(dateTo)).toISOString();
-			} else{
-				startDate = moment(dateFrom).toISOString();
-				endDate = moment(dateTo).toISOString();
-			}
+	} else if (dateTo.toUpperCase().charAt(0) == 'P') {
+		startDate = moment(dateFrom).toISOString();
+		endDate = moment(dateFrom).add(moment.duration(dateTo)).toISOString();
+	} else {
+		startDate = moment(dateFrom).toISOString();
+		endDate = moment(dateTo).toISOString();
+	}
 
-
-	Sensor.find({date: {$gte: startDate, $lte: endDate }}, function(err, sensors){
-		if(err){
+	Sensor.find({ date: { $gte: startDate, $lte: endDate } }, function(err, sensors) {
+		if (err) {
 			res.send(err);
-		} else{
+		} else {
 			res.json(sensor);
 		}
 	});
