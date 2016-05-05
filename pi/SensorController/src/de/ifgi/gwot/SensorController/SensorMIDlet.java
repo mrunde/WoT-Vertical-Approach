@@ -10,6 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 import de.ifgi.gwot.SensorController.util.JSONUtil;
 
@@ -19,7 +20,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	private static final int TRIGGER_PIN = 20;
 	private static final int ECHO_PIN = 21;
 	
-	private volatile boolean shouldRun = true;
+	private volatile boolean shouldRun = false;
 	private ReadSensors sensorsTask;
 	
 	private MqttClient pubClient;
@@ -60,8 +61,15 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			e.printStackTrace();
 			System.out.println("Unable to init Pins.");
 		}
-		sensorsTask = new ReadSensors();
-		sensorsTask.start();
+		
+		// init mqtt client
+		try{
+			initMqttClient();
+			System.out.println("Mqtt Client connected.");
+		} catch(MqttException me){
+			me.printStackTrace();
+			System.out.println("Mqtt Client could not connect.");
+		}
 	}
 	
 	
@@ -92,13 +100,9 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		}
 	}
 	
-	/**
-	 * Publish a message to a MQTT server.
-	 * @throws MqttException, IOException
-	 */
-	private void publish(String payload) throws MqttException, IOException{
-		String clientId = "Sensor" + hcsr04.getHCSR04Config().getId();
-		
+	// connect to broker and subscribe to configuration channel
+	private void initMqttClient() throws MqttSecurityException, MqttException{
+		String clientId = "Sensor"; // + hcsr04.getHCSR04Config().getId();
 		String url = "tcp://" + brokerURL + ":" + port;
 		
 		pubClient = new MqttClient(url, clientId);
@@ -106,8 +110,14 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		pubClient.connect();
 		
 		// connect to configuration channel
-		pubClient.subscribe(SUB_TOPIC + "/" + hcsr04.getHCSR04Config().getId());
-		
+		pubClient.subscribe(SUB_TOPIC);
+	}
+	
+	/**
+	 * Publish a message to a MQTT server.
+	 * @throws MqttException, IOException
+	 */
+	private void publish(String payload) throws MqttException, IOException{		
 		// create and configure the message
 		MqttMessage message = new MqttMessage(payload.getBytes());
 		message.setQos(qualityOfService);
@@ -128,14 +138,36 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			throws Exception {
 		System.out.println("Message Arrived. ( " + topic + ", " + new String(message.getPayload()) + ")");
 		
-		if(topic.equals(SUB_TOPIC + "/" + hcsr04.getHCSR04Config().getId())){
+		if(topic.equals(SUB_TOPIC)){
 			try{
 				HashMap<String,Object> configs = JSONUtil.decodeConfiguration(new String(message.getPayload()));
-				if(configs.containsKey("latitude"))	hcsr04.getHCSR04Config().setLatitude((double)configs.get("latitude"));
-				if(configs.containsKey("longitude"))	hcsr04.getHCSR04Config().setLongitude((double)configs.get("longitude"));
-				if(configs.containsKey("delay"))	hcsr04.getHCSR04Config().setDelay((long)configs.get("delay"));
-				if(configs.containsKey("waterLevelReference"))	hcsr04.getHCSR04Config().setWaterLevelReference((double)configs.get("waterLevelReference"));
-			
+				if(configs.containsKey("sensorId")){
+					if(hcsr04.getHCSR04Config().getId().isEmpty())
+						hcsr04.getHCSR04Config().setId((String)configs.get("sensorId"));
+				}
+				if(configs.containsKey("latitude"))	
+					hcsr04.getHCSR04Config().setLatitude((double)configs.get("latitude"));
+				if(configs.containsKey("longitude"))	
+					hcsr04.getHCSR04Config().setLongitude((double)configs.get("longitude"));
+				if(configs.containsKey("delay"))	
+					hcsr04.getHCSR04Config().setDelay((long)configs.get("delay"));
+				if(configs.containsKey("waterLevelReference"))	
+					hcsr04.getHCSR04Config().setWaterLevelReference((double)configs.get("waterLevelReference"));
+				if(configs.containsKey("run")) {
+					boolean run = ((boolean)configs.get("run"));
+					if(hcsr04.getHCSR04Config().isRunning() && !run){
+						this.shouldRun = run;
+						sensorsTask.join();
+					}
+					else if(!hcsr04.getHCSR04Config().isRunning() && run){
+						this.shouldRun = run;
+						sensorsTask = new ReadSensors();
+						sensorsTask.start();
+					}
+					hcsr04.getHCSR04Config().setRun(run);
+				}
+					
+				
 				System.out.println("Sensor Configuration changed! " + hcsr04.getHCSR04Config().toString());
 			} catch(Exception ex){
 				System.out.println("Corrupted configuration message!");

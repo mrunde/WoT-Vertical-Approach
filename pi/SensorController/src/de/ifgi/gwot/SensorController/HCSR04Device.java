@@ -18,7 +18,7 @@ public class HCSR04Device {
 	// speed of sound = 34029 cm/s
 	private final int SPEEDOFSOUND = 34029;
 	// configuration 
-	private HCSR04Config configuration = new HCSR04Config("Sensor01", 0.0,0.0,5000L,0.0);
+	private HCSR04Config configuration;
 
 	private GPIOPin trigger = null;
 	private GPIOPin echo = null;
@@ -36,6 +36,8 @@ public class HCSR04Device {
 	public HCSR04Device(int _trigger, int _echo) 
 			throws UnavailableDeviceException, DeviceNotFoundException, InvalidDeviceConfigException, IOException, UnsupportedDeviceTypeException {
 
+		this.configuration = new HCSR04Config();
+		
 		// Trigger Pin
 		trigger = (GPIOPin) DeviceManager.open(new GPIOPinConfig.Builder().setControllerNumber(0)
 				.setPinNumber(_trigger).setDirection(GPIOPinConfig.DIR_OUTPUT_ONLY)
@@ -111,20 +113,18 @@ public class HCSR04Device {
 		private double longitude;
 		private long delay;
 		private double waterLevelReference;
+		private boolean run;
 		
 		/**
 		 * Creates a new Configuration file.
-		 * @param latitude The latitude value of the sensor position.
-		 * @param longitude The longitude value of the sensor position.
-		 * @param delay The time to wait between taking measurements.
-		 * @param waterLevelReference The water level reference required to derive the actual water level.
+		 * By default the id is empty,
+		 * the delay is set to 5 seconds
+		 * and the sensor will not yet measure.
 		 */
-		HCSR04Config(String id, double latitude, double longitude, long delay, double waterLevelReference){
-			this.id = id;
-			this.latitude = latitude;
-			this.longitude = longitude;
-			this.delay = delay;
-			this.waterLevelReference = waterLevelReference;
+		HCSR04Config(){
+			this.id = "";
+			this.delay = 5000L;
+			this.run = false;
 		}
 		
 		public String getId(){
@@ -167,12 +167,21 @@ public class HCSR04Device {
 			this.waterLevelReference = waterLevelReference;
 		}		
 		
+		public boolean isRunning(){
+			return this.run;
+		}
+		
+		public void setRun(final boolean run){
+			this.run = run;
+		}
+		
 		public String toString(){
 			return "Id: " + getId() +
 					", Latitude: " + getLatitude() + 
 					", Longitude: " + getLongitude() + 
 					", Delay: " + getDelay() + 
-					", WaterLevelReference: " + getWaterLevelReference(); 
+					", WaterLevelReference: " + getWaterLevelReference() +
+					", Running: " + isRunning(); 
 		}
 		
 	}

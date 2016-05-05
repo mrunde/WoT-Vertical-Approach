@@ -37,10 +37,12 @@ public class JSONUtil {
 		HashMap<String, Object> configs = new HashMap<String, Object>();
 		
 		InputStream input = new ByteArrayInputStream(json.getBytes());
-		JsonReader reader = Json.createReader(input);		
+		JsonReader reader = Json.createReader(input);	
 		JsonObject jsonObject = reader.readObject();
 		
-		if(jsonObject.getString("key").equals("verticalintegration")){
+		if(jsonObject.getString("apikey").equals("verticalintegration")){
+			if(jsonObject.containsKey("sensorId"))
+				configs.put("sensorId", jsonObject.getJsonString("sensorId").getString());
 			if(jsonObject.containsKey("latitude"))
 				configs.put("latitude", jsonObject.getJsonNumber("latitude").doubleValue());
 			if(jsonObject.containsKey("longitude"))
@@ -49,6 +51,10 @@ public class JSONUtil {
 				configs.put("delay", jsonObject.getJsonNumber("delay").longValue());
 			if(jsonObject.containsKey("waterLevelReference"))
 				configs.put("waterLevelReference", jsonObject.getJsonNumber("waterLevelReference").doubleValue());
+			if(jsonObject.containsKey("run"))
+				configs.put("run", jsonObject.getBoolean("run", true));
+		} else{
+			System.out.println("Wrong API Key.");
 		}
 		
 		return configs;
