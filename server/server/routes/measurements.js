@@ -28,7 +28,7 @@ router.get('/measurements', list.request);
 // Get all measurements within one bounding box
 router.get('/measurements/spatial/:bbox', listSpatial.request);
 // Get all measurements within one time frame
-router.get('/measurements/temporal/:date', listTemporal.request);
+router.get('/measurements/temporal/:dateFrom/:dateTo', listTemporal.request);
 
 // --------------------------------------------------
 // POST

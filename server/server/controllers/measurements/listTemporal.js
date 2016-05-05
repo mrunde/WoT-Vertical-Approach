@@ -11,6 +11,8 @@ var Measurement = require('../../data/measurement');
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
+ * @apiParam {String} interval 		Time interval in ISO8601 encoding.
+ *
  * @apiSuccess {Array} measurements	Array of Measurement information.
  *
  * @apiSuccessExample Success-Response:
