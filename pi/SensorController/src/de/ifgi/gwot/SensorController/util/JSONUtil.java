@@ -11,11 +11,29 @@ import com.oracle.json.JsonReader;
 
 public class JSONUtil {
 	
-	public static String encodeObservation(String id, String uom, double value, double lat, double lon){
-		return "";
+	/**
+	 * Encodes an observation to Json.
+	 * @param id The sensorId.
+	 * @param value The measured value.
+	 * @return Observation encoded as Json String.
+	 */
+	public static String encodeObservation(String id, double value){
+		JsonObject observation = Json.createObjectBuilder()
+				.add("sensorId", id)
+				.add("date", DateUtil.getISO8601Date())
+				.add("value", value)
+				.build();
+		return observation.toString();
 	}
 	
-	public static HashMap<String,Object> decodeConfiguration(String json) throws Exception{		
+	/**
+	 * Reads a json encoded configuration message for the sensor.
+	 * If the api key is correct, the new configuration is decoded and
+	 * returned.
+	 * @param json The json encoded configuration String.
+	 * @return HashMap containing the new configuration.
+	 */
+	public static HashMap<String,Object> decodeConfiguration(String json){		
 		HashMap<String, Object> configs = new HashMap<String, Object>();
 		
 		InputStream input = new ByteArrayInputStream(json.getBytes());

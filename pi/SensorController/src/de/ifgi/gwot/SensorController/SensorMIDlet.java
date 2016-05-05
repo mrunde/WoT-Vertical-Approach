@@ -28,7 +28,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	private int port = 1883;
 	
 	private static final String PUB_TOPIC = "measurements";
-	private static final String SUB_TOPIC = "piconfig";
+	private static final String SUB_TOPIC = "config";
 
 	/**
 	 * Stops the Thread to take measurements and closes the GPIO connections.
@@ -78,17 +78,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 				
 				distance = hcsr04.pulse();
 				if(distance > 0){
-					// TODO: adjust to api
-					String message = "{"
-							+ "\"id\":\"" + hcsr04.getHCSR04Config().getId() + "\","
-							+ "\"timestamp\":" + System.currentTimeMillis() + ","
-							+ "\"unitOfMeasurement\":" + "\"cm\"" + ","
-							+ "\"value\":" + distance + ","
-							+ "\"position\": {" + 
-								"\"latitude\":" + hcsr04.getHCSR04Config().getLatitude() + "," +
-								"\"longitude\":" + hcsr04.getHCSR04Config().getLongitude() + "}"
-							+ "}";
-					//System.out.println(message);
+					String message = JSONUtil.encodeObservation(hcsr04.getHCSR04Config().getId(), distance);
 					try {
 						publish(message);
 					} catch (MqttException e) {
@@ -116,7 +106,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		pubClient.connect();
 		
 		// connect to configuration channel
-		pubClient.subscribe(SUB_TOPIC);
+		pubClient.subscribe(SUB_TOPIC + "/" + hcsr04.getHCSR04Config().getId());
 		
 		// create and configure the message
 		MqttMessage message = new MqttMessage(payload.getBytes());
@@ -138,7 +128,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			throws Exception {
 		System.out.println("Message Arrived. ( " + topic + ", " + new String(message.getPayload()) + ")");
 		
-		if(topic.equals(SUB_TOPIC)){
+		if(topic.equals(SUB_TOPIC + "/" + hcsr04.getHCSR04Config().getId())){
 			try{
 				HashMap<String,Object> configs = JSONUtil.decodeConfiguration(new String(message.getPayload()));
 				if(configs.containsKey("latitude"))	hcsr04.getHCSR04Config().setLatitude((double)configs.get("latitude"));
