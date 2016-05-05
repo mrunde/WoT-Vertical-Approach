@@ -37,7 +37,7 @@ router.get('/things/:thingId/nearest', getNearest.request);
 // Get all things within one bounding box
 router.get('/things/spatial/:bbox', listSpatial.request);
 // Get all all things within one time frame
-router.get('/things/temporal/:dateFrom/:dateTo', listTemporal.request);
+router.get('/things/temporal/:date', listTemporal.request);
 
 // --------------------------------------------------
 // POST
