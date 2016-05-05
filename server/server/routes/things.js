@@ -11,6 +11,8 @@ var listMeasurements = require('../controllers/things/listMeasurements');
 var listSpatial      = require('../controllers/things/listSpatial');
 var post             = require('../controllers/things/post');
 
+var thingsdate		 = require('../controllers/things/temporal/:date');
+
 // Set up the express router
 var router = express.Router();
 
@@ -35,6 +37,9 @@ router.get('/things/:thingId/measurements', listMeasurements.request);
 router.get('/things/:thingId/nearest', getNearest.request);
 // Get all things within one bounding box
 router.get('/things/spatial/:bbox', listSpatial.request);
+
+// Get all all things within one time frame
+router.get('/things/temporal/:date', thingsdate.request);
 
 // --------------------------------------------------
 // POST
