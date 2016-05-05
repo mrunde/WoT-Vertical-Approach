@@ -1,7 +1,10 @@
 // Required modules
+var moment   = require('moment-interval');
 var mongoose = require('mongoose');
 
 // Required data schema 	
+var Measurement = require('../../data/thing');
+var Sensor = require('../../data/sensor');
 var Thing = require('../../data/thing');
 
 /**
@@ -54,11 +57,41 @@ exports.request = function(req, res) {
 		endDate = moment(dateTo).toISOString();
 	}
 
-	Thing.find({ date: { $gte: startDate, $lte: endDate } }, function(err, measurements) {
+	Thing.find(function(err, things) {
 		if (err) {
 			res.send(err);
 		} else {
-			res.json(measurements);
+			aggregateThings(things, 0, [], res);
 		}
 	});
+
+
+	function aggregateThings(things, pos, result, res){
+		if (pos == things.length) {
+			res.json(result);
+		} else {
+			Sensor.find({ thingId: things[pos]._id }, function(err, sensors) {
+				if (err) {
+					res.send(err);
+				} else {
+					aggregateSensors(things, pos+1, result.concat(sensors), res);
+				}
+			});
+		}
+	}
+
+
+	function aggregateSensors(sensors, pos, result, res){
+		if (pos == sensors.length) {
+			res.json(result);
+		} else {
+			Measurement.find({ sensorId: sensors[pos]._id }, function(err, measurements) {
+				if (err) {
+					res.send(err);
+				} else {
+					aggregateSensors(sensors, pos+1, result.concat(measurements), res);
+				}
+			});
+		}
+	}
 }

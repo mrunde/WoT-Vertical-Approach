@@ -1,8 +1,11 @@
 // Required modules
+var moment   = require('moment-interval');
 var mongoose = require('mongoose');
 
-// Required data schema 	
+// Required data schema
+var Measurement = require('../../data/measurement');
 var Sensor = require('../../data/sensor');
+
 
 /**
  * @api {get} /sensors/temporal/:date GET - Request all sensors within one time frame
@@ -10,7 +13,9 @@ var Sensor = require('../../data/sensor');
  * @apiGroup Sensor
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} sensors	Array of Sensor information.
+ * @apiParam {String} interval Time interval in ISO8601 encoding.
+ *
+ * @apiSuccess {Array} sensors Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -50,11 +55,25 @@ exports.request = function(req, res) {
 		endDate = moment(dateTo).toISOString();
 	}
 
-	Sensor.find({ date: { $gte: startDate, $lte: endDate } }, function(err, sensors) {
+	Sensor.find(function(err, sensors) {
 		if (err) {
 			res.send(err);
 		} else {
-			res.json(sensor);
+			aggregateSensors(sensors, 0, [], res);
 		}
 	});
+}
+
+function aggregateSensors(sensors, pos, result, res){
+	if (pos == sensors.length) {
+		res.json(result);
+	} else {
+		Measurement.find({ sensorId: sensors[pos]._id }, function(err, measurements) {
+			if (err) {
+				res.send(err);
+			} else {
+				aggregateSensors(sensors, pos+1, result.concat(measurements), res);
+			}
+		});
+	}
 }
