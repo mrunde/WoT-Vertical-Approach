@@ -3,27 +3,20 @@
 
 <head>
 	
-	<title>WoT - Vertical Approach</title>
+	<title>WoT-Vertical-Approach</title>
 	
-	<meta name="author" content="Marius Runde">
-	<meta name="keywords" content="Geospatial Web of Things">
-
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="icon" type="image/ico" href="img/favicon.ico">
-
-	<!-- Import stylesheets -->
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/mapbox.js/mapbox.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="leaflet.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 
 <body>
 
-	<!-- Navigation bar -->
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -36,8 +29,8 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a href="/docs" target="_blank">API</a></li>
-					<li><a href="https://github.com/mrunde/WoT-Vertical-Approach" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+					<li><a href="/docs">API</a></li>
+					<li><a href="https://github.com/mrunde/WoT-Vertical-Approach"><i class="fa fa-github" aria-hidden="true"></i></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a></li>
@@ -47,18 +40,9 @@
 		</div>
 	</nav>
 
-	<!-- Content -->
 	<div id="container" class="container"></div>
 	<div id="livemap" class="container"></div>
-	
-	<!-- Library imports -->
-	<script src="lib/jquery/dist/jquery.min.js"></script>
-	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="lib/mapbox.js/mapbox.js"></script>
-
-	<!-- Script imports -->
-	<script src="js/config.js"></script>
-	<script src="js/map.js"></script>
+	<script src="js/main.js"></script>
 
 </body>
 

@@ -30,7 +30,7 @@ var client = require('./mqtt/client');
 
 // Set up the express web server
 var app = express();
-app.use(express.static(path.join(__dirname, '../app/dist')));
+app.use(express.static(path.join(__dirname, '../app')));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
