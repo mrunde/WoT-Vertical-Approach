@@ -31,7 +31,7 @@ router.get('/sensors/:sensorId/measurements', listMeasurements.request);
 // Get all sensors within one bounding box
 router.get('/sensors/spatial/:bbox', listSpatial.request);
 // Get all all sensors within one time frame
-router.get('/sensors/temporal/:date', listTemporal.request);
+router.get('/sensors/temporal/:dateFrom/:dateTo', listTemporal.request);
 
 // --------------------------------------------------
 // POST
