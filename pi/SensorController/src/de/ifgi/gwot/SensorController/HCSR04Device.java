@@ -108,7 +108,8 @@ public class HCSR04Device {
 	 */
 	class HCSR04Config{
 		
-		private String id;
+		private String sensorId;
+		private String thingId;
 		private double latitude;
 		private double longitude;
 		private long delay;
@@ -122,17 +123,26 @@ public class HCSR04Device {
 		 * and the sensor will not yet measure.
 		 */
 		HCSR04Config(){
-			this.id = "";
+			this.thingId = "";
+			this.sensorId = "";
 			this.delay = 5000L;
 			this.run = false;
 		}
 		
-		public String getId(){
-			return this.id;
+		public String getSensorId(){
+			return this.sensorId;
 		}
 		
-		public void setId(final String id){
-			this.id = id;
+		public void setSensorId(final String sensorId){
+			this.sensorId = sensorId;
+		}
+		
+		public String getThingId(){
+			return this.thingId;
+		}
+		
+		public void setThingId(final String thingId){
+			this.thingId = thingId;
 		}
 
 		public double getLatitude() {
@@ -176,7 +186,8 @@ public class HCSR04Device {
 		}
 		
 		public String toString(){
-			return "Id: " + getId() +
+			return "ThingId: " + getThingId() +
+					", SensorId: " + getSensorId() +
 					", Latitude: " + getLatitude() + 
 					", Longitude: " + getLongitude() + 
 					", Delay: " + getDelay() + 

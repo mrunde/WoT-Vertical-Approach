@@ -12,6 +12,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
+import de.ifgi.gwot.SensorController.util.HttpUtil;
 import de.ifgi.gwot.SensorController.util.JSONUtil;
 
 public class SensorMIDlet extends MIDlet implements MqttCallback {
@@ -29,7 +30,9 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	private int port = 1883;
 	
 	private static final String PUB_TOPIC = "measurements";
-	private static final String SUB_TOPIC = "config";
+	private String sub_topic = "config";
+	
+	public static final String REST_API_URL = "giv-gwot-va.uni-muenster.de:3000";
 
 	/**
 	 * Stops the Thread to take measurements and closes the GPIO connections.
@@ -52,7 +55,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	 * Initiates the GPIO Pins and starts a thread to take measurements.
 	 */
 	@Override
-	protected void startApp() throws MIDletStateChangeException {
+	protected void startApp() throws MIDletStateChangeException {	
 		// init ultrasound sensor
 		try {
 			hcsr04 = new HCSR04Device(TRIGGER_PIN, ECHO_PIN);
@@ -60,6 +63,15 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Unable to init Pins.");
+		}
+		
+		// request configuration from server
+		try{
+			requestConfiguration();
+		} catch(IOException ex){
+			ex.printStackTrace();
+			System.out.println("Unable to get configuration from server. Shutting down...");
+			System.exit(0);
 		}
 		
 		// init mqtt client
@@ -70,6 +82,8 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			me.printStackTrace();
 			System.out.println("Mqtt Client could not connect.");
 		}
+		
+		startMeasuring();
 	}
 	
 	
@@ -86,7 +100,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 				
 				distance = hcsr04.pulse();
 				if(distance > 0){
-					String message = JSONUtil.encodeObservation(hcsr04.getHCSR04Config().getId(), distance);
+					String message = JSONUtil.encodeObservation(hcsr04.getHCSR04Config().getSensorId(), distance);
 					try {
 						publish(message);
 					} catch (MqttException e) {
@@ -96,6 +110,59 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 					}
 				}					
 				I2CUtils.I2Cdelay((int)hcsr04.getHCSR04Config().getDelay());
+			}
+		}
+	}
+	
+	// stops the measuring thread
+	private void stopMeasuring(){
+		if(sensorsTask.isAlive()){
+			try{
+				this.shouldRun = false;
+				sensorsTask.join();
+			} catch(InterruptedException ex){
+				ex.printStackTrace();
+			}			
+		}
+	}
+	
+	// (re)starts the measuring thread
+	private void startMeasuring(){
+		if(sensorsTask != null && sensorsTask.isAlive())
+			stopMeasuring();
+		this.shouldRun = true;
+		sensorsTask = new ReadSensors();
+		sensorsTask.start();
+	}
+	
+	// requests the ids for the configuration via HTTP from the server
+	private void requestConfiguration() throws IOException{
+		// send post thing request
+		String thing = HttpUtil.post(REST_API_URL + "api/things/", JSONUtil.encodePostThingRequest());
+		// send get features request
+		String allFeatures = HttpUtil.get(REST_API_URL + "api/features/");
+		
+		if(!thing.isEmpty() && !allFeatures.isEmpty()){
+			// decode ids returned from server
+			String thingId = JSONUtil.decodePostThingRequest(thing);
+			String featureId = JSONUtil.decodeGetFeaturesRequest(allFeatures);
+			// if feature "water level" does not exist => create it
+			if(featureId.isEmpty()){
+				// create feature
+				featureId = JSONUtil.decodePostFeatureRequest(HttpUtil.post(REST_API_URL + "api/features/", 
+						JSONUtil.encodePostFeatureRequest("Water Level", "cm")));
+			}
+			hcsr04.getHCSR04Config().setThingId(thingId);
+			if(!thingId.isEmpty() && !featureId.isEmpty()){
+				// create sensor
+				String sensorId = JSONUtil.decodePostFeatureRequest(HttpUtil.post("http://localhost:3000/api/sensors/", 
+						JSONUtil.encodePostSensorRequest("HCSR04 UltraSonic Water Gauge", thingId, featureId)));
+				hcsr04.getHCSR04Config().setSensorId(sensorId);
+				hcsr04.getHCSR04Config().setRun(true);
+				this.shouldRun = true;
+				// print config and start measuring
+				System.out.println("Configuration Complete!\n" + hcsr04.getHCSR04Config().toString());
+				sub_topic += "/" + hcsr04.getHCSR04Config().getSensorId();
 			}
 		}
 	}
@@ -110,7 +177,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		pubClient.connect();
 		
 		// connect to configuration channel
-		pubClient.subscribe(SUB_TOPIC);
+		pubClient.subscribe(sub_topic);
 	}
 	
 	/**
@@ -138,13 +205,9 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			throws Exception {
 		System.out.println("Message Arrived. ( " + topic + ", " + new String(message.getPayload()) + ")");
 		
-		if(topic.equals(SUB_TOPIC)){
+		if(topic.equals(sub_topic)){
 			try{
 				HashMap<String,Object> configs = JSONUtil.decodeConfiguration(new String(message.getPayload()));
-				if(configs.containsKey("sensorId")){
-					if(hcsr04.getHCSR04Config().getId().isEmpty())
-						hcsr04.getHCSR04Config().setId((String)configs.get("sensorId"));
-				}
 				if(configs.containsKey("latitude"))	
 					hcsr04.getHCSR04Config().setLatitude((double)configs.get("latitude"));
 				if(configs.containsKey("longitude"))	
@@ -156,17 +219,13 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 				if(configs.containsKey("run")) {
 					boolean run = ((boolean)configs.get("run"));
 					if(hcsr04.getHCSR04Config().isRunning() && !run){
-						this.shouldRun = run;
-						sensorsTask.join();
+						stopMeasuring();
 					}
 					else if(!hcsr04.getHCSR04Config().isRunning() && run){
-						this.shouldRun = run;
-						sensorsTask = new ReadSensors();
-						sensorsTask.start();
+						startMeasuring();
 					}
 					hcsr04.getHCSR04Config().setRun(run);
-				}
-					
+				}					
 				
 				System.out.println("Sensor Configuration changed! " + hcsr04.getHCSR04Config().toString());
 			} catch(Exception ex){
