@@ -13,19 +13,22 @@ var Thing  = require('../../data/thing');
  *
  * @apiParam {String} thingId 		Thing's unique ID.
  *
- * @apiSuccess {String} description	Description of the Thing.
- * @apiSuccess {Point} location		Location of the Thing.
+ * @apiSuccess {String} name		Name of the Thing.
+ * @apiSuccess {Point} loc			Location of the Thing.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
+ *       "name": "ifgi",
+ *       "_id": "<< generated MongoDB ID >>",
  *       "__v": 0,
- *       "description": "ifgi",
- *       "location": [
- *         51.969113,
- *         7.595793
- *       ],
- *       "_id": "<< generated MongoDB ID >>"
+ *       "loc": {
+ *         "coordinates": [
+ *           51.969114,
+ *           7.595794
+ *         ],
+ *         "type": "Point"
+ *       }
  *     }
  *
  * @apiUse ThingNotFoundError
@@ -39,24 +42,22 @@ exports.request = function(req, res) {
 		if (err) {
 			res.send(Errors.ThingNotFoundError);
 		} else {
-			location = thing.toObject().location;
+			coordinates = thing.loc.coordinates;
 
 			Thing.find({
-				location: {
+				loc: {
 					$near: {
 						$geometry: {
 							type: "Point",
-							coordinates: location
-						},
-						$minDistance: 1
+							coordinates: coordinates
+						}
 					}
 				}
 			}, function(err, things) {
-				console.log(things);
 				if (err) {
 					res.send(err);
 				} else {
-					res.json(things);
+					res.json(things[1]);
 				}
 			});
 		}
