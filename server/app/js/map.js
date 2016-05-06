@@ -25,11 +25,11 @@ function drawMarkers(things) {
 			geometry: {
 				type: 'Point',
 				coordinates: [
-					thing.location[1], thing.location[0],
+					thing.loc.coordinates[1], thing.loc.coordinates[0],
 				]
 			},
 			'properties': {
-				'title': '<h5><span class="label label-success">' + thing.description + '</span></h5>'
+				'title': '<h5><span class="label label-success">' + thing.name + '</span></h5>'
 			}
 		});
 	});
