@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var FeatureSchema = mongoose.Schema({
-	description: {
+	name: {
 		type: String,
 		required: true
 	},

@@ -11,7 +11,7 @@ var Feature = require('../../data/feature');
  * @apiGroup Feature
  * @apiVersion 1.0.0
  *
- * @apiParam {String} description	Description of the Feature.
+ * @apiParam {String} name			Name of the Feature.
  * @apiParam {String} unit			Unit of the Feature.
  *
  * @apiSuccess {String} featureId	Feature's unique ID.
@@ -20,9 +20,9 @@ var Feature = require('../../data/feature');
  *     HTTP/1.1 200 OK
  *     {
  *       "__v": 0,
- *       "description": "Water Level",
+ *       "name": "Water Level",
  *       "unit": "m",
- *       "_id": "571ce8a799d9232813f01666"
+ *       "_id": "<< generated MongoDB ID >>"
  *     }
  *
  * @apiUse ServerError

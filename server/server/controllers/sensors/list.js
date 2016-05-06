@@ -17,14 +17,14 @@ var Sensor = require('../../data/sensor');
  *     [
  *       {
  *         "_id": "<< generated MongoDB ID >>",
- *         "description": "water gauge",
+ *         "name": "water gauge",
  *         "thingId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "__v": 0
  *       },
  *       {
  *         "_id": "<< generated MongoDB ID >>",
- *         "description": "water gauge",
+ *         "name": "water gauge",
  *         "thingId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "__v": 0

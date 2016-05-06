@@ -17,13 +17,13 @@ var Feature = require('../../data/feature');
  *     [
  *       {
  *         "_id": "<< generated MongoDB ID >>",
- *         "description": "Temperature",
+ *         "name": "Temperature",
  *         "unit": "°C",
  *         "__v": 0
  *       },
  *       {
  *         "_id": "<< generated MongoDB ID >>",
- *         "description": "Water Level",
+ *         "name": "Water Level",
  *         "unit": "m",
  *         "__v": 0
  *       }

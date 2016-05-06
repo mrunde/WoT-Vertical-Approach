@@ -12,16 +12,16 @@ var Feature = require('../../data/feature');
  *
  * @apiParam {String} featureId 	Feature's unique ID.
  *
- * @apiSuccess {String} description	Description of the Feature.
+ * @apiSuccess {String} name		Name of the Feature.
  * @apiSuccess {String} unit		Unit of the Feature.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "_id": "<< generated MongoDB ID >>",
- *       "description": "Temperature",
- *       "unit": "°C",
- *       "__v": 0
+ *       "__v": 0,
+ *       "name": "Water Level",
+ *       "unit": "m",
+ *       "_id": "<< generated MongoDB ID >>"
  *     }
  *
  * @apiUse FeatureNotFoundError

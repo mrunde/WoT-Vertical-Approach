@@ -12,7 +12,7 @@ var Sensor = require('../../data/sensor');
  *
  * @apiParam {String} sensorId 		Sensor's unique ID.
  *
- * @apiSuccess {String} description	Description of the Sensor.
+ * @apiSuccess {String} name		Name of the Sensor.
  * @apiSuccess {String} thingId		Thing's unique ID.
  * @apiSuccess {String} featureId	Feature's unique ID.
  *
@@ -20,7 +20,7 @@ var Sensor = require('../../data/sensor');
  *     HTTP/1.1 200 OK
  *     {
  *       "_id": "<< generated MongoDB ID >>",
- *       "description": "Water Gauge",
+ *       "name": "Water Gauge",
  *       "thingId": "<< generated MongoDB ID >>",
  *       "featureId": "<< generated MongoDB ID >>",
  *       "__v": 0

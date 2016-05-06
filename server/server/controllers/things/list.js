@@ -16,22 +16,28 @@ var Thing = require('../../data/thing');
  *     HTTP/1.1 200 OK
  *     [
  *       {
- *         "description": "REST API Test",
- *         "location": [
- *           52,
- *           7
- *         ],
+ *         "name": "ifgi",
  *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
+ *         "__v": 0,
+ *         "loc": {
+ *           "coordinates": [
+ *             51.969114,
+ *             7.595794
+ *           ],
+ *           "type": "Point"
+ *         }
  *       },
  *       {
- *         "description": "ifgi",
- *         "location": [
- *           51.969113,
- *           7.595793
- *         ],
+ *         "name": "Wersehaus",
  *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
+ *         "__v": 0,
+ *         "loc": {
+ *           "coordinates": [
+ *             51.97338,
+ *             7.700234
+ *           ],
+ *           "type": "Point"
+ *         }
  *       }
  *     ]
  *

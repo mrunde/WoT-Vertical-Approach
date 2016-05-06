@@ -11,21 +11,24 @@ var Thing = require('../../data/thing');
  * @apiGroup Thing
  * @apiVersion 1.0.0
  *
- * @apiParam {String} description	Description of the Thing.
- * @apiParam {Point} location		Location of the Thing.
+ * @apiParam {String} name			Name of the Thing.
+ * @apiParam {Point} loc			Location of the Thing.
  *
  * @apiSuccess {String} thingId 	Thing's unique ID.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
+ *       "name": "ifgi",
+ *       "_id": "<< generated MongoDB ID >>",
  *       "__v": 0,
- *       "description": "ifgi",
- *       "location": [
- *         51.969113,
- *         7.595793
- *       ],
- *       "_id": "<< generated MongoDB ID >>"
+ *       "loc": {
+ *         "coordinates": [
+ *           51.969114,
+ *           7.595794
+ *         ],
+ *         "type": "Point"
+ *       }
  *     }
  *
  * @apiUse ServerError
