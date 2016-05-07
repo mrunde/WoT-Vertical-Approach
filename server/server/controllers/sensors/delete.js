@@ -1,8 +1,10 @@
 // Required modules
+var async    = require('async');
 var mongoose = require('mongoose');
 
 // Required data schema
-var Sensor = require('../../data/sensor');
+var Measurement = require('../../data/measurement');
+var Sensor      = require('../../data/sensor');
 
 /**
  * @api {delete} /sensors/:sensorId DELETE - Delete a Sensor
@@ -24,12 +26,25 @@ var Sensor = require('../../data/sensor');
  */
 exports.request = function(req, res) {
 	var id = req.params.sensorId;
-	
-	Sensor.remove({ _id: id }, function(err, removed) {
+
+	async.waterfall([
+		// Delete Measurements
+		function(callback) {
+			Measurement.remove({ sensorId: id }, function(err) {
+				callback(err);
+			});
+		},
+		// Delete Sensor
+		function(callback) {
+			Sensor.remove({ _id: id }, function(err, removed) {
+				callback(err, removed);
+			});
+		}
+	], function(err, result) {
 		if (err) {
 			res.send(err);
 		} else {
-			res.json(removed);
+			res.json(result);
 		}
 	});
 }
