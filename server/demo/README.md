@@ -17,6 +17,6 @@ Order | Parameter     | Type   | Default   | Description
 
 ### Example
 
-`node demoSensor.js 1000 Test`
+`node demoSensorController.js 1000 Test`
 
 This will start the demo sensor controller which will send new Measurements in an interval of 1 second (= 1000 milliseconds) to a Thing with the name Test. The Thing's location remains the default location.
