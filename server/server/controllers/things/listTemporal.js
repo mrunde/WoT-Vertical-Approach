@@ -1,11 +1,11 @@
 // Required modules
-var moment   = require('moment-interval');
+var moment   = require('moment');
 var mongoose = require('mongoose');
 
 // Required data schema 	
-var Measurement = require('../../data/thing');
-var Sensor = require('../../data/sensor');
-var Thing = require('../../data/thing');
+var Measurement = require('../../data/measurement');
+var Sensor 		= require('../../data/sensor');
+var Thing 		= require('../../data/thing');
 
 /**
  * @api {get} /things/temporal/:date GET - Request all things within one time frame
@@ -63,41 +63,61 @@ exports.request = function(req, res) {
 		endDate = moment(dateTo).toISOString();
 	}
 
-	Thing.find(function(err, things) {
+	Sensor.find(function(err, sensors) {
 		if (err) {
 			res.send(err);
 		} else {
-			aggregateThings(things, 0, [], res);
+			aggregateSensors(sensors, 0, [], res, startDate, endDate);
 		}
 	});
+}
 
-
-	function aggregateThings(things, pos, result, res){
-		if (pos == things.length) {
-			res.json(result);
-		} else {
-			Sensor.find({ thingId: things[pos]._id }, function(err, sensors) {
-				if (err) {
-					res.send(err);
-				} else {
-					aggregateSensors(things, pos+1, result.concat(sensors), res);
-				}
-			});
-		}
+function aggregateSensors(sensors, pos, result, res, startDate, endDate){
+	if(pos == sensors.length) {
+		//var uniqueThingIds = removeDuplicateThingIds(result);
+		aggregateThings(removeDuplicateThingIds(result), 0, [], res);
+	} else {
+		Measurement.find({ sensorId: sensors[pos]._id, date: { $gte: startDate, $lte: endDate }}, function(err, measurements) {
+			if(err) {
+				res.send(err);
+			} else{
+				// if sensor contains measurements, add sensor to result
+				if(measurements.length > 0)
+					result.push(sensors[pos]);
+				aggregateSensors(sensors, pos+1, result, res, startDate, endDate);
+			}
+		});
 	}
+}
 
-
-	function aggregateSensors(sensors, pos, result, res){
-		if (pos == sensors.length) {
-			res.json(result);
-		} else {
-			Measurement.find({ sensorId: sensors[pos]._id }, function(err, measurements) {
-				if (err) {
-					res.send(err);
-				} else {
-					aggregateSensors(sensors, pos+1, result.concat(measurements), res);
-				}
-			});
-		}
+function aggregateThings(uniqueThingIds, pos, result, res) {
+	if(pos == uniqueThingIds.length) {
+		res.json(result);
+	} else {
+		Thing.findOne({ _id: uniqueThingIds[pos] }, function(err, thing) {
+			if(err) {
+				res.send(err);
+			} else {
+				aggregateThings(uniqueThingIds, pos+1, result.concat(thing), res);
+			}
+		})
 	}
+}
+
+// takes the sensor array and returns an array
+// with the thingIds contained in the sensor array
+function removeDuplicateThingIds(sensors){
+	var result = [];
+	for(var x = 0; x < sensors.length; x++) {
+		var exists = false;
+		for(var y = 0; y < result.length; y++) {
+			if(result[y] == sensors[x].thingId) {
+				exists = true;
+				break;
+			}
+		}
+		if(!exists) 
+			result.push(sensors[x].thingId);
+	}
+	return result;
 }

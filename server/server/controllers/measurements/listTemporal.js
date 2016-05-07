@@ -1,5 +1,5 @@
 // Required modules
-var moment   = require('moment-interval');
+var moment   = require('moment');
 var mongoose = require('mongoose');
 
 // Required data schema 	

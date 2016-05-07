@@ -1,8 +1,10 @@
 // Required modules
-var mongoose = require('mongoose');
+var moment		= require('moment');
+var mongoose 	= require('mongoose');
 
 // Required data schema 	
-var Sensor = require('../../data/sensor');
+var Sensor 			= require('../../data/sensor');
+var Measurement 	= require('../../data/measurement');
 
 /**
  * @api {get} /sensors/temporal/:date GET - Request all sensors within one time frame
@@ -50,11 +52,28 @@ exports.request = function(req, res) {
 		endDate = moment(dateTo).toISOString();
 	}
 
-	Sensor.find({ date: { $gte: startDate, $lte: endDate } }, function(err, sensors) {
-		if (err) {
+	Sensor.find(function(err, sensors){
+		if(err){
 			res.send(err);
-		} else {
-			res.json(sensor);
+		} else{
+			aggregateSensors(sensors, 0, [], res, startDate, endDate);
 		}
-	});
+	});	
+}
+
+function aggregateSensors(sensors, pos, result, res, startDate, endDate){
+	if(pos == sensors.length){
+		res.json(result);
+	} else {
+		Measurement.find({ sensorId: sensors[pos]._id, date: { $gte: startDate, $lte: endDate }}, function(err, measurements) {
+			if(err) {
+				res.send(err);
+			} else{
+				// if sensor contains measurements, add sensor to result
+				if(measurements.length > 0)
+					result.push(sensors[pos]);
+				aggregateSensors(sensors, pos+1, result, res, startDate, endDate);
+			}
+		});
+	}
 }
