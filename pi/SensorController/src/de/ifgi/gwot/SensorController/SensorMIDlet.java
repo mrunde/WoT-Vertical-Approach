@@ -155,7 +155,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 			hcsr04.getHCSR04Config().setThingId(thingId);
 			if(!thingId.isEmpty() && !featureId.isEmpty()){
 				// create sensor
-				String sensorId = JSONUtil.decodePostFeatureRequest(HttpUtil.post("http://localhost:3000/api/sensors/", 
+				String sensorId = JSONUtil.decodePostFeatureRequest(HttpUtil.post(REST_API_URL + "api/sensors/", 
 						JSONUtil.encodePostSensorRequest("HCSR04 UltraSonic Water Gauge", thingId, featureId)));
 				hcsr04.getHCSR04Config().setSensorId(sensorId);
 				hcsr04.getHCSR04Config().setRun(true);

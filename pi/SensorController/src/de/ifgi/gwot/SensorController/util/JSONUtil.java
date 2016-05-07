@@ -67,7 +67,7 @@ public class JSONUtil {
 	 */
 	public static String encodePostFeatureRequest(String description, String unitOfMeasurement){
 		JsonObject feature = Json.createObjectBuilder()
-				.add("description", description)
+				.add("name", description)
 				.add("unit", unitOfMeasurement)
 				.build();
 
@@ -104,7 +104,7 @@ public class JSONUtil {
 		
 		for(int i = 0; i < jsonArr.size(); i++){
 			JsonObject jsonO = jsonArr.getJsonObject(i);
-			if(jsonO.getString("description").toLowerCase().equals("water level")){
+			if(jsonO.getString("name").toLowerCase().equals("water level")){
 				return jsonO.getString("_id");
 			}
 		}
@@ -120,7 +120,7 @@ public class JSONUtil {
 	 */
 	public static String encodePostSensorRequest(String description, String thingId, String featureId){
 		JsonObject sensor = Json.createObjectBuilder()
-				.add("description", description)
+				.add("name", description)
 				.add("thingId", thingId)
 				.add("featureId", featureId)
 				.build();
