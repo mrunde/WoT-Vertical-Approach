@@ -36,7 +36,7 @@ public class HttpUtil {
 			
 			os = httpConn.openOutputStream();
 			os.write(body.getBytes());
-			os.flush();
+			//os.flush();
 			
 			StringBuffer sb = new StringBuffer();
 			is = httpConn.openInputStream();

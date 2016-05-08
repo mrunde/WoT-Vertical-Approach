@@ -1,6 +1,6 @@
 MIDlet-1: SensorMIDlet,,de.ifgi.gwot.SensorController.SensorMIDlet
 MIDlet-Jar-URL: SensorController.jar
-MIDlet-Permission-5: javax.microedition.io.HttpProtocolPermission "http://giv-gwot-va.uni-muenster.de:3000"
+MIDlet-Permission-5: javax.microedition.io.HttpProtocolPermission "http://*:*"
 MIDlet-Permission-4: javax.microedition.io.SocketProtocolPermission "socket://giv-gwot-va.uni-muenster.de:1883"
 MIDlet-Permission-3: java.util.PropertyPermission "*" "read,write"
 MIDlet-Permission-2: jdk.dio.gpio.GPIOPinPermission "*:*"

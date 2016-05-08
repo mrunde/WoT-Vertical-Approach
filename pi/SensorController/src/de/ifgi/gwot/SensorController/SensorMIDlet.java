@@ -32,7 +32,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	private static final String PUB_TOPIC = "measurements";
 	private String sub_topic = "config";
 	
-	public static final String REST_API_URL = "giv-gwot-va.uni-muenster.de:3000";
+	public static final String REST_API_URL = "http://giv-gwot-va.uni-muenster.de:3000/";
 
 	/**
 	 * Stops the Thread to take measurements and closes the GPIO connections.
@@ -40,9 +40,10 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	@Override
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
 		shouldRun = false;
-		hcsr04.close();
+		if(hcsr04 != null)
+			hcsr04.close();
 		
-		if(pubClient.isConnected()){
+		if(pubClient != null && pubClient.isConnected()){
 			try{
 				pubClient.disconnect();
 			} catch(MqttException ex){
@@ -63,6 +64,13 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Unable to init Pins.");
+		}
+		
+		try{
+			String test = HttpUtil.get("http://giv-gwot-va.uni-muenster.de:3000/api/things/");
+			System.out.println(test);
+		} catch(IOException ex){
+			ex.printStackTrace();
 		}
 		
 		// request configuration from server

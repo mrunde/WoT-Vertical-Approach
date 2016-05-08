@@ -104,7 +104,7 @@ public class JSONUtil {
 		
 		for(int i = 0; i < jsonArr.size(); i++){
 			JsonObject jsonO = jsonArr.getJsonObject(i);
-			if(jsonO.getString("name").toLowerCase().equals("water level")){
+			if(jsonO.containsKey("name") && jsonO.getString("name").toLowerCase().equals("water level")){
 				return jsonO.getString("_id");
 			}
 		}

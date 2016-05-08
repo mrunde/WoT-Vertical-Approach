@@ -74,7 +74,6 @@ exports.request = function(req, res) {
 
 function aggregateSensors(sensors, pos, result, res, startDate, endDate){
 	if(pos == sensors.length) {
-		//var uniqueThingIds = removeDuplicateThingIds(result);
 		aggregateThings(removeDuplicateThingIds(result), 0, [], res);
 	} else {
 		Measurement.find({ sensorId: sensors[pos]._id, date: { $gte: startDate, $lte: endDate }}, function(err, measurements) {

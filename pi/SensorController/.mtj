@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mtjMetadata jad="SensorController.jad" version="2.0.1.201509042315">
-   <device group="Oracle Java(TM) Platform Micro Edition SDK 8.2" name="EmbeddedDevice1"/>
-   <signing projectSpecific="false" signProject="false">
+   <device group="Oracle Java(TM) Platform Micro Edition SDK 8.2" name="PI_FH"/>
+   <signing projectSpecific="false" signProject="true">
       <alias/>
    </signing>
    <configurations>
