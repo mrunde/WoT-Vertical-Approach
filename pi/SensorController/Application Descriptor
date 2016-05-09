@@ -1,13 +1,15 @@
+longitude: 7.595793
 MIDlet-1: SensorMIDlet,,de.ifgi.gwot.SensorController.SensorMIDlet
 MIDlet-Jar-URL: SensorController.jar
 MIDlet-Permission-5: javax.microedition.io.HttpProtocolPermission "http://*:*"
 MIDlet-Permission-4: javax.microedition.io.SocketProtocolPermission "socket://giv-gwot-va.uni-muenster.de:1883"
 MIDlet-Permission-3: java.util.PropertyPermission "*" "read,write"
 MIDlet-Permission-2: jdk.dio.gpio.GPIOPinPermission "*:*"
-MicroEdition-Configuration: CLDC-1.8
 MIDlet-Permission-1: jdk.dio.DeviceMgmtPermission "*:*" "open"
+MicroEdition-Configuration: CLDC-1.8
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: MIDlet Suite Vendor
 MIDlet-Name: SensorController MIDlet Suite
+latitude: 51.969113
 MicroEdition-Profile: MEEP-8.0
 User-Id: 573091fbc9c43a042017eeb2

@@ -33,14 +33,14 @@ public class JSONUtil {
 	 * @param userId The id of the Thing's user.
 	 * @return Body of Thing.Post Request as Json String.
 	 */
-	public static String encodePostThingRequest(String userId){
+	public static String encodePostThingRequest(double latitude, double longitude, String userId){
 		JsonObject register = Json.createObjectBuilder()
 				.add("name", "HCSR04Sensor")
 				.add("loc", Json.createObjectBuilder()
 						.add("type", "Point")
 						.add("coordinates", Json.createArrayBuilder()
-								.add(51.969113)
-								.add(7.595793)))
+								.add(latitude)
+								.add(longitude)))
 				.add("userId", userId)
 				.build();
 
