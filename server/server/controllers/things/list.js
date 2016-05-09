@@ -17,6 +17,7 @@ var Thing = require('../../data/thing');
  *     [
  *       {
  *         "name": "ifgi",
+ *         "userId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {
@@ -29,6 +30,7 @@ var Thing = require('../../data/thing');
  *       },
  *       {
  *         "name": "Wersehaus",
+ *         "userId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {

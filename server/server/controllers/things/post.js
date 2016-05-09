@@ -13,6 +13,7 @@ var Thing = require('../../data/thing');
  *
  * @apiParam {String} name			Name of the Thing.
  * @apiParam {Point} loc			Location of the Thing.
+ * @apiParam {String} userId		User's unique ID.
  *
  * @apiSuccess {String} thingId 	Thing's unique ID.
  *
@@ -20,6 +21,7 @@ var Thing = require('../../data/thing');
  *     HTTP/1.1 200 OK
  *     {
  *       "name": "ifgi",
+ *       "userId": "<< generated MongoDB ID >>",
  *       "_id": "<< generated MongoDB ID >>",
  *       "__v": 0,
  *       "loc": {
