@@ -8,10 +8,13 @@ var Sensor 		= require('../../data/sensor');
 var Thing 		= require('../../data/thing');
 
 /**
- * @api {get} /things/temporal/:date GET - Request all things within one time frame
+ * @api {get} /things/temporal/:dateFrom/:dateTo GET - Request all things within one time frame
  * @apiName ListTemporalThing
  * @apiGroup Thing
  * @apiVersion 1.0.0
+ *
+ * @apiParam {Date} dateFrom	Date from which the time frame begins.
+ * @apiParam {Date} dateTo		Date at which the time frame ends.
  *
  * @apiSuccess {Array} things	Array of Thing information.
  *
@@ -73,16 +76,17 @@ exports.request = function(req, res) {
 }
 
 function aggregateSensors(sensors, pos, result, res, startDate, endDate){
-	if(pos == sensors.length) {
+	if (pos == sensors.length) {
 		aggregateThings(removeDuplicateThingIds(result), 0, [], res);
 	} else {
 		Measurement.find({ sensorId: sensors[pos]._id, date: { $gte: startDate, $lte: endDate }}, function(err, measurements) {
-			if(err) {
+			if (err) {
 				res.send(err);
-			} else{
+			} else {
 				// if sensor contains measurements, add sensor to result
-				if(measurements.length > 0)
+				if (measurements.length > 0) {
 					result.push(sensors[pos]);
+				}
 				aggregateSensors(sensors, pos+1, result, res, startDate, endDate);
 			}
 		});
@@ -90,11 +94,11 @@ function aggregateSensors(sensors, pos, result, res, startDate, endDate){
 }
 
 function aggregateThings(uniqueThingIds, pos, result, res) {
-	if(pos == uniqueThingIds.length) {
+	if (pos == uniqueThingIds.length) {
 		res.json(result);
 	} else {
 		Thing.findOne({ _id: uniqueThingIds[pos] }, function(err, thing) {
-			if(err) {
+			if (err) {
 				res.send(err);
 			} else {
 				aggregateThings(uniqueThingIds, pos+1, result.concat(thing), res);
@@ -107,15 +111,15 @@ function aggregateThings(uniqueThingIds, pos, result, res) {
 // with the thingIds contained in the sensor array
 function removeDuplicateThingIds(sensors){
 	var result = [];
-	for(var x = 0; x < sensors.length; x++) {
+	for (var x = 0; x < sensors.length; x++) {
 		var exists = false;
-		for(var y = 0; y < result.length; y++) {
-			if(result[y] == sensors[x].thingId) {
+		for (var y = 0; y < result.length; y++) {
+			if (result[y] == sensors[x].thingId) {
 				exists = true;
 				break;
 			}
 		}
-		if(!exists) 
+		if (!exists) 
 			result.push(sensors[x].thingId);
 	}
 	return result;

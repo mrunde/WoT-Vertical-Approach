@@ -6,12 +6,13 @@ var mongoose = require('mongoose');
 var Measurement = require('../../data/measurement');
 
 /**
- * @api {get} /measurements/temporal/:interval GET - Request all Measurement information within one time interval
+ * @api {get} /measurements/temporal/:dateFrom/:dateTo GET - Request all Measurement information within one time interval
  * @apiName ListTemporalMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
- * @apiParam {String} interval Time interval in ISO8601 encoding.
+ * @apiParam {Date} dateFrom		Date from which the time frame begins.
+ * @apiParam {Date} dateTo			Date at which the time frame ends.
  *
  * @apiSuccess {Array} measurements	Array of Measurement information.
  *

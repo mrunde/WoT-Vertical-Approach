@@ -7,10 +7,13 @@ var Sensor      = require('../../data/sensor');
 var Measurement = require('../../data/measurement');
 
 /**
- * @api {get} /sensors/temporal/:date GET - Request all sensors within one time frame
+ * @api {get} /sensors/temporal/:dateFrom/:dateTo GET - Request all sensors within one time frame
  * @apiName ListTemporalSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
+ *
+ * @apiParam {Date} dateFrom	Date from which the time frame begins.
+ * @apiParam {Date} dateTo		Date at which the time frame ends.
  *
  * @apiSuccess {Array} sensors	Array of Sensor information.
  *
