@@ -28,9 +28,9 @@ Status | URL | Method | Description
 :white_check_mark: | `api/things/:thingId/sensors` | GET | all sensors of one thing
 :white_check_mark: | `api/things/:thingId/measurements` | GET | all measurements of one thing
 :white_check_mark: | `api/things/:thingId/nearest` | GET | nearest other thing
-:white_check_mark: | `api/things/temporal/:date` | GET | all things within one time frame
+:white_check_mark: | `api/things/temporal/:dateFrom/:dateTo` | GET | all things within one time frame
 :white_check_mark: | `api/things/spatial/:bbox` | GET | all things within one bounding box
-:white_large_square: | `api/things/temporal/:date/spatial/:bbox` | GET | all things within one time frame and one bounding box
+:white_large_square: | `api/things/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all things within one time frame and one bounding box
 
 ### Sensors
 
@@ -39,9 +39,9 @@ Status | URL | Method | Description
 :white_check_mark: | `api/sensors` | GET, POST | all sensors
 :white_check_mark: | `api/sensors/:sensorId` | DELETE, GET | one sensor
 :white_check_mark: | `api/sensors/:sensorId/measurements` | GET | all measurements of one sensor
-:white_check_mark: | `api/sensors/temporal/:date` | GET | all sensors within one time frame
+:white_check_mark: | `api/sensors/temporal/:dateFrom/:dateTo` | GET | all sensors within one time frame
 :white_check_mark: | `api/sensors/spatial/:bbox` | GET | all sensors within one bounding box
-:white_large_square: | `api/sensors/temporal/:date/spatial/:bbox` | GET | all sensors within one time frame and one bounding box
+:white_large_square: | `api/sensors/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all sensors within one time frame and one bounding box
 
 ### Measurements
 
@@ -49,6 +49,6 @@ Status | URL | Method | Description
 -------|-----|--------|------------
 :white_check_mark: | `api/measurements` | GET, POST | all measurements
 :white_check_mark: | `api/measurements/:measurementId` | DELETE, GET | one measurement
-:white_check_mark: | `api/measurements/temporal/:date` | GET | all measurements within one time frame
+:white_check_mark: | `api/measurements/temporal/:dateFrom/:dateTo` | GET | all measurements within one time frame
 :white_check_mark: | `api/measurements/spatial/:bbox` | GET | all measurements within one bounding box
-:white_large_square: | `api/measurements/temporal/:date/spatial/:bbox` | GET | all measurements within one time frame and one bounding box
+:white_large_square: | `api/measurements/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all measurements within one time frame and one bounding box
