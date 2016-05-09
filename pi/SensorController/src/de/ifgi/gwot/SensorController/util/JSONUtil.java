@@ -40,6 +40,7 @@ public class JSONUtil {
 						.add("coordinates", Json.createArrayBuilder()
 								.add(51.969113)
 								.add(7.595793)))
+				.add("userId", "573091fbc9c43a042017eeb2")
 				.build();
 
 		return register.toString();

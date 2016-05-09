@@ -21,7 +21,7 @@ async.waterfall([
 	function(callback) {
 		console.log('Creating a new Thing...');
 		
-		const thingJson = { name: thingName, loc: { coordinates: [ thingLocLat, thingLocLng ] } };
+		const thingJson = { name: thingName, loc: { coordinates: [ thingLocLat, thingLocLng ] }, userId: '572b5f591d02fae81d017729' };
 		
 		// Post the new Thing
 		request.post({
