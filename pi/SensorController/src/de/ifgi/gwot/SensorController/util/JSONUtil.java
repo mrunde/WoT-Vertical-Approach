@@ -30,9 +30,10 @@ public class JSONUtil {
 	/**
 	 * Encodes a request to create a new thing
 	 * in Json.
+	 * @param userId The id of the Thing's user.
 	 * @return Body of Thing.Post Request as Json String.
 	 */
-	public static String encodePostThingRequest(){
+	public static String encodePostThingRequest(String userId){
 		JsonObject register = Json.createObjectBuilder()
 				.add("name", "HCSR04Sensor")
 				.add("loc", Json.createObjectBuilder()
@@ -40,7 +41,7 @@ public class JSONUtil {
 						.add("coordinates", Json.createArrayBuilder()
 								.add(51.969113)
 								.add(7.595793)))
-				.add("userId", "573091fbc9c43a042017eeb2")
+				.add("userId", userId)
 				.build();
 
 		return register.toString();

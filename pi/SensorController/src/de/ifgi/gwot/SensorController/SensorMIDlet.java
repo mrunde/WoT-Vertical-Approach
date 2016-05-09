@@ -146,7 +146,7 @@ public class SensorMIDlet extends MIDlet implements MqttCallback {
 	// requests the ids for the configuration via HTTP from the server
 	private void requestConfiguration() throws IOException{
 		// send post thing request
-		String thing = HttpUtil.post(REST_API_URL + "api/things/", JSONUtil.encodePostThingRequest());
+		String thing = HttpUtil.post(REST_API_URL + "api/things/", JSONUtil.encodePostThingRequest(this.getAppProperty("User-Id")));
 		// send get features request
 		String allFeatures = HttpUtil.get(REST_API_URL + "api/features/");
 		
