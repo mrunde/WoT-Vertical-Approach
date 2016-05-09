@@ -38,7 +38,7 @@ var Measurement = require('../../data/measurement');
  */
 exports.request = function(req, res) {
 	var dateFrom = req.params.dateFrom;
-	var dateTo = req.params.dateTo;
+	var dateTo   = req.params.dateTo;
 
 	var startDate, endDate;
 

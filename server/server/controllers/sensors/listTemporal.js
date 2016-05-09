@@ -1,10 +1,10 @@
 // Required modules
-var moment		= require('moment');
-var mongoose 	= require('mongoose');
+var moment   = require('moment');
+var mongoose = require('mongoose');
 
 // Required data schema 	
-var Sensor 			= require('../../data/sensor');
-var Measurement 	= require('../../data/measurement');
+var Sensor      = require('../../data/sensor');
+var Measurement = require('../../data/measurement');
 
 /**
  * @api {get} /sensors/temporal/:date GET - Request all sensors within one time frame
@@ -37,7 +37,7 @@ var Measurement 	= require('../../data/measurement');
  */
 exports.request = function(req, res) {
 	var dateFrom = req.params.dateFrom;
-	var dateTo = req.params.dateTo;
+	var dateTo   = req.params.dateTo;
 
 	var startDate, endDate;
 
