@@ -3,6 +3,7 @@ var config = require('../config');
 var url    = config.express_host + '/api';
 
 // Required modules
+var colors  = require('colors');
 var mqtt    = require('mqtt');
 var request = require('request');
 
@@ -11,21 +12,23 @@ var client = mqtt.connect(config.mqtt_host);
 
 // Subscribe to the API's topics
 client.once('connect', function () {
-	console.log('Connection to MQTT broker successfull!');
+	console.log('Connection to MQTT broker', 'successfull!'.green);
 
+	console.log('-------------------------------');
 	client.subscribe('features');
-	console.log('Subscribed to features');
+	console.log('  Subscribed to', 'features'.inverse);
 	client.subscribe('measurements');
-	console.log('Subscribed to measurements');
+	console.log('  Subscribed to', 'measurements'.inverse);
 	client.subscribe('sensors');
-	console.log('Subscribed to sensors');
+	console.log('  Subscribed to', 'sensors'.inverse);
 	client.subscribe('things');
-	console.log('Subscribed to things');
+	console.log('  Subscribed to', 'things'.inverse);
+	console.log('-------------------------------');
 });
 
 // Error handling
 client.on('error', function() {
-	console.log('Connection to MQTT broker failed!');
+	console.log('Connection to MQTT broker', 'failed!'.red);
 });
 
 // Listen on incoming messages
@@ -46,7 +49,9 @@ function handleMessage(topic, payload) {
 				url: url + '/features',
 				json: json
 				}, function(error, response, body) {
-					console.log(error);
+					if (error) {
+						console.log(error);
+					}
 			});
 			break;
 		// --------------------------------------------------
@@ -58,7 +63,9 @@ function handleMessage(topic, payload) {
 				url: url + '/measurements',
 				json: json
 				}, function(error, response, body) {
-					console.log(error);
+					if (error) {
+						console.log(error);
+					}
 			});
 			break;
 		// --------------------------------------------------
@@ -70,7 +77,9 @@ function handleMessage(topic, payload) {
 				url: url + '/sensors',
 				json: json
 				}, function(error, response, body) {
-					console.log(error);
+					if (error) {
+						console.log(error);
+					}
 			});
 			break;
 		// --------------------------------------------------
@@ -82,7 +91,9 @@ function handleMessage(topic, payload) {
 				url: url + '/things',
 				json: json
 				}, function(error, response, body) {
-					console.log(error);
+					if (error) {
+						console.log(error);
+					}
 			});
 			break;
 	}

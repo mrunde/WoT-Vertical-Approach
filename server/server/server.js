@@ -7,6 +7,7 @@ var config = require('./config');
 
 // Required modules
 var bodyParser = require('body-parser');
+var colors     = require('colors');
 var express    = require('express');
 var mongoose   = require('mongoose');
 var morgan     = require('morgan');
@@ -18,6 +19,16 @@ var things       = require('./routes/things');
 var sensors      = require('./routes/sensors');
 var measurements = require('./routes/measurements');
 var users        = require('./routes/users');
+
+// --------------------------------------------------
+// Start Message
+// --------------------------------------------------
+
+console.log('');
+console.log('--------------------------------------------------');
+console.log('  STARTING SERVER...');
+console.log('--------------------------------------------------');
+console.log('');
 
 // --------------------------------------------------
 // MQTT Client
@@ -44,7 +55,7 @@ app.use('/api', users);
 
 // Start the web server
 var server = app.listen(config.express_port, function() {
-	console.log('Express server listening on port', config.express_port);
+	console.log('Express server listening on port', config.express_port.toString().green);
 });
 
 // --------------------------------------------------
@@ -57,8 +68,8 @@ mongoose.connect(config.mongodb_host);
 // Test the database connection
 var db = mongoose.connection;
 db.on('error', function callback() {
-	console.log('Connection to MongoDB failed!');
+	console.log('Connection to MongoDB', 'failed!'.red);
 });
 db.once('open', function callback() {
-	console.log('Connection to MongoDB successfull!');
+	console.log('Connection to MongoDB', 'successfull!'.green);
 });
