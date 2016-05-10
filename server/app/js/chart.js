@@ -1,5 +1,45 @@
 'use strict';
 
+// request all sensors of a thing
+function requestSensors(thingId) {
+	$.ajax({
+		url: getURL() + '/api/sensors',
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(sensors) {
+			console.log("ID: " + thingId);
+			var sensorsOfThing = [];
+			for(let x = 0; x < sensors.length; x++) {
+				if(sensors[x].thingId == thingId){
+					sensorsOfThing.push(sensors[x]);
+				}
+			}
+			console.log(sensorsOfThing);
+			if(sensorsOfThing.length == 1) {
+				requestMeasurements(sensorsOfThing[0]._id);
+			} else {
+				//TODO: display selection
+				requestMeasurements(sensorsOfThing[0]._id)
+			}
+		}
+	});	
+}
+
+// request all measurements of a sensor
+function requestMeasurements(sensorId) {
+	$.ajax({
+		url: getURL() + '/api/sensors/' + sensorId + '/measurements',
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(measurements) {
+			chartHandler.sensorId = sensorId;
+			chartHandler.setData(measurements);
+		}
+	});
+}
+
 /**
  * Helper class to create and manage the cart.
  * Chart is created with Chart.js
@@ -28,6 +68,8 @@ function ChartHandler(container){
 		options: {}
 	});
 
+	this.sensorId = null;
+
 	/**
 	 * Sets the data of the chart. The data has to fit the
 	 * schema of a measurement as described by the REST API.
@@ -38,7 +80,7 @@ function ChartHandler(container){
 		let values = [];
 
 		for(let x = 0; x < measurements.length; x++) {
-			labels.push(measurements[x].date);
+			labels.push(this.formatDate(new Date(measurements[x].date)));
 			values.push(measurements[x].value);
 		}
 		this.lineChart.data.labels = labels;
@@ -53,13 +95,40 @@ function ChartHandler(container){
 	 * @param {Measurement} measurement - The measurement to add to the chart.
 	 */
 	ChartHandler.prototype.addMeasurement = function(measurement) {
-		let label = measurement.date;
-		let value = measurement.value;
+		if(measurement.sensorId == this.sensorId) {
+			let label = measurement.date;
+			let value = measurement.value;
 
-		this.lineChart.data.labels.push(label);
-		this.lineChart.data.datasets[0].data.push(value);
+			this.lineChart.data.labels.push(this.formatDate(new Date(label)));
+			this.lineChart.data.datasets[0].data.push(value);
 
-		this.lineChart.update();
+			this.lineChart.update();
+		}
+	}
+
+	/**
+	 * Formats a given date into dd.mm.yyyy hh:mm:ss format.
+	 * @param {Date} date - The date to format.
+	 */
+	ChartHandler.prototype.formatDate = function(date) {
+		let seconds = date.getSeconds();
+		let minutes = date.getMinutes();
+		let hours 	= date.getUTCHours();
+		let day 	= date.getDate();
+		let month 	= date.getMonth() + 1;
+		let year 	= date.getFullYear();
+
+		return this.fillZero(day) + "." + this.fillZero(month) + "." + year + " " + this.fillZero(hours) + ":" + this.fillZero(minutes) + ":" + this.fillZero(seconds);
+	}
+
+	/**
+	 * Inserts leading zero to number.
+	 * @param {Number} number
+	 */
+	ChartHandler.prototype.fillZero = function(number) {
+		if(number < 10)
+			return "0" + number;
+		return number; 
 	}
 }
 

@@ -26,4 +26,5 @@ socket.on('sensors', function(sensor) {
 // New Measurement created
 socket.on('measurements', function(measurement) {
 	// add measurement to chart
+	chartHandler.addMeasurement(measurement);
 });

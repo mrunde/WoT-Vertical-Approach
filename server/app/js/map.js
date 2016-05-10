@@ -37,7 +37,8 @@ function drawMarkers(things) {
 				]
 			},
 			properties: {
-				title: '<h5><span class="label label-success">' + thing.name + '</span></h5>'
+				title: '<h5><span class="label label-success">' + thing.name + '</span></h5>',
+				id: thing._id
 			}
 		});
 	});
@@ -48,6 +49,10 @@ function drawMarkers(things) {
 			return L.circleMarker(latlon, markerOptions);
 		}
 	}).addTo(map);
+
+	markers.on('click', function(e) {
+		requestSensors(e.layer.feature.properties.id);
+	});
 
 	updateMap();
 };
@@ -63,7 +68,8 @@ function addMarker(thing) {
 			]
 		},
 		properties: {
-			title: '<h5><span class="label label-success">' + thing.name + '</span></h5>'
+			title: '<h5><span class="label label-success">' + thing.name + '</span></h5>',
+			id: thing._id
 		}
 	};
 	markers.addLayer(L.mapbox.featureLayer(geoJsonFeature, {
