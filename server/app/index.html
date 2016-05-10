@@ -11,7 +11,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="icon" type="image/ico" href="favicon.ico">
+	<link rel="icon" type="image/ico" href="img/favicon.ico">
 
 	<!-- Import stylesheets -->
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
@@ -49,8 +49,57 @@
 
 	<!-- Content -->
 	<div id="content">
-		<div id="livemap"></div>
-		<canvas id="waterLevelChart" width="400" height="100"></canvas>
+		<div class="row">
+			<div="col-md-4">
+				<div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <select class="form-control">
+                                        <option value="0" selected>Coordinates</option>
+                                        <option value="1">Time-Range</option>
+                                        <option value="2">Sensor-ID</option>
+                                        <option value="3">Thing-ID</option>
+                                        <option value="4">Time-range and Bounding-box</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Contains Description</label>
+                                    <input class="form-control" type="text" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Contains the words</label>
+                                    <input class="form-control" type="text" />
+                                  </div>
+                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+			</div>
+				<div class="col-md-6">
+				</div>
+		</div>
+	<div class="row">
+			<div class="col-md-8">
+				<div id="livemap"></div>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					Sensor-Infos
+				</div>
+				<div class="row">
+				<div>	<canvas id="waterLevelChart" width="400" height="100"></canvas> </div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<!-- Library imports -->
@@ -58,6 +107,7 @@
 	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="lib/mapbox.js/mapbox.js"></script>
 	<script src="lib/Chart.js/dist/Chart.min.js"></script>
+	<script src="../node_modules/angular/angular.min.js"</script>
 
 	<!-- Script imports -->
 	<script src="js/config.js"></script>
