@@ -1,6 +1,6 @@
 'use strict';
 
-let map, markers;
+let map, markers, thingName, thingDetails;
 
 const markerOptions = {
 	radius: 3,
@@ -10,7 +10,7 @@ const markerOptions = {
 };
 
 // Request the data from the REST API
-function requestData() {
+function requestThings() {
 	$.ajax({
 		url: getURL() + '/api/things',
 		global: false,
@@ -22,9 +22,31 @@ function requestData() {
 	});
 };
 
+function requestMeasurementsLatest(id) {
+	$.ajax({
+		url: getURL() + '/api/things/' + id + '/measurements/latest',
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(measurements) {
+			let content = '';
+			if (measurements.length == 0) {
+				content = '<strong>Keine Messwerte vorhanden</strong>';
+			} else {
+				content = '<table class="table table-hover table-condensed"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
+				measurements.forEach(function(measurement, key) {
+					let date = new Date(measurement.date);
+					content += '<tr><td>' + measurement.sensorId + '</td><td>' + date.toDateString() + '</td><td>' + measurement.value + '</td></tr>';
+				});
+				content +=  '</table>';
+			}
+			thingDetails.innerHTML = content;
+		}
+	});
+}
+
 // Draw the markers on the map
 function drawMarkers(things) {
-	// TODO: This is only a quick-and-dirty version. As soon as the REST API returns valid GeoJSON, this has to be changed adequately
 	let geoJsonFeatures = [];
 	things.forEach(function(thing, key) {
 		geoJsonFeatures.push({
@@ -37,7 +59,8 @@ function drawMarkers(things) {
 				]
 			},
 			properties: {
-				title: '<h5><span class="label label-success">' + thing.name + '</span></h5>'
+				id: thing._id,
+				title: thing.name
 			}
 		});
 	});
@@ -48,6 +71,15 @@ function drawMarkers(things) {
 			return L.circleMarker(latlon, markerOptions);
 		}
 	}).addTo(map);
+
+	markers.on('click', function(e) {
+		// Get the marker's properties
+		let props = e.layer.feature.properties;
+		// Set the name in the details section
+		thingName.innerHTML = 'Details - ' + props.title;
+		// Set the latest Measurements in the details section
+		requestMeasurementsLatest(props.id);
+	});
 
 	updateMap();
 };
@@ -63,7 +95,7 @@ function addMarker(thing) {
 			]
 		},
 		properties: {
-			title: '<h5><span class="label label-success">' + thing.name + '</span></h5>'
+			title: thing.name
 		}
 	};
 	markers.addLayer(L.mapbox.featureLayer(geoJsonFeature, {
@@ -83,9 +115,13 @@ function updateMap() {
 // Initialize the map
 $(document).ready(function() {
 	L.mapbox.accessToken = getMapboxAccessToken();
+	
 	map = L.mapbox.map('livemap', 'mapbox.streets')
 		.setView([51.973387, 7.700213], 10)
 		.addControl(L.mapbox.geocoderControl('mapbox.places'));
+	
+	thingName    = document.getElementById('thingname');
+	thingDetails = document.getElementById('thingdetails');
 
-	requestData();
+	requestThings();
 });
