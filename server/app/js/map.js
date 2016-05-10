@@ -1,11 +1,18 @@
-"use strict";
+'use strict';
 
-var map;
+let map, markers;
+
+const markerOptions = {
+	radius: 3,
+	weight: 1,
+	opacity: 1,
+	fillOpacity: 0.8
+};
 
 // Request the data from the REST API
 function requestData() {
 	$.ajax({
-		url: getURL() + "/api/things",
+		url: getURL() + '/api/things',
 		global: false,
 		type: 'GET',
 		async: false,
@@ -18,37 +25,60 @@ function requestData() {
 // Draw the markers on the map
 function drawMarkers(things) {
 	// TODO: This is only a quick-and-dirty version. As soon as the REST API returns valid GeoJSON, this has to be changed adequately
-	var geoJsonFeatures = [];
+	let geoJsonFeatures = [];
 	things.forEach(function(thing, key) {
 		geoJsonFeatures.push({
 			type: 'Feature',
 			geometry: {
 				type: 'Point',
 				coordinates: [
-					thing.loc.coordinates[1], thing.loc.coordinates[0],
+					thing.loc.coordinates[1],
+					thing.loc.coordinates[0]
 				]
 			},
-			'properties': {
-				'title': '<h5><span class="label label-success">' + thing.name + '</span></h5>'
+			properties: {
+				title: '<h5><span class="label label-success">' + thing.name + '</span></h5>'
 			}
 		});
 	});
 
 	// Add markers to the map
-	var markers = L.mapbox.featureLayer(geoJsonFeatures, {
+	markers = L.mapbox.featureLayer(geoJsonFeatures, {
 		pointToLayer: function(feature, latlon) {
-			return L.circleMarker(latlon, {
-				radius: 3,
-				weight: 1,
-				opacity: 1,
-				fillOpacity: 0.8
-			});
+			return L.circleMarker(latlon, markerOptions);
 		}
 	}).addTo(map);
 
+	updateMap();
+};
+
+function addMarker(thing) {
+	let geoJsonFeature = {
+		type: 'Feature',
+		geometry: {
+			type: 'Point',
+			coordinates: [
+				thing.loc.coordinates[1],
+				thing.loc.coordinates[0]
+			]
+		},
+		properties: {
+			title: '<h5><span class="label label-success">' + thing.name + '</span></h5>'
+		}
+	};
+	markers.addLayer(L.mapbox.featureLayer(geoJsonFeature, {
+		pointToLayer: function(feature, latlon) {
+			return L.circleMarker(latlon, markerOptions);
+		}
+	}));
+
+	updateMap();
+}
+
+function updateMap() {
 	// Pan the map so that all markers are visible
 	map.fitBounds(markers.getBounds());
-};
+}
 
 // Initialize the map
 $(document).ready(function() {

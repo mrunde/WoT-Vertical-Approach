@@ -2,28 +2,28 @@
 
 let socket = io(getURL());
 
-// check initial connection
+// Connection established
 socket.on('connect', function() {
-	console.log("Socket connected!");
+	console.log('Socket connected!');
 });
 
-// connect to things
+// Connection lost
+socket.on('disconnect', function() {
+	console.log('Socket lost connection...');
+});
+
+// New Thing created
 socket.on('things', function(thing) {
-	console.log(thing);
-	// add marker to mapbox
+	// Add marker on map
+	addMarker(thing);
 });
 
-// connnect to sensors
+// New Sensor created
 socket.on('sensors', function(sensor) {
-	console.log(sensor);
+	// Do nothing so far...
 });
 
-// connect to measurements
+// New Measurement created
 socket.on('measurements', function(measurement) {
 	// add measurement to chart
 });
-
-socket.on('disconnect', function() {
-	console.log("Socket lost connection...");
-});
-
