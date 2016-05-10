@@ -5,7 +5,7 @@ var map;
 // Request the data from the REST API
 function requestData() {
 	$.ajax({
-		url: getURL() + "/things",
+		url: getURL() + "/api/things",
 		global: false,
 		type: 'GET',
 		async: false,

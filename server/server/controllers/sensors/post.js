@@ -4,6 +4,7 @@ var _        = require('underscore');
 
 // Required data schema
 var Sensor = require('../../data/sensor');
+var socket = require('../../server.js');
 
 /**
  * @api {post} /sensors POST - Create a Sensor
@@ -39,6 +40,7 @@ exports.request = function(req, res) {
 			res.send(err);
 		} else {
 			res.json(sensor);
+			socket.notify("sensors", sensor);
 		}
 	});
 }

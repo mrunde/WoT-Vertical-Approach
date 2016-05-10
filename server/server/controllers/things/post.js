@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
-var Thing = require('../../data/thing');
+var Thing 	= require('../../data/thing');
+var socket	= require('../../server.js');
 
 /**
  * @api {post} /things POST - Create a Thing
@@ -43,6 +44,7 @@ exports.request = function(req, res) {
 			res.send(err);
 		} else {
 			res.json(thing);
+			socket.notify("things", thing);
 		}
 	});
 }

@@ -6,6 +6,7 @@ var _        = require('underscore');
 var Errors      = require('../../data/errors');
 var Measurement = require('../../data/measurement');
 var Sensor      = require('../../data/sensor');
+var socket		= require('../../server.js');
 
 /**
  * @api {post} /measurements POST - Create a Measurement
@@ -46,6 +47,7 @@ exports.request = function(req, res) {
 					res.send(Errors.ServerError);
 				} else {
 					res.json(measurement);
+					socket.notify("measurements", measurement);
 				}
 			});
 		}

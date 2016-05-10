@@ -7,5 +7,5 @@ function getMapboxAccessToken() {
 
 // Get the URL of the REST API
 function getURL() {
-	return "http://giv-gwot-va.uni-muenster.de:3000/api";
+	return "http://giv-gwot-va.uni-muenster.de:3000";
 };

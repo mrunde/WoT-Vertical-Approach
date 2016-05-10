@@ -12,6 +12,7 @@ var express    = require('express');
 var mongoose   = require('mongoose');
 var morgan     = require('morgan');
 var path       = require('path');
+var socketio   = require('socket.io');
 
 // Required routes
 var features     = require('./routes/features');
@@ -57,6 +58,14 @@ app.use('/api', users);
 var server = app.listen(config.express_port, function() {
 	console.log('Express server listening on port', config.express_port.toString().green);
 });
+
+// Start the server socket
+var io = socketio(server);
+// Publishes server notifications
+exports.notify = function(topic, message) {
+	io.emit(topic, message);
+};
+
 
 // --------------------------------------------------
 // MongoDB Connection
