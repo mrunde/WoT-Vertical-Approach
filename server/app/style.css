@@ -12,6 +12,10 @@ body {
 	margin-bottom: 0px;
 }
 
+#content {
+	margin: 15px 0px;
+}
+
 #livemap {
 	height: 400px;
 	width: 100%;

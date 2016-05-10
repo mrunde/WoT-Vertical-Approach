@@ -48,19 +48,16 @@
 	</nav>
 
 	<!-- Content -->
-	<div id="content">
-		<div class="row">
-			<div id="infocolumn" class="col-md-4">
-				<div id="sensorinfo" class="row">
-					<h3>Sensor-Infos</h3>
-				</div>
-				<div id="chart" class="row">
-					<canvas id="waterLevelChart" width="400" height="100"></canvas>
-				</div>
+	<div id="content" class="row">
+		<div id="info" class="col-md-4">
+			<h3 id="thingname">Details</h3>
+			<div id="thingdetails"></div>
+			<div id="chart">
+				<canvas id="waterLevelChart" width="400" height="100"></canvas>
 			</div>
-			<div id="map" class="col-md-8">
-				<div id="livemap"></div>
-			</div>
+		</div>
+		<div id="map" class="col-md-8">
+			<div id="livemap"></div>
 		</div>
 	</div>
 	
