@@ -12,23 +12,26 @@ var client = mqtt.connect(config.mqtt_host);
 
 // Subscribe to the API's topics
 client.once('connect', function () {
-	console.log('Connection to MQTT broker', 'successfull!'.green);
+	console.log('  Connection to MQTT broker', 'successfull'.green);
 
-	console.log('-------------------------------');
+	console.log('------------------------------------------------------------');
 	client.subscribe('features');
-	console.log('  Subscribed to', 'features'.inverse);
+	console.log('  Subscribed to', 'features'.cyan);
 	client.subscribe('measurements');
-	console.log('  Subscribed to', 'measurements'.inverse);
+	console.log('  Subscribed to', 'measurements'.cyan);
 	client.subscribe('sensors');
-	console.log('  Subscribed to', 'sensors'.inverse);
+	console.log('  Subscribed to', 'sensors'.cyan);
 	client.subscribe('things');
-	console.log('  Subscribed to', 'things'.inverse);
-	console.log('-------------------------------');
+	console.log('  Subscribed to', 'things'.cyan);
+	client.subscribe('users');
+	console.log('  Subscribed to', 'users'.cyan);
+	console.log('------------------------------------------------------------');
 });
 
 // Error handling
 client.on('error', function() {
-	console.log('Connection to MQTT broker', 'failed!'.red);
+	console.log('  Connection to MQTT broker', 'failed'.red);
+	console.log('------------------------------------------------------------');
 });
 
 // Listen on incoming messages
@@ -89,6 +92,20 @@ function handleMessage(topic, payload) {
 			request.post({
 				headers: {'content-type': 'application/json'},
 				url: url + '/things',
+				json: json
+				}, function(error, response, body) {
+					if (error) {
+						console.log(error);
+					}
+			});
+			break;
+		// --------------------------------------------------
+		// Users
+		// --------------------------------------------------
+		case 'users':
+			request.post({
+				headers: {'content-type': 'application/json'},
+				url: url + '/users',
 				json: json
 				}, function(error, response, body) {
 					if (error) {

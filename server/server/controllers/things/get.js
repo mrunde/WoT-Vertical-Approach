@@ -2,7 +2,8 @@
 var mongoose = require('mongoose');
 
 // Required data schema
-var Thing = require('../../data/thing');
+var Errors = require('../../data/errors');
+var Thing  = require('../../data/thing');
 
 /**
  * @api {get} /things/:thingId GET - Request single Thing information
@@ -13,6 +14,7 @@ var Thing = require('../../data/thing');
  * @apiParam {String} thingId 		Thing's unique ID.
  *
  * @apiSuccess {String} name		Name of the Thing.
+ * @apiSuccess {String} userId		User's unique ID.
  * @apiSuccess {Point} loc			Location of the Thing.
  *
  * @apiSuccessExample Success-Response:
@@ -39,7 +41,7 @@ exports.request = function(req, res) {
 
 	Thing.findOne({ _id: id }, function(err, thing) {
 		if (err) {
-			res.send(err);
+			res.send(Errors.ThingNotFoundError);
 		} else {
 			res.json(thing);
 		}

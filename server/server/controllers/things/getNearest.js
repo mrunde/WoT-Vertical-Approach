@@ -14,6 +14,7 @@ var Thing  = require('../../data/thing');
  * @apiParam {String} thingId 		Thing's unique ID.
  *
  * @apiSuccess {String} name		Name of the Thing.
+ * @apiSuccess {String} userId		User's unique ID.
  * @apiSuccess {Point} loc			Location of the Thing.
  *
  * @apiSuccessExample Success-Response:

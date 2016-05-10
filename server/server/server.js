@@ -26,10 +26,35 @@ var users        = require('./routes/users');
 // --------------------------------------------------
 
 console.log('');
-console.log('--------------------------------------------------');
-console.log('  STARTING SERVER...');
-console.log('--------------------------------------------------');
+console.log('############################################################');
+console.log('############################################################');
 console.log('');
+console.log('  Application:', 'Vertical Approach of the Geospatial'.cyan);
+console.log('               Web of Things for Mobile Water Gauges'.cyan);
+console.log('');
+console.log('  Version:    ', '1.0.0'.cyan);
+console.log('');
+console.log('  Copyright:  ', '2016'.cyan);
+console.log('');
+console.log('  Licence:    ', 'MIT'.cyan);
+console.log('');
+console.log('  Authors:    ', '- Moritz Migge'.cyan);
+console.log('               - Marius Runde'.cyan);
+console.log('               - Daniel Ummelmann'.cyan);
+console.log('               - Axel Virnich'.cyan);
+console.log('');
+console.log('############################################################');
+console.log('############################################################');
+console.log('');
+console.log('');
+console.log('////////////////////////////////////////////////////////////');
+console.log('');
+console.log('               STARTING SERVER...'.cyan);
+console.log('');
+console.log('////////////////////////////////////////////////////////////');
+console.log('');
+console.log('');
+console.log('------------------------------------------------------------');
 
 // --------------------------------------------------
 // MQTT Client
@@ -56,7 +81,8 @@ app.use('/api', users);
 
 // Start the web server
 var server = app.listen(config.express_port, function() {
-	console.log('Express server listening on port', config.express_port.toString().green);
+	console.log('  Express server listening on port', config.express_port.toString().cyan);
+	console.log('------------------------------------------------------------');
 });
 
 // Start the server socket
@@ -77,8 +103,10 @@ mongoose.connect(config.mongodb_host);
 // Test the database connection
 var db = mongoose.connection;
 db.on('error', function callback() {
-	console.log('Connection to MongoDB', 'failed!'.red);
+	console.log('  Connection to MongoDB', 'failed'.red);
+	console.log('------------------------------------------------------------');
 });
 db.once('open', function callback() {
-	console.log('Connection to MongoDB', 'successfull!'.green);
+	console.log('  Connection to MongoDB', 'successfull'.green);
+	console.log('------------------------------------------------------------');
 });
