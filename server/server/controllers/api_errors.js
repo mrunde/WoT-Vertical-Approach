@@ -36,6 +36,17 @@
  */
 
 /**
+ * @apiDefine UserNotFoundError
+ * @apiError (404) UserNotFound The <code>userId</code> of the User was not found.
+ *
+ * @apiErrorExample {json} UserNotFound:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "UserNotFound"
+ *     }
+ */
+
+/**
  * @apiDefine FeatureNotFoundError
  * @apiError (404) FeatureNotFound The <code>featureId</code> of the Feature was not found.
  *
@@ -47,13 +58,13 @@
  */
 
 /**
- * @apiDefine UserNotFoundError
- * @apiError (404) UserNotFound The <code>userId</code> of the User was not found.
+ * @apiDefine WaterbodyNotFoundError
+ * @apiError (404) WaterbodyNotFound The <code>waterbodyId</code> of the Waterbody was not found.
  *
- * @apiErrorExample {json} UserNotFound:
+ * @apiErrorExample {json} WaterbodyNotFound:
  *     HTTP/1.1 404 Not Found
  *     {
- *       "error": "UserNotFound"
+ *       "error": "WaterbodyNotFound"
  *     }
  */
 

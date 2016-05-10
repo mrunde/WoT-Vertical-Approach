@@ -12,13 +12,6 @@ Here you can find the source code for the web server.
 
 Here you can see an overview of the available REST API functions and whether they have been implemented already or are still in development.
 
-### Features
-
-Status | URL | Method | Description
--------|-----|--------|------------
-:white_check_mark: | `api/features` | GET, POST | all features
-:white_check_mark: | `api/features/:featureId` | DELETE, GET | one feature
-
 ### Things
 
 Status | URL | Method | Description
@@ -55,3 +48,24 @@ Status | URL | Method | Description
 :white_check_mark: | `api/measurements/temporal/:dateFrom/:dateTo` | GET | all measurements within one time frame
 :white_check_mark: | `api/measurements/spatial/:bbox` | GET | all measurements within one bounding box
 :white_large_square: | `api/measurements/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all measurements within one time frame and one bounding box
+
+### Users
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/users` | GET, POST | all users
+:white_check_mark: | `api/users/:userId` | DELETE, GET | one user
+
+### Features
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/features` | GET, POST | all features
+:white_check_mark: | `api/features/:featureId` | DELETE, GET | one feature
+
+### Waterbodies
+
+Status | URL | Method | Description
+-------|-----|--------|------------
+:white_check_mark: | `api/waterbodies` | GET | all waterbodies
+:white_check_mark: | `api/waterbodies/:waterbodyId` | GET | one waterbody

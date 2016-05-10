@@ -5,10 +5,11 @@
 	"title": "API - Vertical Approach",
 	"url": "http://giv-gwot-va.uni-muenster.de/api",
 	"order": [
-		"Feature",
 		"Thing",
 		"Sensor",
 		"Measurement",
-		"User"
+		"User",
+		"Feature",
+		"Waterbody"
 	]
 }
