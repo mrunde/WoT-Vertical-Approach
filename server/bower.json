@@ -23,6 +23,7 @@
     "Chart.js": "^2.1.0",
     "font-awesome": "^4.6.1",
     "jquery": "^2.2.3",
-    "mapbox.js": "^2.4.0"
+    "mapbox.js": "^2.4.0",
+    "angular": "^1.5.5"
   }
 }
