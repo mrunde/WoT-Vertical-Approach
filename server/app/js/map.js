@@ -1,6 +1,7 @@
 'use strict';
 
 let map, markers, thingName, thingDetails;
+let geojson = [];
 
 const markerOptions = {
 	radius: 3,
@@ -51,9 +52,8 @@ function requestMeasurementsLatest(id) {
 
 // Draw the markers on the map
 function drawMarkers(things) {
-	let geoJsonFeatures = [];
 	things.forEach(function(thing, key) {
-		geoJsonFeatures.push({
+		geojson.push({
 			type: 'Feature',
 			geometry: {
 				type: 'Point',
@@ -64,17 +64,24 @@ function drawMarkers(things) {
 			},
 			properties: {
 				title: thing.name,
-				id: thing._id				
+				id: thing._id,
+				icon: {
+					iconUrl: '../img/marker.png',
+					iconSize: [32, 32],
+					iconAnchor: [16, 16],
+					popupAnchor: [0, -16]
+				}
 			}
 		});
 	});
 
 	// Add markers to the map
-	markers = L.mapbox.featureLayer(geoJsonFeatures, {
-		pointToLayer: function(feature, latlon) {
-			return L.circleMarker(latlon, markerOptions);
-		}
-	}).addTo(map);
+	markers = L.mapbox.featureLayer().addTo(map);
+	markers.on('layeradd', function(e) {
+		var marker = e.layer;
+		marker.setIcon(L.icon(marker.feature.properties.icon));
+	});
+	markers.setGeoJSON(geojson);
 
 	markers.on('click', function(e) {
 		// Get the marker's location and properties
@@ -98,7 +105,7 @@ function drawMarkers(things) {
 };
 
 function addMarker(thing) {
-	let geoJsonFeature = {
+	let newFeature = {
 		type: 'Feature',
 		geometry: {
 			type: 'Point',
@@ -109,14 +116,19 @@ function addMarker(thing) {
 		},
 		properties: {
 			title: thing.name,
-			id: thing._id
+			id: thing._id,
+			icon: {
+				iconUrl: '../img/marker.png',
+				iconSize: [32, 32],
+				iconAnchor: [16, 16],
+				popupAnchor: [0, -16]
+			}
 		}
 	};
-	markers.addLayer(L.mapbox.featureLayer(geoJsonFeature, {
-		pointToLayer: function(feature, latlon) {
-			return L.circleMarker(latlon, markerOptions);
-		}
-	}));
+	
+	geojson.push(newFeature);
+
+	markers.setGeoJSON(geojson);
 
 	updateMap();
 }
