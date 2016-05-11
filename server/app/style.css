@@ -13,11 +13,23 @@ body {
 }
 
 #content {
+	margin: 0px;
+}
+
+#info {
 	margin: 15px 0px;
+}
+
+#forecast {
+	margin-top: 15px;
 }
 
 a:link, a:visited, a:hover, a:active {
 	text-decoration: none;
+}
+
+#map {
+	padding-right: 0px;
 }
 
 #livemap {

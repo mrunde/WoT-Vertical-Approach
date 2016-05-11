@@ -51,9 +51,14 @@
 	<div id="content" class="row">
 		<div id="info" class="col-md-4">
 			<h3 id="thingname">Details</h3>
-			<div id="thingdetails"></div>
+			<div id="thingdetails">
+				Click on a marker to display further details...
+			</div>
 			<div id="chart">
 				<canvas id="waterLevelChart" width="400" height="100"></canvas>
+			</div>
+			<div id="forecast">
+				<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=51.973387&lon=7.700213&name=Münster&color=#1f4bff&units=si"> </iframe>
 			</div>
 		</div>
 		<div id="map" class="col-md-8">

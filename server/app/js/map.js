@@ -77,14 +77,21 @@ function drawMarkers(things) {
 	}).addTo(map);
 
 	markers.on('click', function(e) {
-		// Get the marker's properties
-		let props = e.layer.feature.properties;
+		// Get the marker's location and properties
+		let coords = e.layer.feature.geometry.coordinates;
+		let props  = e.layer.feature.properties;
+
 		// Set the name in the details section
 		thingName.innerHTML = 'Details - ' + props.title;
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
+
 		// Clear the chart
 		chartHandler.setData([]);
+
+		// Update the weather forecast
+		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&color=#1f4bff&units=si';
+		$('#forecast_embed').attr('src', forecastUrl);
 	});
 
 	updateMap();
