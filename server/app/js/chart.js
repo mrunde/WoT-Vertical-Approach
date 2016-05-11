@@ -15,7 +15,7 @@ function ChartHandler(container){
 	this.sensorId = null;
 
 	/**
-	 * Gets the default settings for the chart when being cleared or at first initialisation.
+	 * Gets the default settings for the chart at first initialisation.
 	 * @return {JSONObject} Default settings for the chart.
 	 */
 	function getDefault() {
@@ -124,10 +124,6 @@ function ChartHandler(container){
 		if(number < 10)
 			return "0" + number;
 		return number; 
-	}
-
-	ChartHandler.prototype.clear = function() {
-		this.lineChart = new Chart.Line(this.container, getDefault());
 	}
 }
 

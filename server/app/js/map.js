@@ -84,7 +84,7 @@ function drawMarkers(things) {
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
 		// Clear the chart
-		chartHandler.clear();
+		chartHandler.setData([]);
 	});
 
 	updateMap();
