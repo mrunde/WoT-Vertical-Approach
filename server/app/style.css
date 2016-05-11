@@ -21,6 +21,6 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #livemap {
-	height: 400px;
+	height: 100%;
 	width: 100%;
 }
