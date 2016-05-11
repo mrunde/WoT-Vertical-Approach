@@ -36,7 +36,11 @@ function requestMeasurementsLatest(id) {
 				content = '<table class="table table-hover table-condensed"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
 				measurements.forEach(function(measurement, key) {
 					let date = new Date(measurement.date);
-					content += '<tr><td>' + measurement.sensorId + '</td><td>' + date.toDateString() + '</td><td>' + measurement.value + '</td></tr>';
+					content += '<tr>' +
+						'<td><a href="#" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\')">' + measurement.sensorId + '</a></td>' +
+						'<td>' + date.toDateString() + '</td>' +
+						'<td>' + measurement.value + '</td>' +
+					'</tr>';
 				});
 				content +=  '</table>';
 			}
@@ -73,13 +77,14 @@ function drawMarkers(things) {
 	}).addTo(map);
 
 	markers.on('click', function(e) {
-		requestSensors(e.layer.feature.properties.id);
 		// Get the marker's properties
 		let props = e.layer.feature.properties;
 		// Set the name in the details section
 		thingName.innerHTML = 'Details - ' + props.title;
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
+		// Clear the chart
+		chartHandler.clear();
 	});
 
 	updateMap();

@@ -1,74 +1,59 @@
 'use strict';
 
-// request all sensors of a thing
-function requestSensors(thingId) {
-	$.ajax({
-		url: getURL() + '/api/sensors',
-		global: false,
-		type: 'GET',
-		async: false,
-		success: function(sensors) {
-			console.log("ID: " + thingId);
-			var sensorsOfThing = [];
-			for(let x = 0; x < sensors.length; x++) {
-				if(sensors[x].thingId == thingId){
-					sensorsOfThing.push(sensors[x]);
-				}
-			}
-			console.log(sensorsOfThing);
-			if(sensorsOfThing.length == 1) {
-				requestMeasurements(sensorsOfThing[0]._id);
-			} else {
-				//TODO: display selection
-				requestMeasurements(sensorsOfThing[0]._id)
-			}
-		}
-	});	
-}
-
-// request all measurements of a sensor
-function requestMeasurements(sensorId) {
-	$.ajax({
-		url: getURL() + '/api/sensors/' + sensorId + '/measurements',
-		global: false,
-		type: 'GET',
-		async: false,
-		success: function(measurements) {
-			chartHandler.sensorId = sensorId;
-			chartHandler.setData(measurements);
-		}
-	});
-}
-
 /**
- * Helper class to create and manage the cart.
+ * Helper class to create and manage the chart.
  * Chart is created with Chart.js
  * @Constructor
  * @param {String} container - The id of the DOM element to render the chart to.
  */
 function ChartHandler(container){
-	// default data with placeholder values
-	this.defaultData = {
-		labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-		datasets: [
-			{
-				label: 'Water Level',
-				backgroundColor: 'rgba(31,75,255,1)',
-				borderColor: 'rgba(31,75,255,1)',
-				data: [1,4,7,8,5,2,3,6,9,5,7,3]
-			}
-		]
-	};
-
 	this.container = document.getElementById(container).getContext("2d");
 
 	// init chart
-	this.lineChart = new Chart.Line(this.container, {
-		data: this.defaultData,
-		options: {}
-	});
+	this.lineChart = new Chart.Line(this.container, getDefault());
 
 	this.sensorId = null;
+
+	/**
+	 * Gets the default settings for the chart when being cleared or at first initialisation.
+	 * @return {JSONObject} Default settings for the chart.
+	 */
+	function getDefault() {
+		const defaultData = {
+			data: {
+				labels: [],
+				datasets: [
+					{
+						label: 'Water Level',
+						backgroundColor: 'rgba(255,255,255,0)',
+						borderColor: 'rgba(31,75,255,1)',
+						data: []
+					}
+				]
+			},
+			options: {}
+		};
+		return defaultData;
+	}
+
+	/**
+	 * Request all Measurements of a Sensor.
+	 * @param {Number} sensorId Sensor's unique ID.
+	 */
+	ChartHandler.prototype.requestData = function(sensorId) {
+		$.ajax({
+			url: getURL() + '/api/sensors/' + sensorId + '/measurements',
+			global: false,
+			type: 'GET',
+			async: false,
+			success: function(measurements) {
+				// Store the Sensor's unique ID
+				chartHandler.sensorId = sensorId;
+				// Store the Sensor's Measurements
+				chartHandler.setData(measurements);
+			}
+		});
+	}
 
 	/**
 	 * Sets the data of the chart. The data has to fit the
@@ -79,7 +64,7 @@ function ChartHandler(container){
 		let labels = [];
 		let values = [];
 
-		for(let x = 0; x < measurements.length; x++) {
+		for (let x = 0; x < measurements.length; x++) {
 			labels.push(this.formatDate(new Date(measurements[x].date)));
 			values.push(measurements[x].value);
 		}
@@ -95,7 +80,7 @@ function ChartHandler(container){
 	 * @param {Measurement} measurement - The measurement to add to the chart.
 	 */
 	ChartHandler.prototype.addMeasurement = function(measurement) {
-		if(measurement.sensorId == this.sensorId) {
+		if (measurement.sensorId == this.sensorId) {
 			let label = measurement.date;
 			let value = measurement.value;
 
@@ -129,6 +114,10 @@ function ChartHandler(container){
 		if(number < 10)
 			return "0" + number;
 		return number; 
+	}
+
+	ChartHandler.prototype.clear = function() {
+		this.lineChart = new Chart.Line(this.container, getDefault());
 	}
 }
 
