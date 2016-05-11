@@ -47,8 +47,18 @@ function ChartHandler(container){
 			type: 'GET',
 			async: false,
 			success: function(measurements) {
+				// Change the style of all table rows
+				let sensorRows = document.getElementsByClassName('sensor-row');
+				for (var i = 0; i < sensorRows.length; i++) {
+					sensorRows[i].className = 'sensor-row';
+				}
+				// Change the style of the clicked table row to highlight it
+				let selectedRow = document.getElementById(sensorId);
+				selectedRow.className += ' info';
+
 				// Store the Sensor's unique ID
 				chartHandler.sensorId = sensorId;
+				
 				// Store the Sensor's Measurements
 				chartHandler.setData(measurements);
 			}

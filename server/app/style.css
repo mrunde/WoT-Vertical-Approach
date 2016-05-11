@@ -16,6 +16,10 @@ body {
 	margin: 15px 0px;
 }
 
+a:link, a:visited, a:hover, a:active {
+	text-decoration: none;
+}
+
 #livemap {
 	height: 400px;
 	width: 100%;

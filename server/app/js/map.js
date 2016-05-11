@@ -33,10 +33,10 @@ function requestMeasurementsLatest(id) {
 			if (measurements.length == 0) {
 				content = '<strong>Keine Messwerte vorhanden</strong>';
 			} else {
-				content = '<table class="table table-hover table-condensed"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
+				content = '<table class="table table-hover table-condensed table-responsive"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
 				measurements.forEach(function(measurement, key) {
 					let date = new Date(measurement.date);
-					content += '<tr>' +
+					content += '<tr id="' + measurement.sensorId + '" class="sensor-row">' +
 						'<td><a href="#" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\')">' + measurement.sensorId + '</a></td>' +
 						'<td>' + date.toDateString() + '</td>' +
 						'<td>' + measurement.value + '</td>' +
