@@ -23,7 +23,7 @@ var Waterbody = require('../../data/waterbody');
  *           "coordinates": [
  *             << Array of coordinates >>
  *           ],
- *           "type": "Point"
+ *           "type": "Polygon"
  *         }
  *       },
  *       {
@@ -34,7 +34,7 @@ var Waterbody = require('../../data/waterbody');
  *           "coordinates": [
  *             << Array of coordinates >>
  *           ],
- *           "type": "Point"
+ *           "type": "Polygon"
  *         }
  *       }
  *     ]
