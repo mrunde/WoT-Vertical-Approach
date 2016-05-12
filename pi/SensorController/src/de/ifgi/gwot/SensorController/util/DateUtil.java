@@ -14,18 +14,19 @@ public class DateUtil {
 	 */
 	public static String getISO8601Date(){
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+		calendar.setTimeZone(TimeZone.getTimeZone("CEST"));
 		
 		int seconds = calendar.get(Calendar.SECOND);
 		int minutes = calendar.get(Calendar.MINUTE);
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int month = calendar.get(Calendar.MONTH);
+		int month = calendar.get(Calendar.MONTH) + 1;
 		int year = calendar.get(Calendar.YEAR);
 		
 		String isodate = fillZero(year) + "-" + fillZero(month) + "-" + fillZero(day) + "T" + 
-				fillZero(hours) + ":" + fillZero(minutes) + ":" + fillZero(seconds) + "+01:00";
+				fillZero(hours) + ":" + fillZero(minutes) + ":" + fillZero(seconds) + "-02:00";
 		
+		System.out.println(isodate);
 		return isodate;
 	}
 	
