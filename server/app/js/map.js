@@ -32,7 +32,7 @@ function requestMeasurementsLatest(id) {
 		success: function(measurements) {
 			let content = '';
 			if (measurements.length == 0) {
-				content = '<strong>Keine Messwerte vorhanden</strong>';
+				content = '<strong>No measurements available</strong>';
 			} else {
 				content = '<table class="table table-hover table-condensed table-responsive"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
 				measurements.forEach(function(measurement, key) {
