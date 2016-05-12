@@ -10,6 +10,7 @@ body {
 
 .navbar {
 	margin-bottom: 0px;
+	border-radius: 0px;
 }
 
 #content {
@@ -20,8 +21,8 @@ body {
 	margin: 15px 0px;
 }
 
-#forecast {
-	margin-top: 15px;
+#chart, #forecast {
+	margin-top: 30px;
 }
 
 a:link, a:visited, a:hover, a:active {

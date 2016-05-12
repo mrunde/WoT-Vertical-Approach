@@ -97,7 +97,7 @@ function drawMarkers(things) {
 		chartHandler.setData([]);
 
 		// Update the weather forecast
-		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&color=#1f4bff&units=si';
+		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';
 		$('#forecast_embed').attr('src', forecastUrl);
 	});
 
@@ -136,15 +136,26 @@ function addMarker(thing) {
 function updateMap() {
 	// Pan the map so that all markers are visible
 	map.fitBounds(markers.getBounds());
+
+	// Zoom out of the map to center the outer markers a bit
+	setTimeout(function(){
+		map.zoomOut();
+	}, 400);
 }
 
 // Initialize the map
 $(document).ready(function() {
 	L.mapbox.accessToken = getMapboxAccessToken();
 	
-	map = L.mapbox.map('livemap', 'mapbox.streets')
+	map = L.mapbox.map('livemap')
 		.setView([51.973387, 7.700213], 10)
 		.addControl(L.mapbox.geocoderControl('mapbox.places'));
+	
+	L.control.layers({
+		'Mapbox Streets':   L.mapbox.tileLayer('mapbox.streets').addTo(map),
+		'Mapbox Dark':      L.mapbox.tileLayer('mapbox.dark'),
+		'Mapbox Satellite': L.mapbox.tileLayer('mapbox.satellite')
+	}).addTo(map);
 	
 	thingName    = document.getElementById('thingname');
 	thingDetails = document.getElementById('thingdetails');
