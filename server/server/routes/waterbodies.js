@@ -2,7 +2,10 @@
 var express = require('express');
 
 // Required controllers
-var get = require('../controllers/waterbodies/get');
+var get 		= require('../controllers/waterbodies/get');
+var list 		= require('../controllers/waterbodies/list');
+var listName	= require('../controllers/waterbodies/listName');
+var post 		= require('../controllers/waterbodies/post');
 
 // Set up the express router
 var router = express.Router();
@@ -11,7 +14,16 @@ var router = express.Router();
 // GET
 // --------------------------------------------------
 
-// Get one thing
+// Get one waterbody
 router.get('/waterbodies/:waterbodyId', get.request);
+// GET all waterbodies
+router.get('/waterbodies', list.request);
+// GET all waterbodies with the given name
+router.get('/waterbodies/name/:name', listName.request);
+
+// --------------------------------------------------
+// POST
+// --------------------------------------------------
+router.post('/waterbodies', post.request);
 
 module.exports = router;

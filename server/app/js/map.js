@@ -23,6 +23,43 @@ function requestThings() {
 	});
 };
 
+// Request a river by its name (temporary)
+function requestRiver(name) {
+	$.ajax({
+		url: getURL() + '/api/waterbodies/name/' + name,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(data) {
+			console.log(data);
+			addRiver(data);
+		}
+	});
+}
+
+// Add a river to the map, remove others (temporary)
+function addRiver(river) {
+	var coordinates = [];
+	for(var i = 0; i < river.length; i++) {
+		coordinates.push(river[i].loc.coordinates);
+	}
+	river[0].loc.coordinates = coordinates;
+	river[0].loc.type = "MultiLineString";
+
+	var riverJSON = {
+		"type": "Feature",
+		"geometry": river[0].loc,
+		"properties": {
+			"title": river[0].name,
+			"stroke": "#0066ff",
+			"stroke-width": 3	
+		}
+	}
+
+	var riverLayer = map.featureLayer.setGeoJSON(riverJSON);
+}
+
+
 function requestMeasurementsLatest(id) {
 	$.ajax({
 		url: getURL() + '/api/things/' + id + '/measurements/latest',

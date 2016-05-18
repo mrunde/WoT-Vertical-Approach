@@ -20,6 +20,7 @@ var things       = require('./routes/things');
 var sensors      = require('./routes/sensors');
 var measurements = require('./routes/measurements');
 var users        = require('./routes/users');
+var waterbodies	 = require('./routes/waterbodies');
 
 // --------------------------------------------------
 // Start Message
@@ -78,6 +79,7 @@ app.use('/api', things);
 app.use('/api', sensors);
 app.use('/api', measurements);
 app.use('/api', users);
+app.use('/api', waterbodies);
 
 // Start the web server
 var server = app.listen(config.express_port, function() {

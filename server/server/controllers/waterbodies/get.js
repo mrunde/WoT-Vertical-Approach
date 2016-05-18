@@ -14,7 +14,7 @@ var Waterbody = require('../../data/waterbody');
  * @apiParam {String} waterbodyId 	Waterbody's unique ID.
  *
  * @apiSuccess {String} name		Name of the Waterbody.
- * @apiSuccess {Polygon} loc		Location of the Waterbody.
+ * @apiSuccess {LineString} loc		Location of the Waterbody.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -26,7 +26,7 @@ var Waterbody = require('../../data/waterbody');
  *         "coordinates": [
  *           << Array of coordinates >>
  *         ],
- *         "type": "Polygon"
+ *         "type": "LineString"
  *       }
  *     }
  *
@@ -36,7 +36,7 @@ var Waterbody = require('../../data/waterbody');
 exports.request = function(req, res) {
 	var id = req.params.waterbodyId;
 
-	Waterbody.findOne({ _id: id }, function(err, waterbody) {
+	Waterbody.find({ _id: id }, function(err, waterbody) {
 		if (err) {
 			res.send(Errors.WaterbodyNotFoundError);
 		} else {

@@ -2,15 +2,16 @@
 var mongoose = require('mongoose');
 
 // Required data schema
+var Errors    = require('../../data/errors');
 var Waterbody = require('../../data/waterbody');
 
 /**
- * @api {get} /waterbodies GET - Request all Waterbody information
- * @apiName ListWaterbody
+ * @api {get} /waterbodies/:name GET - Request waterbody by name
+ * @apiName GetWaterbody
  * @apiGroup Waterbody
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} waterbodies	Array of Waterbody information.
+ * @apiParam {String} name 	Waterbody's name.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -27,7 +28,7 @@ var Waterbody = require('../../data/waterbody');
  *         }
  *       },
  *       {
- *         "name": "Aa",
+ *         "name": "Werse",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {
@@ -39,14 +40,17 @@ var Waterbody = require('../../data/waterbody');
  *       }
  *     ]
  *
+ * @apiUse WaterbodyNotFoundError
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	Waterbody.find(function(err, waterbodies) {
+	var name = req.params.name;
+
+	Waterbody.find({ name: name }, function(err, waterbody) {
 		if (err) {
-			res.send(err);
+			res.send(Errors.WaterbodyNotFoundError);
 		} else {
-			res.json(waterbodies);
+			res.json(waterbody);
 		}
 	});
 }
