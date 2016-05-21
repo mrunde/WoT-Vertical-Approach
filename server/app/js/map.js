@@ -180,6 +180,74 @@ function updateMap() {
 	}, 400);
 }
 
+//_________________________________________________________________________________________________
+
+
+function allActive() {
+	// Remove all (old) displayed markers
+	map.removeLayer(markers);
+
+	// Creating new Object which stores actual time
+	var dateToTemp = new Date();
+	var dateTo = dateToTemp.toISOString();
+
+	// Creating new Object which stores "actual time - 24 hours"
+	var dateFromTemp1 = new Date();
+	dateFromTemp1.setHours(dateFromTemp1.getHours()-24);
+	var dateFrom = dateFromTemp1.toISOString();
+
+	console.log("Starting");
+	$.ajax({
+		url: getURL() + '/' + 'api/things/temporal/' + dateFrom  + '/'  + dateTo,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(things) {
+
+			console.log("All active Things");
+			console.log(things);
+			drawMarkers(things);
+		}
+	});
+}
+
+function allInactive() {
+	// Remove all (old) displayed markers
+	markers.clearLayers();
+
+	// Creating new Object which stores "actual time - 24 hours" 
+	var dateToTemp = new Date();
+	dateToTemp.setHours(dateToTemp.getHours()-24);
+	var dateTo = dateToTemp.toISOString();
+
+	// Creating new Object which stores the zero time
+	var dateFromTemp = new Date(0);
+	var dateFrom = dateFromTemp.toISOString();
+
+	$.ajax({
+		url: getURL() + '/' + 'api/things/temporal/' + dateFrom  + '/'  + dateTo,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(things) {
+
+			console.log("All inactive Things");
+;			console.log(things);
+			drawMarkers(things);
+		}
+	});
+}
+
+
+function showNothing() {
+	// Remove all (old) displayed markers and show Nothing
+	console.log("Show no Markers");
+	markers.clearLayers();
+}
+
+//_________________________________________________________________________________________________
+
+
 // Initialize the map
 $(document).ready(function() {
 	L.mapbox.accessToken = getMapboxAccessToken();

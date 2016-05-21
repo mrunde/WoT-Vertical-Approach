@@ -62,7 +62,14 @@
 				<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=51.973387&lon=7.700213&name=Münster&units=si"> </iframe>
 			</div>-->
 		</div>
+
 		<div id="map" class="col-md-8">
+			<nav class='menu-ui'>
+				<a href='#' class='active'>Show all Things</a>
+			 	<a href='#' id="allActive" onclick="allActive()"   >Show all active</a>
+				<a href='#' id="allInactive" onclick="allInactive()" >Show all inactive</a>
+				<a href='#' id="showNothing" onclick="showNothing()" >Show nothing</a>
+			</nav>
 			<div id="livemap"></div>
 		</div>
 	</div>
