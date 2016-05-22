@@ -12,6 +12,7 @@ var express    = require('express');
 var mongoose   = require('mongoose');
 var morgan     = require('morgan');
 var path       = require('path');
+var favicon    = require('serve-favicon');
 var socketio   = require('socket.io');
 
 // Required routes
@@ -70,6 +71,7 @@ var client = require('./mqtt/client');
 // Set up the express web server
 var app = express();
 app.use(express.static(path.join(__dirname, '../app')));
+app.use(favicon(path.join(__dirname, '../app/img/favicon.ico')));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
