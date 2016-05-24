@@ -36,6 +36,7 @@
     "mqtt": "^1.8.0",
     "pm2": "^1.1.1",
     "request": "^2.72.0",
+    "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.6",
     "socket.io-client": "^1.4.6",
     "underscore": "^1.8.3"

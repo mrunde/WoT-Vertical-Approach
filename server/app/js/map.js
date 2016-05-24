@@ -23,6 +23,43 @@ function requestThings() {
 	});
 };
 
+// Request a river by its name (temporary)
+function requestRiver(name) {
+	$.ajax({
+		url: getURL() + '/api/waterbodies/name/' + name,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(data) {
+			console.log(data);
+			addRiver(data);
+		}
+	});
+}
+
+// Add a river to the map, remove others (temporary)
+function addRiver(river) {
+	var coordinates = [];
+	for(var i = 0; i < river.length; i++) {
+		coordinates.push(river[i].loc.coordinates);
+	}
+	river[0].loc.coordinates = coordinates;
+	river[0].loc.type = "MultiLineString";
+
+	var riverJSON = {
+		"type": "Feature",
+		"geometry": river[0].loc,
+		"properties": {
+			"title": river[0].name,
+			"stroke": "#0066ff",
+			"stroke-width": 3	
+		}
+	}
+
+	var riverLayer = map.featureLayer.setGeoJSON(riverJSON);
+}
+
+
 function requestMeasurementsLatest(id) {
 	$.ajax({
 		url: getURL() + '/api/things/' + id + '/measurements/latest',
@@ -142,6 +179,74 @@ function updateMap() {
 		map.zoomOut();
 	}, 400);
 }
+
+//_________________________________________________________________________________________________
+
+
+function allActive() {
+	// Remove all (old) displayed markers
+	map.removeLayer(markers);
+
+	// Creating new Object which stores actual time
+	var dateToTemp = new Date();
+	var dateTo = dateToTemp.toISOString();
+
+	// Creating new Object which stores "actual time - 24 hours"
+	var dateFromTemp1 = new Date();
+	dateFromTemp1.setHours(dateFromTemp1.getHours()-24);
+	var dateFrom = dateFromTemp1.toISOString();
+
+	console.log("Starting");
+	$.ajax({
+		url: getURL() + '/' + 'api/things/temporal/' + dateFrom  + '/'  + dateTo,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(things) {
+
+			console.log("All active Things");
+			console.log(things);
+			drawMarkers(things);
+		}
+	});
+}
+
+function allInactive() {
+	// Remove all (old) displayed markers
+	markers.clearLayers();
+
+	// Creating new Object which stores "actual time - 24 hours" 
+	var dateToTemp = new Date();
+	dateToTemp.setHours(dateToTemp.getHours()-24);
+	var dateTo = dateToTemp.toISOString();
+
+	// Creating new Object which stores the zero time
+	var dateFromTemp = new Date(0);
+	var dateFrom = dateFromTemp.toISOString();
+
+	$.ajax({
+		url: getURL() + '/' + 'api/things/temporal/' + dateFrom  + '/'  + dateTo,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(things) {
+
+			console.log("All inactive Things");
+;			console.log(things);
+			drawMarkers(things);
+		}
+	});
+}
+
+
+function showNothing() {
+	// Remove all (old) displayed markers and show Nothing
+	console.log("Show no Markers");
+	markers.clearLayers();
+}
+
+//_________________________________________________________________________________________________
+
 
 // Initialize the map
 $(document).ready(function() {

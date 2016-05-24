@@ -9,7 +9,7 @@ var WaterbodySchema = mongoose.Schema({
 	loc: {
 		'type': {
 			type: String,
-			default: 'Polygon'
+			default: 'LineString'
 		},
 		coordinates: {
 			type: [],

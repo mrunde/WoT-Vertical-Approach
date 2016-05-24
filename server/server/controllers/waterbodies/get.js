@@ -14,7 +14,7 @@ var Waterbody = require('../../data/waterbody');
  * @apiParam {String} waterbodyId 	Waterbody's unique ID.
  *
  * @apiSuccess {String} name		Name of the Waterbody.
- * @apiSuccess {Polygon} loc		Location of the Waterbody.
+ * @apiSuccess {LineString} loc		Location of the Waterbody.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -26,7 +26,7 @@ var Waterbody = require('../../data/waterbody');
  *         "coordinates": [
  *           << Array of coordinates >>
  *         ],
- *         "type": "Polygon"
+ *         "type": "LineString"
  *       }
  *     }
  *

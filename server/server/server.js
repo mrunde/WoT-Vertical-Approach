@@ -12,6 +12,7 @@ var express    = require('express');
 var mongoose   = require('mongoose');
 var morgan     = require('morgan');
 var path       = require('path');
+var favicon    = require('serve-favicon');
 var socketio   = require('socket.io');
 
 // Required routes
@@ -20,6 +21,7 @@ var things       = require('./routes/things');
 var sensors      = require('./routes/sensors');
 var measurements = require('./routes/measurements');
 var users        = require('./routes/users');
+var waterbodies	 = require('./routes/waterbodies');
 
 // --------------------------------------------------
 // Start Message
@@ -69,6 +71,7 @@ var client = require('./mqtt/client');
 // Set up the express web server
 var app = express();
 app.use(express.static(path.join(__dirname, '../app')));
+app.use(favicon(path.join(__dirname, '../app/img/favicon.ico')));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
@@ -78,6 +81,7 @@ app.use('/api', things);
 app.use('/api', sensors);
 app.use('/api', measurements);
 app.use('/api', users);
+app.use('/api', waterbodies);
 
 // Start the web server
 var server = app.listen(config.express_port, function() {
