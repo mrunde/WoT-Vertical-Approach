@@ -3,7 +3,6 @@
 /**
  * Helper class to create and manage the chart.
  * Chart is created with Chart.js
- * @Constructor
  * @param {String} container - The id of the DOM element to render the chart to.
  */
 function ChartHandler(container){

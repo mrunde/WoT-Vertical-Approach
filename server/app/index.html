@@ -10,6 +10,7 @@
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1F4BFF">
 
 	<link rel="icon" type="image/ico" href="favicon.ico">
 
@@ -39,6 +40,7 @@
 					<li class="active"><a href="#"><i class="fa fa-home"></i> Map</a></li>
 					<li><a href="/docs" target="_blank"><i class="fa fa-cogs" aria-hidden="true"></i> API</a></li>
 					<li><a href="https://github.com/mrunde/WoT-Vertical-Approach" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Source</a></li>
+					<li><a href="licences.html">Licenses</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a></li>
@@ -53,7 +55,9 @@
 		<div id="info" class="col-md-4">
 			<h3 id="thingname">Details</h3>
 			<div id="thingdetails">
-				Click on a marker to display further details...
+				<div class="well">
+					Click on a marker to display further details...
+				</div>
 			</div>
 			<div id="chart">
 				<canvas id="waterLevelChart" width="400" height="100"></canvas>
@@ -85,7 +89,6 @@
 
 	<!-- Load AngularJS as last library to reduce conflict potential with the config functions -->
 	<script src="lib/angular/angular.min.js"</script>
-	<script src="lib/angular-route/angular-route.min.js"</script>
 
 </body>
 
