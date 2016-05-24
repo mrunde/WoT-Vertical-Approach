@@ -10,7 +10,7 @@ var Measurement = require('../../data/measurement');
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} measurements	Array of Measurement information.
+ * @apiSuccess {Measurement[]} measurements	Array of Measurement information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

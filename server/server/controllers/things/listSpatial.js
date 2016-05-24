@@ -12,7 +12,7 @@ var Thing = require('../../data/thing');
  *
  * @apiParam {String} bbox 		Bounding box information.
  *
- * @apiSuccess {Array} things	Array of Thing information.
+ * @apiSuccess {Thing[]} things	Array of Thing information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

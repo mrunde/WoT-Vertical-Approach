@@ -10,7 +10,7 @@ var Feature = require('../../data/feature');
  * @apiGroup Feature
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} features	Array of Feature information.
+ * @apiSuccess {Feature[]} features	Array of Feature information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

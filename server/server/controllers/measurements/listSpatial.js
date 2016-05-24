@@ -12,9 +12,9 @@ var Thing       = require('../../data/thing');
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
- * @apiParam {String} bbox 		Bounding box information.
+ * @apiParam {String} bbox 					Bounding box information.
  *
- * @apiSuccess {Array} things	Array of Measurement information.
+ * @apiSuccess {Measurement[]} measurements	Array of Measurement information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

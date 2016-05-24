@@ -11,10 +11,10 @@ var Measurement = require('../../data/measurement');
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
- * @apiParam {Date} dateFrom		Date from which the time frame begins.
- * @apiParam {Date} dateTo			Date at which the time frame ends.
+ * @apiParam {Date} dateFrom				Date from which the time frame begins.
+ * @apiParam {Date} dateTo					Date at which the time frame ends.
  *
- * @apiSuccess {Array} measurements	Array of Measurement information.
+ * @apiSuccess {Measurement[]} measurements	Array of Measurement information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

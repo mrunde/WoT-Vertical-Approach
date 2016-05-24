@@ -16,7 +16,7 @@ var Thing 		= require('../../data/thing');
  * @apiParam {Date} dateFrom	Date from which the time frame begins.
  * @apiParam {Date} dateTo		Date at which the time frame ends.
  *
- * @apiSuccess {Array} things	Array of Thing information.
+ * @apiSuccess {Thing[]} things	Array of Thing information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

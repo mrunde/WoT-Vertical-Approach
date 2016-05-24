@@ -5,10 +5,12 @@ var mongoose = require('mongoose');
 var Thing = require('../../data/thing');
 
 /**
- * @api {get} /things GET - Request all Thing information
- * @apiName ListThing
- * @apiGroup Thing
+ * @api {get} /users/:userId/things GET - Request all User's Things
+ * @apiName ListUserThings
+ * @apiGroup User
  * @apiVersion 1.0.0
+ *
+ * @apiParam {String} userId	User's unique ID.
  *
  * @apiSuccess {Thing[]} things	Array of Thing information.
  *
@@ -43,10 +45,13 @@ var Thing = require('../../data/thing');
  *       }
  *     ]
  *
+ * @apiUse UserNotFoundError
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	Thing.find(function(err, things) {
+	var id = req.params.userId;
+
+	Thing.find({ userId: id }, function(err, things) {
 		if (err) {
 			res.send(err);
 		} else {
