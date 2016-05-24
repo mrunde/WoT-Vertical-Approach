@@ -40,7 +40,7 @@ exports.request = function(req, res) {
 	var id = req.params.thingId;
 
 	Thing.findOne({ _id: id }, function(err, thing) {
-		if (err) {
+		if (err || thing == null) {
 			res.send(Errors.ThingNotFoundError);
 		} else {
 			res.json(thing);

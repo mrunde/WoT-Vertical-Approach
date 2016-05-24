@@ -29,7 +29,7 @@ exports.request = function(req, res) {
 	var id = req.params.userId;
 
 	User.findOne({ _id: id }, function(err, user) {
-		if (err) {
+		if (err || user == null) {
 			res.send(err);
 		} else {
 			res.json(user);

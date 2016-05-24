@@ -33,7 +33,7 @@ exports.request = function(req, res) {
 	var id = req.params.measurementId;
 
 	Measurement.findOne({ _id: id }, function(err, measurement) {
-		if (err) {
+		if (err || measurement == null) {
 			res.send(err);
 		} else {
 			res.json(measurement);

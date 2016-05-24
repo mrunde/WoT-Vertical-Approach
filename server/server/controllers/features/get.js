@@ -31,7 +31,7 @@ exports.request = function(req, res) {
 	var id = req.params.featureId;
 	
 	Feature.findOne({ _id: id }, function(err, feature) {
-		if (err) {
+		if (err || feature == null) {
 			res.send(err);
 		} else {
 			res.json(feature);
