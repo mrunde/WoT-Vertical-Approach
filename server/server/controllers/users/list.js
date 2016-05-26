@@ -10,7 +10,7 @@ var User = require('../../data/user');
  * @apiGroup User
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} users	Array of User information.
+ * @apiSuccess {User[]} users	Array of User information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

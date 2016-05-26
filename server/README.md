@@ -25,7 +25,7 @@ Status | URL | Method | Description
 :white_check_mark: | `api/things/:thingId/nearest` | GET | nearest other thing
 :white_check_mark: | `api/things/temporal/:dateFrom/:dateTo` | GET | all things within one time frame
 :white_check_mark: | `api/things/spatial/bbox/:bbox` | GET | all things within one bounding box
-:white_large_square: | `api/things/spatial/rivers/:riverId` | GET | all things next to one river polygon
+:white_large_square: | `api/things/spatial/waterbodies/:waterbodyId` | GET | all things next to one waterbody
 :white_large_square: | `api/things/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all things within one time frame and one bounding box
 
 ### Sensors
@@ -55,6 +55,7 @@ Status | URL | Method | Description
 -------|-----|--------|------------
 :white_check_mark: | `api/users` | GET, POST | all users
 :white_check_mark: | `api/users/:userId` | DELETE, GET | one user
+:white_check_mark: | `api/users/:userId/things` | GET | all things of one user
 
 ### Features
 

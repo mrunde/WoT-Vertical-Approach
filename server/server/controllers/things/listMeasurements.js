@@ -12,9 +12,9 @@ var Sensor      = require('../../data/sensor');
  * @apiGroup Thing
  * @apiVersion 1.0.0
  *
- * @apiParam {String} thingId		Thing's unique ID.
+ * @apiParam {String} thingId				Thing's unique ID.
  *
- * @apiSuccess {Array} Measurements	Array of Measurements.
+ * @apiSuccess {Measurement[]} measurements	Array of Measurements.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

@@ -10,7 +10,7 @@ var Sensor = require('../../data/sensor');
  * @apiGroup Sensor
  * @apiVersion 1.0.0
  *
- * @apiSuccess {Array} sensors		Array of Sensor information.
+ * @apiSuccess {Sensor[]} sensors		Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -18,6 +18,10 @@ var Sensor = require('../../data/sensor');
  *       {
  *         "_id": "<< generated MongoDB ID >>",
  *         "name": "water gauge",
+ *         "intervall": 30000,
+ *         "refLevel": 3,
+ *         "warnLevel": 8,
+ *         "riskLevel": 10,
  *         "thingId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "__v": 0
@@ -25,6 +29,10 @@ var Sensor = require('../../data/sensor');
  *       {
  *         "_id": "<< generated MongoDB ID >>",
  *         "name": "water gauge",
+ *         "intervall": 5000,
+ *         "refLevel": 1,
+ *         "warnLevel": 12,
+ *         "riskLevel": 17,
  *         "thingId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "__v": 0

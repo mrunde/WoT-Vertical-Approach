@@ -15,13 +15,17 @@ var Measurement = require('../../data/measurement');
  * @apiParam {Date} dateFrom	Date from which the time frame begins.
  * @apiParam {Date} dateTo		Date at which the time frame ends.
  *
- * @apiSuccess {Array} sensors	Array of Sensor information.
+ * @apiSuccess {Sensor[]} sensors	Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     [
  *       {
  *         "name": "water gauge",
+ *         "intervall": 30000,
+ *         "refLevel": 3,
+ *         "warnLevel": 8,
+ *         "riskLevel": 10,
  *         "thingId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
@@ -29,6 +33,10 @@ var Measurement = require('../../data/measurement');
  *       },
  *       {
  *         "name": "water gauge",
+ *         "intervall": 5000,
+ *         "refLevel": 1,
+ *         "warnLevel": 12,
+ *         "riskLevel": 17,
  *         "thingId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
