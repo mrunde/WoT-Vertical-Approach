@@ -13,7 +13,7 @@ const markerOptions = {
 
 // Request the data from the REST API
 function requestThings() {
-	$.ajax({
+	return $.ajax({
 		url: getURL() + '/api/things',
 		global: false,
 		type: 'GET',
@@ -180,8 +180,6 @@ function drawMarkers(things) {
 		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';
 		$('#forecast_embed').attr('src', forecastUrl);
 	});
-
-	updateMap();
 };
 
 // Add a new marker to the map
@@ -211,16 +209,6 @@ function addMarker(thing) {
 	geojson.push(newFeature);
 
 	markers.setGeoJSON(geojson);
-
-	updateMap();
-}
-
-function updateMap() {
-	// Pan the map so that all markers are visible
-	if (geojson.length > 0 && mapInitialization) {
-		map.fitBounds(markers.getBounds());
-		mapInitialization = false;
-	}
 }
 
 // Handle filter events
@@ -314,5 +302,10 @@ $(document).ready(function() {
 	thingName    = document.getElementById('thingname');
 	thingDetails = document.getElementById('thingdetails');
 
-	requestThings();
+	$.when(requestThings()).done(function() {
+		if (geojson.length > 0) {
+			// Pan the map so that all markers are visible
+			map.fitBounds(markers.getBounds());
+		}
+	});
 });
