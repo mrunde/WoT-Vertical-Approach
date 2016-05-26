@@ -2,6 +2,7 @@
 
 let map, markers, thingName, thingDetails, riverTiles;
 let geojson = [];
+let mapInitialization = true;
 
 const markerOptions = {
 	radius: 3,
@@ -22,6 +23,42 @@ function requestThings() {
 		}
 	});
 };
+
+// Request the last 24h from the REST API
+function requestLast24h() {
+	
+	let dateFrom = new Date();
+	let dateTo = new Date();
+	dateFrom.setHours(dateTo.getHours() - 24);
+
+	$.ajax({
+		url: getURL() + '/api/things/temporal/' + dateFrom.toISOString()  + '/'  + dateTo.toISOString(),
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(things) {
+			drawMarkers(things);
+		}
+	});
+}
+
+// Request the last 7d from the REST API
+function requestLast7d() {
+	
+	let dateFrom = new Date();
+	let dateTo = new Date();
+	dateFrom.setHours(dateTo.getHours() - 7 * 24);
+
+	$.ajax({
+		url: getURL() + '/api/things/temporal/' + dateFrom.toISOString()  + '/'  + dateTo.toISOString(),
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(things) {
+			drawMarkers(things);
+		}
+	});
+}
 
 // Request a river by its name (temporary)
 function requestRiver(name) {
@@ -59,7 +96,7 @@ function addRiver(river) {
 	var riverLayer = map.featureLayer.setGeoJSON(riverJSON);
 }
 
-
+// Request the latest Measurements of the selected Thing
 function requestMeasurementsLatest(id) {
 	$.ajax({
 		url: getURL() + '/api/things/' + id + '/measurements/latest',
@@ -89,6 +126,12 @@ function requestMeasurementsLatest(id) {
 
 // Draw the markers on the map
 function drawMarkers(things) {
+	// Remove any existing markers from the map before drawing new ones
+	if (markers) {
+		map.removeLayer(markers);
+	}
+
+	geojson = [];
 	things.forEach(function(thing, key) {
 		geojson.push({
 			type: 'Feature',
@@ -141,6 +184,7 @@ function drawMarkers(things) {
 	updateMap();
 };
 
+// Add a new marker to the map
 function addMarker(thing) {
 	let newFeature = {
 		type: 'Feature',
@@ -173,128 +217,58 @@ function addMarker(thing) {
 
 function updateMap() {
 	// Pan the map so that all markers are visible
-	map.fitBounds(markers.getBounds());
-
-	// Zoom out of the map to center the outer markers a bit
-	setTimeout(function(){
-		map.zoomOut();
-	}, 400);
+	if (geojson.length > 0 && mapInitialization) {
+		map.fitBounds(markers.getBounds());
+		mapInitialization = false;
+	}
 }
 
-//_________________________________________________________________________________________________
+// Handle filter events
 
+$('#filter_all').on('click', function() {
+	$('#filter_all').removeClass('btn-default').addClass('btn-primary');
+	$('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_custom').removeClass('btn-primary').addClass('btn-default');
+	requestThings();
+});
 
-function allActive() {
-	// Remove all (old) displayed markers
-	map.removeLayer(markers);
+$('#filter_last_24h').on('click', function() {
+	$('#filter_all').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_24h').removeClass('btn-default').addClass('btn-primary');
+	$('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_custom').removeClass('btn-primary').addClass('btn-default');
+	requestLast24h();
+});
 
-	// Creating new Object which stores actual time
-	var dateToTemp = new Date();
-	var dateTo = dateToTemp.toISOString();
+$('#filter_last_7d').on('click', function() {
+	$('#filter_all').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_7d').removeClass('btn-default').addClass('btn-primary');
+	$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_custom').removeClass('btn-primary').addClass('btn-default');
+	requestLast7d();
+});
 
-	// Creating new Object which stores "actual time - 24 hours"
-	var dateFromTemp1 = new Date();
-	dateFromTemp1.setHours(dateFromTemp1.getHours()-24);
-	var dateFrom = dateFromTemp1.toISOString();
+$('#filter_my_things').on('click', function() {
+	$('#filter_all').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_my_things').removeClass('btn-default').addClass('btn-primary');
+	$('#filter_custom').removeClass('btn-primary').addClass('btn-default');
+	// TODO requestMyThings();
+});
 
-	console.log("Starting");
-	$.ajax({
-		url: getURL() + '/' + 'api/things/temporal/' + dateFrom  + '/'  + dateTo,
-		global: false,
-		type: 'GET',
-		async: false,
-		success: function(things) {
-
-			console.log("All active Things");
-			console.log(things);
-			drawMarkers(things);
-		}
-	});
-}
-
-function allInactive() {
-	// Remove all (old) displayed markers
-	markers.clearLayers();
-
-	// Creating new Object which stores "actual time - 24 hours" 
-	var dateToTemp = new Date();
-	dateToTemp.setHours(dateToTemp.getHours()-24);
-	var dateTo = dateToTemp.toISOString();
-
-	// Creating new Object which stores the zero time
-	var dateFromTemp = new Date(0);
-	var dateFrom = dateFromTemp.toISOString();
-
-	$.ajax({
-		url: getURL() + '/' + 'api/things/temporal/' + dateFrom  + '/'  + dateTo,
-		global: false,
-		type: 'GET',
-		async: false,
-		success: function(things) {
-
-			console.log("All inactive Things");
-;			console.log(things);
-			drawMarkers(things);
-		}
-	});
-}
-
-
-function showNothing() {
-	// Remove all (old) displayed markers and show Nothing
-	console.log("Show no Markers");
-	markers.clearLayers();
-}
-
-
-// Filter-Menue-Buttons
-
-    $('#filter_all').on('click', function() {
-        $('#filter_all').removeClass('btn-default').addClass('btn-primary');
-		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
-        allActive();
-    });
-	
-    $('#filter_nothing').on('click', function() {
-        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_nothing').removeClass('btn-default').addClass('btn-primary');
-        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
-        showNothing();
-    });	
-
-    $('#filter_last_24h').on('click', function() {
-        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_24h').removeClass('btn-default').addClass('btn-primary');
-        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
-        showNothing();
-    });
-
-    $('#filter_last_7d').on('click', function() {
-        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_7d').removeClass('btn-default').addClass('btn-primary');
-		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
-       showNothing();
-    });
-
-    $('#filter_my_things').on('click', function() {
-        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
-        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
-		$('#filter_my_things').removeClass('btn-default').addClass('btn-primary');
-       showNothing();
-    });
-
-//_________________________________________________________________________________________________
+$('#filter_custom').on('click', function() {
+	$('#filter_all').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+	$('#filter_custom').removeClass('btn-default').addClass('btn-primary');
+	// TODO requestCustom();
+});
 
 // Initialize the map
 $(document).ready(function() {
@@ -311,15 +285,15 @@ $(document).ready(function() {
 	}).addTo(map);
 
 	riverTiles = new L.TileLayer.MVTSource({
-	  	// osm river data
-	  	//url: "https://a.tiles.mapbox.com/v4/avi92.1hej6w31/{z}/{x}/{y}.vector.pbf?access_token=" + getMapboxAccessToken(),
-	  	// mapbox water and waterway data
-	  	url: "https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token=" + getMapboxAccessToken(),
-  		debug: false,
-  		visibleLayers: ['water', 'waterway'],
-	  	clickableLayers: ['water', 'waterway'],
-	  	getIDForLayerFeature: function(feature) {
-	    	return feature.id;
+		// osm river data
+		//url: "https://a.tiles.mapbox.com/v4/avi92.1hej6w31/{z}/{x}/{y}.vector.pbf?access_token=" + getMapboxAccessToken(),
+		// mapbox water and waterway data
+		url: "https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token=" + getMapboxAccessToken(),
+		debug: false,
+		visibleLayers: ['water', 'waterway'],
+		clickableLayers: ['water', 'waterway'],
+		getIDForLayerFeature: function(feature) {
+			return feature.id;
 		},
 
 		style: function(feature) {
