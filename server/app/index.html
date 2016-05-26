@@ -68,13 +68,25 @@
 		</div>
 
 		<div id="map" class="col-md-8">
-			<nav class='menu-ui'>
-				<a href='#' class='active'>Show all Things</a>
-			 	<a href='#' id="allActive" onclick="allActive()"   >Show all active</a>
-				<a href='#' id="allInactive" onclick="allInactive()" >Show all inactive</a>
-				<a href='#' id="showNothing" onclick="showNothing()" >Show nothing</a>
-			</nav>
+			<div class="btn-group" id="filter" role="group" aria-label="filter">
+                    <button class="btn special">
+                        <b>Filters:</b>
+                    </button>
+                    <button id="filter_all" type="button" class="btn btn-primary">
+                        <i class="fa fa-circle"></i>&nbsp;&nbsp;All</button>
+                    <button id="filter_nothing" type="button" class="btn btn-default">
+                        <i class="fa fa-circle-o"></i>&nbsp;&nbsp;Nothing</button>
+                    <button id="filter_last_24h" type="button" class="btn btn-default">
+                        <i class="fa fa-clock-o"></i>&nbsp;&nbsp;Last 24h</button>
+                    <button id="filter_last_7d" type="button" class="btn btn-default">
+                        <i class="fa fa-clock-o"></i>&nbsp;&nbsp;Last Week</button>
+					<button id="filter_my_things" type="button" class="btn btn-default">
+                        <i class="fa fa-user"></i>&nbsp;&nbsp;My Things</button>
+                </div>
+
+            
 			<div id="livemap"></div>
+		  </div>
 		</div>
 	</div>
 	

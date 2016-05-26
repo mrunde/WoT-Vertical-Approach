@@ -154,6 +154,7 @@ function addMarker(thing) {
 		properties: {
 			title: thing.name,
 			id: thing._id,
+			userId: thing.userId,
 			icon: {
 				iconUrl: '../img/marker.png',
 				iconSize: [32, 32],
@@ -244,6 +245,54 @@ function showNothing() {
 	console.log("Show no Markers");
 	markers.clearLayers();
 }
+
+
+// Filter-Menue-Buttons
+
+    $('#filter_all').on('click', function() {
+        $('#filter_all').removeClass('btn-default').addClass('btn-primary');
+		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+        allActive();
+    });
+	
+    $('#filter_nothing').on('click', function() {
+        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_nothing').removeClass('btn-default').addClass('btn-primary');
+        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+        showNothing();
+    });	
+
+    $('#filter_last_24h').on('click', function() {
+        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_24h').removeClass('btn-default').addClass('btn-primary');
+        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+        showNothing();
+    });
+
+    $('#filter_last_7d').on('click', function() {
+        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_7d').removeClass('btn-default').addClass('btn-primary');
+		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
+       showNothing();
+    });
+
+    $('#filter_my_things').on('click', function() {
+        $('#filter_all').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_nothing').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_24h').removeClass('btn-primary').addClass('btn-default');
+        $('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
+		$('#filter_my_things').removeClass('btn-default').addClass('btn-primary');
+       showNothing();
+    });
 
 //_________________________________________________________________________________________________
 
