@@ -37,7 +37,7 @@ Status | URL | Method | Description
 :white_check_mark: | `api/sensors/:sensorId/measurements` | GET | all measurements of one sensor
 :white_check_mark: | `api/sensors/temporal/:dateFrom/:dateTo` | GET | all sensors within one time frame
 :white_check_mark: | `api/sensors/spatial/:bbox` | GET | all sensors within one bounding box
-:white_large_square: | `api/sensors/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all sensors within one time frame and one bounding box
+:white_check_mark: | `api/sensors/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all sensors within one time frame and one bounding box
 
 ### Measurements
 
@@ -47,7 +47,7 @@ Status | URL | Method | Description
 :white_check_mark: | `api/measurements/:measurementId` | DELETE, GET | one measurement
 :white_check_mark: | `api/measurements/temporal/:dateFrom/:dateTo` | GET | all measurements within one time frame
 :white_check_mark: | `api/measurements/spatial/:bbox` | GET | all measurements within one bounding box
-:white_large_square: | `api/measurements/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all measurements within one time frame and one bounding box
+:white_check_mark: | `api/measurements/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all measurements within one time frame and one bounding box
 
 ### Users
 

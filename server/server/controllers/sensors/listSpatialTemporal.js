@@ -4,45 +4,37 @@ var request 	= require('request');
 var async		= require('async');
 
 /**
- * @api {get} /things/spatial/:bbox GET - Request all Thing information within a time frame and one bounding box
- * @apiName ListSpatialTemporalThing
- * @apiGroup Thing
+ * @api {get} /sensors GET - Request all Sensor information within a time frame and a bounding box
+ * @apiName ListSpatialTemporalSensor
+ * @apiGroup Sensor
  * @apiVersion 1.0.0
  *
- * @apiParam {Date} dateFrom	Date from which the time frame begins.
- * @apiParam {Date} dateTo		Date at which the time frame ends.
- * @apiParam {String} bbox 		Bounding box information.
- *
- * @apiSuccess {Thing[]} things	Array of Thing information.
+ * @apiSuccess {Sensor[]} sensors		Array of Sensor information.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     [
  *       {
- *         "name": "ifgi",
- *         "userId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             51.969114,
- *             7.595794
- *           ],
- *           "type": "Point"
- *         }
+ *         "name": "water gauge",
+ *         "intervall": 30000,
+ *         "refLevel": 3,
+ *         "warnLevel": 8,
+ *         "riskLevel": 10,
+ *         "thingId": "<< generated MongoDB ID >>",
+ *         "featureId": "<< generated MongoDB ID >>",
+ *         "__v": 0
  *       },
  *       {
- *         "name": "Wersehaus",
- *         "userId": "<< generated MongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             51.97338,
- *             7.700234
- *           ],
- *           "type": "Point"
- *         }
+ *         "name": "water gauge",
+ *         "intervall": 5000,
+ *         "refLevel": 1,
+ *         "warnLevel": 12,
+ *         "riskLevel": 17,
+ *         "thingId": "<< generated MongoDB ID >>",
+ *         "featureId": "<< generated MongoDB ID >>",
+ *         "__v": 0
  *       }
  *     ]
  *
@@ -60,7 +52,7 @@ exports.request = function(req, res) {
 
 	async.waterfall([
 		function(next) {
-			request.get('http://' + req.headers.host + '/api/things/temporal/' + dateFrom + '/' + dateTo, next);
+			request.get('http://' + req.headers.host + '/api/sensors/temporal/' + dateFrom + '/' + dateTo, next);
 		},
 
 		function(response, body, next) {
@@ -68,7 +60,7 @@ exports.request = function(req, res) {
 			if(resultTemporal.error) {
 				resultTemporal = [];
 			}
-			request.get('http://' + req.headers.host + '/api/things/spatial/bbox/' + coordinates, next);	
+			request.get('http://' + req.headers.host + '/api/sensors/spatial/' + coordinates, next);	
 		},
 
 		function(response, body, next) {			
@@ -83,6 +75,8 @@ exports.request = function(req, res) {
 			res.send(err);
 		} else {
 			var result = [];
+			console.log(resultTemporal);
+			console.log(resultSpatial);
 			for(var i = 0; i < resultTemporal.length; i++) {
 				for(var x = 0; x < resultSpatial.length; x++) {
 					if(resultTemporal[i]._id == resultSpatial[x]._id) {
@@ -95,4 +89,3 @@ exports.request = function(req, res) {
 		}
 	});
 }
-
