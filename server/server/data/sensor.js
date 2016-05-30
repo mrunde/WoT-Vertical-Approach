@@ -32,4 +32,10 @@ var SensorSchema = mongoose.Schema({
 	}
 });
 
+SensorSchema.statics = {
+	load: function(id, cb) {
+		this.findOne({_id: id}, cb);
+	}
+};
+
 module.exports = mongoose.model('Sensor', SensorSchema);

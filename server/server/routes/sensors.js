@@ -10,6 +10,7 @@ var listSpatial      	= require('../controllers/sensors/listSpatial');
 var listTemporal     	= require('../controllers/sensors/listTemporal');
 var listSpatialTemporal = require('../controllers/sensors/listSpatialTemporal');
 var post             	= require('../controllers/sensors/post');
+var put					= require('../controllers/sensors/put');
 
 // Set up the express router
 var router = express.Router();
@@ -40,5 +41,10 @@ router.get('/sensors/temporal/:dateFrom/:dateTo/spatial/:bbox', listSpatialTempo
 // POST
 // --------------------------------------------------
 router.post('/sensors', post.request);
+
+// --------------------------------------------------
+// PUT
+// --------------------------------------------------
+router.put('/sensors/:sensorId', put.request);
 
 module.exports = router;

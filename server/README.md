@@ -33,7 +33,7 @@ Status | URL | Method | Description
 Status | URL | Method | Description
 -------|-----|--------|------------
 :white_check_mark: | `api/sensors` | GET, POST | all sensors
-:white_check_mark: | `api/sensors/:sensorId` | DELETE, GET | one sensor
+:white_check_mark: | `api/sensors/:sensorId` | DELETE, GET, PUT | one sensor
 :white_check_mark: | `api/sensors/:sensorId/measurements` | GET | all measurements of one sensor
 :white_check_mark: | `api/sensors/temporal/:dateFrom/:dateTo` | GET | all sensors within one time frame
 :white_check_mark: | `api/sensors/spatial/:bbox` | GET | all sensors within one bounding box
