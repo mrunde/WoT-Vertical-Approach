@@ -20,13 +20,13 @@ Status | URL | Method | Description
 :white_check_mark: | `api/things/:thingId` | DELETE, GET | one thing
 :white_check_mark: | `api/things/:thingId/sensors` | GET | all sensors of one thing
 :white_check_mark: | `api/things/:thingId/measurements` | GET | all measurements of one thing
-:white_large_square: | `api/things/measurements/latest` | GET | latest measurements of all things
+:white_check_mark: | `api/things/measurements/latest` | GET | latest measurements of all things
 :white_check_mark: | `api/things/:thingId/measurements/latest` | GET | latest measurements of one thing
 :white_check_mark: | `api/things/:thingId/nearest` | GET | nearest other thing
 :white_check_mark: | `api/things/temporal/:dateFrom/:dateTo` | GET | all things within one time frame
 :white_check_mark: | `api/things/spatial/bbox/:bbox` | GET | all things within one bounding box
-:white_large_square: | `api/things/spatial/waterbodies/:waterbodyId` | GET | all things next to one waterbody
-:white_large_square: | `api/things/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all things within one time frame and one bounding box
+:white_check_mark: | `api/things/spatial/waterbodies/:waterbodyId` | GET | all things next to one waterbody
+:white_check_mark: | `api/things/temporal/:dateFrom/:dateTo/spatial/:bbox` | GET | all things within one time frame and one bounding box
 
 ### Sensors
 
