@@ -4,7 +4,7 @@ var request 	= require('request');
 var async		= require('async');
 
 /**
- * @api {get} /sensors GET - Request all Sensor information within a time frame and a bounding box
+ * @api {get} /sensors/temporal/:dateFrom/:dateTo/spatial/:bbox GET - Request all Sensor information within a time frame and a bounding box
  * @apiName ListSpatialTemporalSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0

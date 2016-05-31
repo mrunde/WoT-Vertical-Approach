@@ -4,7 +4,7 @@ var request  = require('request');
 var async	 = require('async');
 
 /**
- * @api {get} /measurements GET - Request all Measurements within one time frame and one bounding box
+ * @api {get} /measurements/temporal/:dateFrom/:dateTo/spatial/:bbox GET - Request all Measurements within one time frame and one bounding box
  * @apiName ListSpatialTemporalMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
