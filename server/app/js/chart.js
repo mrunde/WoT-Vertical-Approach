@@ -91,9 +91,7 @@ function ChartHandler(container){
 	 * @param {Measurement[]} measurements - The measurements to display in the chart.
 	 */
 	ChartHandler.prototype.setData = function(measurements) {
-		console.log(measurements);
 		measurements.sort(this.compareMeasurements);
-		console.log(measurements);
 
 		let labels = [];
 		let values = [];
