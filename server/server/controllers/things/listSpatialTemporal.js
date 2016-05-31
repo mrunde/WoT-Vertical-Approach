@@ -4,7 +4,7 @@ var request 	= require('request');
 var async		= require('async');
 
 /**
- * @api {get} /things/spatial/:bbox GET - Request all Thing information within a time frame and one bounding box
+ * @api {get} /things/temporal/:dateFrom/:dateTo/spatial/:bbox GET - Request all Thing information within a time frame and one bounding box
  * @apiName ListSpatialTemporalThing
  * @apiGroup Thing
  * @apiVersion 1.0.0
