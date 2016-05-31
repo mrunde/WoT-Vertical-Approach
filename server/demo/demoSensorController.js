@@ -39,7 +39,7 @@ async.waterfall([
 	function(thingId, callback) {
 		console.log('Creating a new Sensor...');
 
-		const sensorJson = { name: 'water gauge', thingId: thingId, featureId: '571f3db18727620c03fe94e1' };
+		const sensorJson = { name: 'water gauge', thingId: thingId, intervall: 5000, featureId: '571f3db18727620c03fe94e1' };
 
 		// Post the new Sensor
 		request.post({
