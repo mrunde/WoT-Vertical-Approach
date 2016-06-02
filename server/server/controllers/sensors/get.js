@@ -13,7 +13,7 @@ var Sensor = require('../../data/sensor');
  * @apiParam {String} sensorId 		Sensor's unique ID.
  *
  * @apiSuccess {String} name		Name of the Sensor.
- * @apiSuccess {Number} intervall	Intervall of Sensor's Measurements in milliseconds.
+ * @apiSuccess {Number} interval	Interval of Sensor's Measurements in milliseconds.
  * @apiSuccess {Number} refLevel	Reference level of the Sensor.
  * @apiSuccess {Number} warnLevel	Warning level of the Sensor.
  * @apiSuccess {Number} riskLevel	Risk level of the Sensor.
@@ -25,7 +25,7 @@ var Sensor = require('../../data/sensor');
  *     {
  *       "_id": "<< generated MongoDB ID >>",
  *       "name": "Water Gauge",
- *       "intervall": 30000,
+ *       "interval": 30000,
  *       "refLevel": 3,
  *       "warnLevel": 8,
  *       "riskLevel": 10,

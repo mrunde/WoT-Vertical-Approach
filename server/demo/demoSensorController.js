@@ -21,7 +21,13 @@ async.waterfall([
 	function(callback) {
 		console.log('Creating a new Thing...');
 		
-		const thingJson = { name: thingName, loc: { coordinates: [ thingLocLat, thingLocLng ] }, userId: '572b5f591d02fae81d017729' };
+		const thingJson = {
+			name: thingName,
+			loc: {
+				coordinates: [ thingLocLat, thingLocLng ]
+			},
+			userId: '572b5f591d02fae81d017729'
+		};
 		
 		// Post the new Thing
 		request.post({
@@ -39,7 +45,12 @@ async.waterfall([
 	function(thingId, callback) {
 		console.log('Creating a new Sensor...');
 
-		const sensorJson = { name: 'water gauge', thingId: thingId, intervall: 5000, featureId: '571f3db18727620c03fe94e1' };
+		const sensorJson = {
+			name: 'water gauge',
+			thingId: thingId,
+			interval: interval,
+			featureId: '571f3db18727620c03fe94e1'
+		};
 
 		// Post the new Sensor
 		request.post({
@@ -61,7 +72,11 @@ async.waterfall([
 			// Calculate the Measurement's value as a random number between 0 and 10
 			let value = Math.random() * 10;
 			
-			let measurementJson = { date: Date.now(), value: value, sensorId: sensorId };
+			let measurementJson = {
+				date: Date.now(),
+				value: value,
+				sensorId: sensorId
+			};
 			
 			// Post the new Measurement
 			request.post({

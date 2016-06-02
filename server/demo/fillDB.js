@@ -129,7 +129,7 @@ function createData(countThings, thingName, thingLocLat, thingLocLng) {
 		function(thingId, callback) {
 			for (var i = 0; i < countsensors; i++) {
 				console.log('Creating a new Sensor...');
-				const sensorJson = { name: 'water gauge test', thingId: thingId, intervall: 5000, featureId: '571f3db18727620c03fe94e1' };
+				const sensorJson = { name: 'water gauge test', thingId: thingId, interval: 5000, featureId: '571f3db18727620c03fe94e1' };
 
 				// Post the new Sensor
 				request.post({

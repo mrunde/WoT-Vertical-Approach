@@ -18,7 +18,7 @@ var Sensor = require('../../data/sensor');
  *       {
  *         "_id": "<< generated MongoDB ID >>",
  *         "name": "water gauge",
- *         "intervall": 30000,
+ *         "interval": 30000,
  *         "refLevel": 3,
  *         "warnLevel": 8,
  *         "riskLevel": 10,
@@ -29,7 +29,7 @@ var Sensor = require('../../data/sensor');
  *       {
  *         "_id": "<< generated MongoDB ID >>",
  *         "name": "water gauge",
- *         "intervall": 5000,
+ *         "interval": 5000,
  *         "refLevel": 1,
  *         "warnLevel": 12,
  *         "riskLevel": 17,

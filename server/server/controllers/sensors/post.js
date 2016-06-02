@@ -13,7 +13,7 @@ var socket = require('../../server.js');
  * @apiVersion 1.0.0
  *
  * @apiParam {String} name			Name of the Sensor.
- * @apiParam {Number} intervall		Intervall of Sensor's Measurements in milliseconds.
+ * @apiParam {Number} interval		Interval of Sensor's Measurements in milliseconds.
  * @apiParam {Number} refLevel		Reference level of the Sensor.
  * @apiParam {Number} warnLevel		Warning level of the Sensor.
  * @apiParam {Number} riskLevel		Risk level of the Sensor.
@@ -27,7 +27,7 @@ var socket = require('../../server.js');
  *     {
  *       "__v": 0,
  *       "name": "Water Gauge",
- *       "intervall": 30000,
+ *       "interval": 30000,
  *       "refLevel": 3,
  *       "warnLevel": 8,
  *       "riskLevel": 10,
