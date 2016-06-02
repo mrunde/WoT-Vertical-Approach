@@ -1,33 +1,48 @@
 'use strict';
 
- function downloadThingData() {
+
+
+
+$("#btn-download").click( function() {
+	console.log("test");
+
+	console.log("Download starting");
 
  	// Variable for File Content
- 	var contentOfFile;
+ 	var contentOfFile = null;
+ 	var temp = null;
 
- 	// get all sensors of one thing
+ 	// get all information about one thing
  	$.ajax({
+		url: getURL() + '/api/things/' + DownloadThingID,
+		global: false,
+		type: 'GET',
+		async: false,
+		success: function(thing) {
+			console.log("1 ajax call works");
+			contentOfFile = thing;
+			console.log(contentOfFile);
+		} // sucess GET THING
+	});  // END AJAX CALL THING
+
+	$.ajax({
 		url: getURL() + '/api/things/' + DownloadThingID + '/sensors',
 		global: false,
 		type: 'GET',
 		async: false,
 		success: function(sensors) {
+			console.log("2 ajax call works");
+			$.extend(true, contentOfFile, sensors);
+		} // sucess GET SENSORS
+	}); // END AJAX CALL SENSORS
 
-			// über onclick callback function id des things abfragen
-			console.log("sucessfully get sensors");
 
-			var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
-			saveAs(file);
+ 	var content = JSON.stringify(contentOfFile);
+ 	console.log(content);
 
-			// var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
-			var fileToDownload = new File(sensors, DownloadThingID + ".json", {type: "text/plain;charset=utf-8"});
-			console.log("funktioniert");
-			saveAs(fileToDownload);
-		}
-	});
+	var filename = $("#downloadFileName").val();
+	var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+	saveAs(blob, filename + ".json");
+});
 
- 	
 
-	//var fileToDownload = new File(contentOfFile, fileName + ".json", {type: "text/plain;charset=utf-8"});
-	//saveAs(fileToDownload);
-}
