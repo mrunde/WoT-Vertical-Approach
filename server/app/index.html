@@ -16,6 +16,7 @@
 
 	<!-- Import stylesheets -->
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/mapbox.js/mapbox.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -84,11 +85,83 @@
 				<button id="filter_my_things" type="button" class="btn btn-default">
 					<i class="fa fa-user"></i>&nbsp;&nbsp;My Things
 				</button>
-				<button id="filter_custom" class="btn btn-default">
+				<button id="filter_custom" class="btn btn-default" data-toggle="modal" data-target="#customFilterModal" onclick="customFilterFactory.reset()">
 					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;Custom
 				</button>
 				</div>
 			<div id="livemap"></div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div id="customFilterModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Select Filter Method</h4>
+				</div>
+				<div class="modal-body" id="custom-filter-selection">
+					<div class="list-group" id="filter-selection">
+					  	<a href="#" class="list-group-item filter-select" onclick="customFilterFactory.createTemporalFilter()">
+					    	<h4 class="list-group-item-heading">Temporal Query</h4>
+					    	<p class="list-group-item-text">Query sensors based on the latest measurement.</p>
+					  	</a>
+					  	<a href="#" class="list-group-item">
+					    	<h4 class="list-group-item-heading">Spatial Query</h4>
+					    	<p class="list-group-item-text">Query sensors based on their location.</p>
+					  	</a>
+					  	<a href="#" class="list-group-item">
+					    	<h4 class="list-group-item-heading">Spatio-Temporal Query</h4>
+					    	<p class="list-group-item-text">Query sensors based on the latest measurement and their location.</p>
+					  	</a>
+					  	<a href="#" class="list-group-item">
+					    	<h4 class="list-group-item-heading">Select by River</h4>
+					    	<p class="list-group-item-text">Query all sensors located at a certain river.</p>
+					  	</a>
+					</div>
+				</div>
+				<div class="modal-body" id="custom-filter-datetime">
+					<h4>Select a start time</h4>
+					<div class="container">
+					    <div class="row">
+					        <div class='col-sm-6'>
+					            <div class="form-group">
+					                <div class='input-group date' id='datetimepicker-start'>
+					                    <input type='text' class="form-control" />
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					<h4>Select an end time</h4>
+					<div class="container">
+					    <div class="row">
+					        <div class='col-sm-6'>
+					            <div class="form-group">
+					                <div class='input-group date' id='datetimepicker-end'>
+					                    <input type='text' class="form-control" />
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					<button type="button" onclick="customFilterFactory.back()" class="btn btn-warning">Back</button>
+					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
 		</div>
 	</div>
 	
@@ -101,14 +174,17 @@
 	<script src="lib/mapbox.js/mapbox.js"></script>
 	<script src="lib/Leaflet.MapboxVectorTile/dist/Leaflet.MapboxVectorTile.min.js"></script>
 	<script src="lib/moment/min/moment.min.js"></script>
+	<script src="lib/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 	<script src="lib/Chart.js/dist/Chart.min.js"></script>
 	<script src="lib/socket.io-client/socket.io.js"></script>
+	<script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
 	<!-- Script imports -->
 	<script src="js/map.js"></script>
 	<script src="js/resize.js"></script>
 	<script src="js/chart.js"></script>
 	<script src="js/socket.js"></script>
+	<script src="js/customFilter.js"></script>
 
 	<!-- Load AngularJS as last library to reduce conflict potential with the config functions -->
 	<script src="lib/angular/angular.min.js"</script>

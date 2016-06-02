@@ -93,6 +93,10 @@ function ChartHandler(container){
 	ChartHandler.prototype.setData = function(measurements) {
 		measurements.sort(this.compareMeasurements);
 
+		// if array contains too many elements, remove oldest elements
+		if(measurements.length > this.maxElements)
+			measurements.splice(0, (measurements - this.maxElements));
+
 		let labels = [];
 		let values = [];
 
@@ -103,12 +107,6 @@ function ChartHandler(container){
 
 		this.lineChart.data.labels = labels;
 		this.lineChart.data.datasets[0].data = values;
-
-		// if chart contains too many elements, remove oldest element
-		if(this.lineChart.data.labels.length > this.maxElements) {
-			this.lineChart.data.labels.splice(0, (this.lineChart.data.labels.length - this.maxElements));
-			this.lineChart.data.datasets[0].data.splice(0, (this.lineChart.data.datasets[0].data.length - this.maxElements));
-		}
 
 		this.lineChart.update();
 	}

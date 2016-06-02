@@ -22,11 +22,12 @@
     "angular": "^1.5.5",
     "bootstrap": "^3.3.6",
     "Chart.js": "^2.1.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
     "font-awesome": "^4.6.1",
     "jquery": "^2.2.3",
     "Leaflet.MapboxVectorTile": "^0.1.7",
     "mapbox.js": "^2.4.0",
     "moment": "^2.13.0",
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.6"    
   }
 }
