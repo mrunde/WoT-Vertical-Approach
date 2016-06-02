@@ -6,6 +6,7 @@ let customFilterProperties = {};
 function CustomFilterFactory() {
 
 	this.temporalFilter = null;
+	this.SpatialFilter = null;
 
 	CustomFilterFactory.prototype.init = function() {
 		// init datetimepickers
@@ -22,10 +23,12 @@ function CustomFilterFactory() {
 
 	    // hide other modal windows
 	    $('#custom-filter-datetime').hide();
+	    $('#custom-filter-spatial').hide();
 	}
 
 	CustomFilterFactory.prototype.reset = function() {
 		$('#custom-filter-datetime').hide();
+		$('#custom-filter-spatial').hide();
 		customFilterProperties = {};
 		$('#custom-filter-selection').show();
 	}
@@ -36,10 +39,19 @@ function CustomFilterFactory() {
 		this.temporalFilter.init();
 	}
 
+	CustomFilterFactory.prototype.createSpatialFilter = function() {
+		customFilterProperties.filter = 'spatial';
+		this.spatialFilter = new SpatialFilter();
+		this.spatialFilter.init();
+	}
+
 	CustomFilterFactory.prototype.next = function() {
 		switch(customFilterProperties.filter) {
 			case 'temporal':
 				this.temporalFilter.next();
+				break;
+			case 'spatial':
+				this.spatialFilter.next();
 				break;
 		}
 	}
@@ -48,6 +60,9 @@ function CustomFilterFactory() {
 		switch(customFilterProperties.filter) {
 			case 'temporal':
 				this.temporalFilter.back();
+				break;
+			case 'spatial':
+				this.spatialFilter.back();
 				break;
 		}
 	}
@@ -78,6 +93,8 @@ function TemporalFilter() {
 		if(this.steps[this.currentStep] == 'timeSelection') {
 			customFilterFactory.reset();
 		}
+
+		this.currentStep--;
 	}
 
 	TemporalFilter.prototype.applyFilter = function() {
@@ -91,6 +108,68 @@ function TemporalFilter() {
 			}
 		});
 		$('#customFilterModal').modal('hide');
+	}
+}
+
+function SpatialFilter() {
+	this.steps = ['spatialSelectionInfo', 'spatialSelection', 'applyFilter'];
+	this.currentStep = null;
+
+	SpatialFilter.prototype.init = function() {
+		$('#custom-filter-selection').hide();
+		$('#custom-filter-spatial').show(200);
+		this.currentStep = 0;
+	}
+
+	SpatialFilter.prototype.next = function() {
+		this.currentStep++;
+
+		if(this.steps[this.currentStep] == 'spatialSelection') {
+			$('#customFilterModal').modal('hide');
+			this.enterDrawingMode();	
+		}
+		else if(this.steps[this.currentStep] == 'applyFilter') {
+			this.applyFilter();
+		}
+	}
+
+	SpatialFilter.prototype.back = function() {
+		if(this.steps[this.currentStep] == 'spatialSelectionInfo') {
+			customFilterFactory.reset();
+		}
+
+		this.currentStep--;
+	}
+
+	SpatialFilter.prototype.applyFilter = function() {
+		$.ajax({
+			url: getURL() + '/api/things/spatial/bbox/' + customFilterProperties.bounds,
+			global: false,
+			type: 'GET',
+			async: false,
+			success: function(things) {
+				drawMarkers(things);
+			}
+		});
+	}
+
+	SpatialFilter.prototype.enterDrawingMode = function() {
+		let mapCenter = map.getCenter();
+		let bounds = map.getBounds();
+
+		let distance = Math.sqrt(Math.pow((mapCenter.lat - bounds._northEast.lat), 2) + Math.pow((mapCenter.lng - bounds._northEast.lng), 2));
+
+		let rectangle = L.rectangle([[mapCenter.lat - distance / 8, mapCenter.lng - distance / 4], [mapCenter.lat + distance / 8, mapCenter.lng + distance / 4]]);
+		rectangle.editing.enable();
+
+		rectangle.on('dblclick', function() {
+			let res = rectangle.getBounds();
+			customFilterProperties.bounds = res._southWest.lat + ',' + res._southWest.lng + ',' + res._northEast.lat + ',' + res._northEast.lng;
+			map.removeLayer(rectangle);
+			customFilterFactory.next();
+		});
+
+		map.addLayer(rectangle);
 	}
 }
 

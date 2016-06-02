@@ -19,6 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/mapbox.js/mapbox.css">
+	<link rel="stylesheet" type="text/css" href="lib/leaflet-draw/dist/leaflet.draw.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
@@ -101,7 +102,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Select Filter Method</h4>
+					<h4 class="modal-title">Custom Filter</h4>
 				</div>
 				<div class="modal-body" id="custom-filter-selection">
 					<div class="list-group" id="filter-selection">
@@ -109,7 +110,7 @@
 					    	<h4 class="list-group-item-heading">Temporal Query</h4>
 					    	<p class="list-group-item-text">Query sensors based on the latest measurement.</p>
 					  	</a>
-					  	<a href="#" class="list-group-item">
+					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createSpatialFilter()">
 					    	<h4 class="list-group-item-heading">Spatial Query</h4>
 					    	<p class="list-group-item-text">Query sensors based on their location.</p>
 					  	</a>
@@ -157,6 +158,15 @@
 					<button type="button" onclick="customFilterFactory.back()" class="btn btn-warning">Back</button>
 					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
 				</div>
+				<div class="modal-body" id="custom-filter-spatial">
+					<h4>Spatial Selection</h4>
+					<div class="jumbotron">
+						<p>Click 'Next' to enter drawing mode. Use the Bounding Box to select the filter area. You can resize and move the Bounding Box to adjust it to your needs. When you are done, double click the bounding box to apply the filter.</p>
+					</div>
+					
+					<button type="button" onclick="customFilterFactory.back()" class="btn btn-warning">Back</button>
+					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -173,6 +183,7 @@
 	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="lib/mapbox.js/mapbox.js"></script>
 	<script src="lib/Leaflet.MapboxVectorTile/dist/Leaflet.MapboxVectorTile.min.js"></script>
+	<script src="lib/leaflet-draw/dist/leaflet.draw.js"></script>
 	<script src="lib/moment/min/moment.min.js"></script>
 	<script src="lib/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 	<script src="lib/Chart.js/dist/Chart.min.js"></script>
