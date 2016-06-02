@@ -11,6 +11,10 @@ const markerOptions = {
 	fillOpacity: 0.8
 };
 
+// Saves a ThingID + Name for Download 
+var DownloadThingID;
+var DownloadThingName;
+
 // Request the data from the REST API
 function requestThings() {
 	return $.ajax({
@@ -168,14 +172,22 @@ function drawMarkers(things) {
 		let coords = e.layer.feature.geometry.coordinates;
 		let props  = e.layer.feature.properties;
 
-		// Set the name in the details section
-		thingName.innerHTML = 'Details - ' + props.title;
+		// Set the name in the details section + create Download-Button
+		thingName.innerHTML = 'Details - ' + props.title + '<button id="thingDownload" class="btn btn-default pull-right" data-toggle="modal" data-target="#DownloadModal"> Download Data</button>;';
+
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
 
 		// Clear the chart
 		chartHandler.setData([]);
 
+		// Save Thing ID + Name for Download
+		DownloadThingID = props.id;
+		DownloadThingName = props.title;
+
+		document.getElementById('DownloadOptions').innerHTML = "Download-Options for Thing: " + DownloadThingName;
+		document.getElementById('downloadFileName').value = DownloadThingName;
+		
 		// Update the weather forecast
 		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';
 		$('#forecast_embed').attr('src', forecastUrl);

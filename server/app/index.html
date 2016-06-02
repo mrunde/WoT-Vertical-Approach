@@ -54,7 +54,11 @@
 	<!-- Content -->
 	<div id="content" class="row">
 		<div id="info" class="col-md-4">
-			<h3 id="thingname">Details</h3>
+			<h3 id="thingname">Details 
+				<button id="thingDownload" class="btn btn-default pull-right disabled" data-toggle="modal" data-target="#DownloadModal"> Download Data
+				</button>
+			</h3>	
+
 			<div id="thingdetails">
 				<div class="well">
 					Click on a marker to display further details...
@@ -93,7 +97,37 @@
 		</div>
 	</div>
 
-	<!-- Modal -->
+	<!-- Modal Download-->
+	<div id="DownloadModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 id="DownloadOptions" class="modal-title" value="Download-Options"></h4>
+				</div>
+
+				<div class="modal-body" id="modal-set-download-body">
+					<div class="form-group">
+						<label for="downloadFileNameLabel">Enter Filename</label>
+						<input id="downloadFileName" type="text" class="form-control"	>
+						<br>
+						<p><b> File will be downloaded in JSON Format</b></p>
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="downloadThingData()">Download Data</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+
+			</div> <!-- END Modal content -->
+		</div>
+	</div> <!-- Modal Download--> 
+
+	<!-- Modal Filter-->
 	<div id="customFilterModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			
@@ -163,7 +197,7 @@
 			</div>
 
 		</div>
-	</div>
+	</div> <!-- Modal Filter-->
 	
 	<!-- Config import -->
 	<script src="js/config.js"></script>
@@ -178,13 +212,15 @@
 	<script src="lib/Chart.js/dist/Chart.min.js"></script>
 	<script src="lib/socket.io-client/socket.io.js"></script>
 	<script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<script scr="lib/file-saver/FileSaver.min.js"></script>	
 
 	<!-- Script imports -->
-	<script src="js/map.js"></script>
+	<script src="js/map.js"></script>	
 	<script src="js/resize.js"></script>
 	<script src="js/chart.js"></script>
 	<script src="js/socket.js"></script>
 	<script src="js/customFilter.js"></script>
+	<script src="js/download.js"></script>
 
 	<!-- Load AngularJS as last library to reduce conflict potential with the config functions -->
 	<script src="lib/angular/angular.min.js"</script>
