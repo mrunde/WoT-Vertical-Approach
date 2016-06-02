@@ -22,7 +22,7 @@ var Measurement = require('../../data/measurement');
  *     [
  *       {
  *         "name": "water gauge",
- *         "intervall": 30000,
+ *         "interval": 30000,
  *         "refLevel": 3,
  *         "warnLevel": 8,
  *         "riskLevel": 10,
@@ -33,7 +33,7 @@ var Measurement = require('../../data/measurement');
  *       },
  *       {
  *         "name": "water gauge",
- *         "intervall": 5000,
+ *         "interval": 5000,
  *         "refLevel": 1,
  *         "warnLevel": 12,
  *         "riskLevel": 17,

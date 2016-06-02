@@ -6,7 +6,7 @@ var SensorSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	intervall: {
+	interval: {
 		type: Number,
 		required: true
 	},
