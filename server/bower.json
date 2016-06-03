@@ -3,7 +3,10 @@
   "description": "Vertical Approach of the Geospatial Web of Things for Mobile Water Gauges",
   "main": "./server/server.js",
   "authors": [
-    "Moritz Migge, Marius Runde, Daniel Ummelmann & Axel Virnich"
+    "Moritz Migge",
+    "Marius Runde",
+    "Daniel Ummelmann",
+    "Axel Virnich"
   ],
   "license": "MIT",
   "keywords": [
