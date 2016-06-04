@@ -45,7 +45,7 @@ router.get('/things/:thingId/nearest', getNearest.request);
 // Get all things within one bounding box
 router.get('/things/spatial/bbox/:bbox', listSpatial.request);
 // Get all things close to a waterbody
-router.get('/things/spatial/waterbodies/:waterbodyId', listSpatialWaterbody.request);
+router.get('/things/spatial/waterbodies/:name', listSpatialWaterbody.request);
 // Get all all things within one time frame
 router.get('/things/temporal/:dateFrom/:dateTo', listTemporal.request);
 // Get all things within one time frame and one bounding box

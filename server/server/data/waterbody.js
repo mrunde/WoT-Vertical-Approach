@@ -2,22 +2,29 @@
 var mongoose = require('mongoose');
 
 var WaterbodySchema = mongoose.Schema({
-	name: {
+	type: {
 		type: String,
 		required: true
 	},
-	loc: {
-		'type': {
+	geometry: {
+		type: {
 			type: String,
-			default: 'LineString'
+			default: 'MultiLineString',
+			required: true
 		},
 		coordinates: {
 			type: [],
 			required: true
 		}
+	},
+	properties: {
+		name: {
+			type: String,
+			required: true
+		}
 	}
 });
 
-WaterbodySchema.index({ loc : '2dsphere' });
+WaterbodySchema.index({ coordinates : '2dsphere' });
 
 module.exports = mongoose.model('Waterbody', WaterbodySchema);

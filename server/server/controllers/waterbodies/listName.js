@@ -12,33 +12,26 @@ var Waterbody = require('../../data/waterbody');
  * @apiVersion 1.0.0
  *
  * @apiParam {String} name 	Waterbody's name.
+ *	
+ * @apiSuccess {String} name			Name of the Waterbody.
+ * @apiSuccess {Geometry} gemoetry		Type and location of the waterbody.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "name": "Werse",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             << Array of coordinates >>
- *           ],
- *           "type": "LineString"
- *         }
- *       },
- *       {
- *         "name": "Werse",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             << Array of coordinates >>
- *           ],
- *           "type": "LineString"
- *         }
- *       }
- *     ]
+ *     {
+ *       "type": "Feature",
+ *       "_id": "<< generated MongoDB ID >>",
+ *       "__v": 0,
+ *		 "geometry": {
+ *		 	"type": "MultiLineString",
+ *			"coordinates": [
+ *				<< Array of LineStrings >>
+ *			]
+ *		 },
+ *		 "properties": {
+ *			 "name": "Werse" 
+ *		 }   
+ *     }
  *
  * @apiUse WaterbodyNotFoundError
  * @apiUse ServerError
@@ -46,7 +39,7 @@ var Waterbody = require('../../data/waterbody');
 exports.request = function(req, res) {
 	var name = req.params.name;
 
-	Waterbody.find({ name: name }, function(err, waterbody) {
+	Waterbody.findOne({ "properties.name": name }, function(err, waterbody) {
 		if (err) {
 			res.send(Errors.WaterbodyNotFoundError);
 		} else {

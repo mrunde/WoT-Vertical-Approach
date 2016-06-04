@@ -80,24 +80,10 @@ function requestRiver(name) {
 
 // Add a river to the map, remove others (temporary)
 function addRiver(river) {
-	var coordinates = [];
-	for(var i = 0; i < river.length; i++) {
-		coordinates.push(river[i].loc.coordinates);
-	}
-	river[0].loc.coordinates = coordinates;
-	river[0].loc.type = "MultiLineString";
+	river.properties.stroke = "#0066ff";
+	river.properties["stroke-width"] = 3;
 
-	var riverJSON = {
-		"type": "Feature",
-		"geometry": river[0].loc,
-		"properties": {
-			"title": river[0].name,
-			"stroke": "#0066ff",
-			"stroke-width": 3	
-		}
-	}
-
-	var riverLayer = map.featureLayer.setGeoJSON(riverJSON);
+	var riverLayer = map.featureLayer.setGeoJSON(river);
 }
 
 // Request the latest Measurements of the selected Thing

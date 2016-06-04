@@ -161,19 +161,19 @@
 				</div>
 				<div class="modal-body" id="custom-filter-selection">
 					<div class="list-group" id="filter-selection">
-					  	<a href="#" class="list-group-item filter-select" onclick="customFilterFactory.createTemporalFilter()">
+					  	<a href="#" class="list-group-item filter-select" onclick="customFilterFactory.createCustomFilter('temporal')">
 					    	<h4 class="list-group-item-heading">Temporal Query</h4>
 					    	<p class="list-group-item-text">Query sensors based on the latest measurement.</p>
 					  	</a>
-					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createSpatialFilter()">
+					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('spatial')">
 					    	<h4 class="list-group-item-heading">Spatial Query</h4>
 					    	<p class="list-group-item-text">Query sensors based on their location.</p>
 					  	</a>
-					  	<a href="#" class="list-group-item">
+					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('spatiotemporal')">
 					    	<h4 class="list-group-item-heading">Spatio-Temporal Query</h4>
 					    	<p class="list-group-item-text">Query sensors based on the latest measurement and their location.</p>
 					  	</a>
-					  	<a href="#" class="list-group-item">
+					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('river')">
 					    	<h4 class="list-group-item-heading">Select by River</h4>
 					    	<p class="list-group-item-text">Query all sensors located at a certain river.</p>
 					  	</a>
@@ -210,16 +210,31 @@
 					        </div>
 					    </div>
 					</div>
-					<button type="button" onclick="customFilterFactory.back()" class="btn btn-warning">Back</button>
+					<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
 					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
 				</div>
 				<div class="modal-body" id="custom-filter-spatial">
 					<h4>Spatial Selection</h4>
-					<div class="jumbotron">
-						<p>Click 'Next' to enter drawing mode. Use the Bounding Box to select the filter area. You can resize and move the Bounding Box to adjust it to your needs. When you are done, double click the bounding box to apply the filter.</p>
-					</div>
+
+					<p>Click 'Next' to enter drawing mode. Use the Bounding Box to select the filter area. You can resize and move the Bounding Box to adjust it to your needs. When you are done, double click the bounding box to apply the filter.</p>
 					
-					<button type="button" onclick="customFilterFactory.back()" class="btn btn-warning">Back</button>
+					<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
+					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
+				</div>
+				<div class="modal-body" id="custom-filter-river">
+					<h4>Select by River</h4>
+
+					<p>Select a river to display all sensors that are located at or close to that river.</p>
+
+					<p>
+						<label for="custom-filter-river-input">Enter River Name</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon">River Name:</span>
+							<input type="text" data-provide="typeahead" id="custom-filter-river-input" class="form-control" placeholder="Werse" aria-describedby="basic-addon">
+						</div>
+					</p>
+					
+					<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
 					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
 				</div>
 				<div class="modal-footer">
@@ -236,9 +251,11 @@
 	<!-- Library imports -->
 	<script src="lib/jquery/dist/jquery.min.js"></script>
 	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="lib/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
 	<script src="lib/mapbox.js/mapbox.js"></script>
 	<script src="lib/Leaflet.MapboxVectorTile/dist/Leaflet.MapboxVectorTile.min.js"></script>
 	<script src="lib/leaflet-draw/dist/leaflet.draw.js"></script>
+	<script src="lib/leaflet.draw.drag/dist/Leaflet.draw.drag-src.js"></script>
 	<script src="lib/moment/min/moment.min.js"></script>
 	<script src="lib/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 	<script src="lib/Chart.js/dist/Chart.min.js"></script>

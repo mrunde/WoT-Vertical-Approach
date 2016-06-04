@@ -12,7 +12,7 @@ var Waterbody 	= require('../../data/waterbody');
  * @apiGroup Thing
  * @apiVersion 1.0.0
  *
- * @apiParam {String} waterbodyId 		Waterbody's id.
+ * @apiParam {String} name 		Waterbody's name.
  *
  * @apiSuccess {Thing[]} things	Array of Thing information.
  *
@@ -51,13 +51,17 @@ var Waterbody 	= require('../../data/waterbody');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.waterbodyId;
+	var name = req.params.name;
 
-	Waterbody.findOne({_id: id}, function(err, waterbody) {
+	Waterbody.findOne({"properties.name": name}, function(err, waterbody) {
 		if(err || waterbody == null) {
 			res.send(Errors.WaterbodyNotFoundError);
 		} else {
-			aggregateThings(waterbody.loc.coordinates, 0, [], res);
+			var coordinates = [];
+			for(var i = 0; i < waterbody.geometry.coordinates.length; i++) {
+				coordinates = coordinates.concat(waterbody.geometry.coordinates[i]);
+			}
+			aggregateThings(coordinates, 0, [], res);
 		}
 	});
 }

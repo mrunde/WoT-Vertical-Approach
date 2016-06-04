@@ -12,23 +12,27 @@ var Waterbody	= require('../../data/waterbody');
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
- * @apiParam {String} 		name 		Waterbody's name.
- * @apiParam {LineString} 	loc			Waterbody's location.
+ * @apiParam {String} 		type 		Waterbody's feature type
+ * @apiParam {Geometry}		geometry    Waterbody's geometry type and coordinates.
+ * @apiParam {Property} 	properties	Waterbody's name.
  *
  * @apiSuccess {Number} waterbodyId		Waterbody's unique ID.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
- *      {
- *       "name": "Werse",
- *       "_id": "<< generated MongoDB ID >>",
- *       "__v": 0,
- *       "loc": {
- *         "coordinates": [
- *           << Array of coordinates >>
- *         ],
- *         "type": "LineString"
- *       }
+ *     {
+ *       	"type": "Feature",
+ *       	"_id": "<< generated MongoDB ID >>",
+ *       	"__v": 0,
+ *		 	"geometry": {
+ *		 		"type": "MultiLineString",
+ *				"coordinates": [
+ *					<< Array of LineStrings >>
+ *				]
+ *		 	},
+ *		 	"properties": {
+ *				"name": "Werse" 
+ *		 	}   
  *     }
  *
  * @apiUse SensorNotFoundError

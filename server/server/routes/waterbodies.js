@@ -5,6 +5,7 @@ var express = require('express');
 var get 		= require('../controllers/waterbodies/get');
 var list 		= require('../controllers/waterbodies/list');
 var listName	= require('../controllers/waterbodies/listName');
+var listNames	= require('../controllers/waterbodies/listNames');
 var post 		= require('../controllers/waterbodies/post');
 
 // Set up the express router
@@ -20,6 +21,8 @@ router.get('/waterbodies/:waterbodyId', get.request);
 router.get('/waterbodies', list.request);
 // GET all waterbodies with the given name
 router.get('/waterbodies/name/:name', listName.request);
+// GET all waterbody names
+router.get('/waterbodies/names/names', listNames.request);
 
 // --------------------------------------------------
 // POST

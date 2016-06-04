@@ -13,21 +13,24 @@ var Waterbody = require('../../data/waterbody');
  *
  * @apiParam {String} waterbodyId 	Waterbody's unique ID.
  *
- * @apiSuccess {String} name		Name of the Waterbody.
- * @apiSuccess {LineString} loc		Location of the Waterbody.
+ * @apiSuccess {String} name			Name of the Waterbody.
+ * @apiSuccess {Geometry} gemoetry		Type and location of the waterbody.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "name": "Werse",
+ *       "type": "Feature",
  *       "_id": "<< generated MongoDB ID >>",
  *       "__v": 0,
- *       "loc": {
- *         "coordinates": [
- *           << Array of coordinates >>
- *         ],
- *         "type": "LineString"
- *       }
+ *		 "geometry": {
+ *		 	"type": "MultiLineString",
+ *			"coordinates": [
+ *				<< Array of LineStrings >>
+ *			]
+ *		 },
+ *		 "properties": {
+ *			 "name": "Werse" 
+ *		 }   
  *     }
  *
  * @apiUse WaterbodyNotFoundError

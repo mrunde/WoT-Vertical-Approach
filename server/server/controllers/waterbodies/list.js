@@ -16,27 +16,33 @@ var Waterbody = require('../../data/waterbody');
  *     HTTP/1.1 200 OK
  *     [
  *       {
- *         "name": "Werse",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             << Array of coordinates >>
- *           ],
- *           "type": "LineString"
- *         }
- *       },
- *       {
- *         "name": "Aa",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             << Array of coordinates >>
- *           ],
- *           "type": "LineString"
- *         }
- *       }
+ *       	"type": "Feature",
+ *       	"_id": "<< generated MongoDB ID >>",
+ *       	"__v": 0,
+ *		 	"geometry": {
+ *		 		"type": "MultiLineString",
+ *				"coordinates": [
+ *					<< Array of LineStrings >>
+ *				]
+ *		 	},
+ *		 	"properties": {
+ *				"name": "Werse" 
+ *		 	}   
+ *     	},
+ *      {
+ *      	"type": "Feature",
+ *       	"_id": "<< generated MongoDB ID >>",
+ *       	"__v": 0,
+ *		 	"geometry": {
+ *		 		"type": "MultiLineString",
+ *				"coordinates": [
+ *					<< Array of LineStrings >>
+ *				]
+ *		 	},
+ *		 	"properties": {
+ *				"name": "Rhein" 
+ *		 	}   
+ *     	},
  *     ]
  *
  * @apiUse ServerError
