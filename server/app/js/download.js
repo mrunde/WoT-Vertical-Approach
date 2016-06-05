@@ -67,7 +67,7 @@ function queryMeasurementsOfEachSensor(pos, sensors) {
 
 function saveToFile() {
 	var filename = $("#downloadFileName").val();
-	var blob = new Blob([JSON.stringify(contentOfFile)], {type: "text/plain;charset=utf-8"});
+	var blob = new Blob([JSON.stringify(contentOfFile, null,3)], {type: "text/plain;charset=utf-8"});
 	saveAs(blob, filename + ".json");
 }
 
