@@ -1,17 +1,9 @@
 'use strict';
 
 
-
+var contentOfFile = null;
 
 $("#btn-download").click( function() {
-	console.log("test");
-
-	console.log("Download starting");
-
- 	// Variable for File Content
- 	var contentOfFile = null;
- 	var temp = null;
-
  	// get all information about one thing
  	$.ajax({
 		url: getURL() + '/api/things/' + DownloadThingID,
@@ -19,30 +11,64 @@ $("#btn-download").click( function() {
 		type: 'GET',
 		async: false,
 		success: function(thing) {
-			console.log("1 ajax call works");
 			contentOfFile = thing;
-			console.log(contentOfFile);
-		} // sucess GET THING
-	});  // END AJAX CALL THING
+			querySensors();
+		} 
+	});  
+});
 
+function querySensors() {
 	$.ajax({
 		url: getURL() + '/api/things/' + DownloadThingID + '/sensors',
 		global: false,
 		type: 'GET',
 		async: false,
 		success: function(sensors) {
-			console.log("2 ajax call works");
-			$.extend(true, contentOfFile, sensors);
-		} // sucess GET SENSORS
-	}); // END AJAX CALL SENSORS
+			queryFeatureOfEachSensor(0, sensors);
+		} 
+	}); 
+}
 
+function queryFeatureOfEachSensor(pos, sensors) {
+	if(pos == sensors.length) {
+		queryMeasurementsOfEachSensor(0, sensors);
+	} else {
+		$.ajax({
+			url: getURL() + '/api/features/' + sensors[pos].featureId,
+			global: false,
+			type: 'GET',
+			async: false,
+			success: function(feature) {
+				sensors[pos].feature = feature;
+				delete sensors[pos].featureId;
+				queryFeatureOfEachSensor(pos + 1, sensors);
+			} 
+		}); 
+	}
+}
 
- 	var content = JSON.stringify(contentOfFile);
- 	console.log(content);
+function queryMeasurementsOfEachSensor(pos, sensors) {
+	if(pos == sensors.length) {
+		contentOfFile.sensors = sensors;
+		saveToFile();
+	} else {
+		$.ajax({
+			url: getURL() + '/api/sensors/' + sensors[pos]._id + '/measurements',
+			global: false,
+			type: 'GET',
+			async: false,
+			success: function(measurements) {
+				sensors[pos].measurements = measurements;
+				queryMeasurementsOfEachSensor(pos + 1, sensors);
+			}
+		});
+	}
+}
 
+function saveToFile() {
 	var filename = $("#downloadFileName").val();
-	var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+	var blob = new Blob([JSON.stringify(contentOfFile)], {type: "text/plain;charset=utf-8"});
 	saveAs(blob, filename + ".json");
-});
+}
 
 
