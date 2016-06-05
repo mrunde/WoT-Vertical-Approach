@@ -4,7 +4,6 @@
 var contentOfFile = null;
 
 $("#btn-download").click( function() {
- 	// get all information about one thing
  	$.ajax({
 		url: getURL() + '/api/things/' + DownloadThingID,
 		global: false,
@@ -13,7 +12,10 @@ $("#btn-download").click( function() {
 		success: function(thing) {
 			contentOfFile = thing;
 			querySensors();
-		} 
+		},
+		error: function(jqXHR, exception) {
+				console.log(jqXHR);
+		}
 	});  
 });
 
@@ -25,7 +27,10 @@ function querySensors() {
 		async: false,
 		success: function(sensors) {
 			queryFeatureOfEachSensor(0, sensors);
-		} 
+		},
+		error: function(jqXHR, exception) {
+				console.log(jqXHR);
+		}
 	}); 
 }
 
@@ -42,7 +47,10 @@ function queryFeatureOfEachSensor(pos, sensors) {
 				sensors[pos].feature = feature;
 				delete sensors[pos].featureId;
 				queryFeatureOfEachSensor(pos + 1, sensors);
-			} 
+			},
+			error: function(jqXHR, exception) {
+				console.log(jqXHR);
+			}
 		}); 
 	}
 }
@@ -60,6 +68,9 @@ function queryMeasurementsOfEachSensor(pos, sensors) {
 			success: function(measurements) {
 				sensors[pos].measurements = measurements;
 				queryMeasurementsOfEachSensor(pos + 1, sensors);
+			},
+			error: function(jqXHR, exception) {
+				console.log(jqXHR);
 			}
 		});
 	}
@@ -67,7 +78,7 @@ function queryMeasurementsOfEachSensor(pos, sensors) {
 
 function saveToFile() {
 	var filename = $("#downloadFileName").val();
-	var blob = new Blob([JSON.stringify(contentOfFile, null,3)], {type: "text/plain;charset=utf-8"});
+	var blob = new Blob([JSON.stringify(contentOfFile, null, 3)], {type: "text/plain;charset=utf-8"});
 	saveAs(blob, filename + ".json");
 }
 
