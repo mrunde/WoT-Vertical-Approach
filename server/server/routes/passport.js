@@ -32,9 +32,11 @@ app.get('/login', function(req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage') });
 });
 
-app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
-});
+app.post('/login', passport.authenticate('local-login', {
+    successRedirect : '/profile', // redirect to the secure profile section
+    failureRedirect : '/login', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+}));
 
 // =====================================
 // PROFILE SECTION
