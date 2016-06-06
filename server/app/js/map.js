@@ -159,7 +159,7 @@ function drawMarkers(things) {
 		let props  = e.layer.feature.properties;
 
 		// Set the name in the details section + create Download-Button
-		thingName.innerHTML = 'Details - ' + props.title + '<button id="thingDownload" class="btn btn-default pull-right" data-toggle="modal" data-target="#DownloadModal"> Download Data</button>;';
+		thingName.innerHTML = 'Details - ' + props.title + '<button id="thingDownload" class="btn btn-default pull-right" data-toggle="modal" data-target="#DownloadModal">Download Data</button>';
 
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
