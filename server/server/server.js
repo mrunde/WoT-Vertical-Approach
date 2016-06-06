@@ -8,11 +8,16 @@ var config = require('./config');
 // Required modules
 var bodyParser = require('body-parser');
 var colors     = require('colors');
+var cookieParser = require('cookie-parser');
 var express    = require('express');
+var favicon    = require('serve-favicon');
+var flash      = require('connect-flash');
 var mongoose   = require('mongoose');
 var morgan     = require('morgan');
+var passport   = require('passport');
+var session    = require('express-session');
+var LocalStrategy = require('passport-local').Strategy
 var path       = require('path');
-var favicon    = require('serve-favicon');
 var socketio   = require('socket.io');
 
 // Required routes
@@ -73,7 +78,28 @@ var app = express();
 app.use(express.static(path.join(__dirname, '../app')));
 app.use(favicon(path.join(__dirname, '../app/img/favicon.ico')));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+
+// --------------------------------------------------
+// Passport Config
+// --------------------------------------------------
+require('./config/passport')(passport); // pass passport for configuration
+
+// required for passport
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+require('./routes/passport.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up the REST API
 app.use('/api', features);
@@ -82,6 +108,8 @@ app.use('/api', sensors);
 app.use('/api', measurements);
 app.use('/api', users);
 app.use('/api', waterbodies);
+
+app.set('view engine', 'ejs'); // set up ejs for templating
 
 // Start the web server
 var server = app.listen(config.express_port, function() {
@@ -95,6 +123,8 @@ var io = socketio(server);
 exports.notify = function(topic, message) {
 	io.emit(topic, message);
 };
+
+
 
 
 // --------------------------------------------------
