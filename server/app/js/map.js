@@ -2,7 +2,7 @@
 
 let map, markers, thingName, thingDetails, riverTiles;
 let geojson = [];
-let mapInitialization = true;
+let mapInitialization = true, hideDownloadButton = true;
 
 const markerOptions = {
 	radius: 3,
@@ -97,6 +97,7 @@ function requestMeasurementsLatest(id) {
 			let content = '';
 			if (measurements.length == 0) {
 				content = '<div class="well">No measurements available</div>';
+				hideDownloadButton = true;
 			} else {
 				content = '<table class="table table-hover table-condensed table-responsive"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
 				measurements.forEach(function(measurement, key) {
@@ -108,6 +109,7 @@ function requestMeasurementsLatest(id) {
 					'</tr>';
 				});
 				content +=  '</table>';
+				hideDownloadButton = false;
 			}
 			thingDetails.innerHTML = content;
 		}
@@ -159,7 +161,7 @@ function drawMarkers(things) {
 		let props  = e.layer.feature.properties;
 
 		// Set the name in the details section + create Download-Button
-		thingName.innerHTML = 'Details - ' + props.title + '<button id="thingDownload" class="btn btn-default pull-right" data-toggle="modal" data-target="#DownloadModal">Download Data</button>';
+		thingName.innerHTML = 'Details - ' + props.title;
 
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
@@ -171,6 +173,11 @@ function drawMarkers(things) {
 		DownloadThingID = props.id;
 		DownloadThingName = props.title;
 
+		if (hideDownloadButton && !$('#thingDownload').hasClass('hidden')) {
+			$('#thingDownload').addClass('hidden');
+		} else {
+			$('#thingDownload').removeClass('hidden');
+		}
 		document.getElementById('DownloadOptions').innerHTML = "Download-Options for Thing: " + DownloadThingName;
 		document.getElementById('downloadFileName').value = DownloadThingName;
 		
@@ -297,8 +304,8 @@ $(document).ready(function() {
 		riverTiles.setZIndex(5);
 	});
 	
-	thingName    = document.getElementById('thingname');
-	thingDetails = document.getElementById('thingdetails');
+	thingName    = document.getElementById('thingName');
+	thingDetails = document.getElementById('thingDetails');
 
 	$.when(requestThings()).done(function() {
 		if (geojson.length > 0) {
