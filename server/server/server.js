@@ -6,19 +6,19 @@
 var config = require('./config');
 
 // Required modules
-var bodyParser = require('body-parser');
-var colors     = require('colors');
-var cookieParser = require('cookie-parser');
-var express    = require('express');
-var favicon    = require('serve-favicon');
-var flash      = require('connect-flash');
-var mongoose   = require('mongoose');
-var morgan     = require('morgan');
-var passport   = require('passport');
-var session    = require('express-session');
+var bodyParser    = require('body-parser');
+var colors        = require('colors');
+var cookieParser  = require('cookie-parser');
+var express       = require('express');
+var favicon       = require('serve-favicon');
+var flash         = require('connect-flash');
 var LocalStrategy = require('passport-local').Strategy
-var path       = require('path');
-var socketio   = require('socket.io');
+var mongoose      = require('mongoose');
+var morgan        = require('morgan');
+var passport      = require('passport');
+var path          = require('path');
+var session       = require('express-session');
+var socketio      = require('socket.io');
 
 // Required routes
 var features     = require('./routes/features');
@@ -82,9 +82,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false
 }));
 
 // --------------------------------------------------
@@ -124,9 +124,6 @@ var io = socketio(server);
 exports.notify = function(topic, message) {
 	io.emit(topic, message);
 };
-
-
-
 
 // --------------------------------------------------
 // MongoDB Connection
