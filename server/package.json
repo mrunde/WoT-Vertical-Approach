@@ -2,7 +2,7 @@
   "name": "wot-vertical-approach",
   "version": "1.0.0",
   "description": "Vertical Approach of the Geospatial Web of Things for Mobile Water Gauges",
-  "main": "server.js",
+  "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/server.js"
@@ -12,9 +12,17 @@
     "url": "git+https://github.com/mrunde/WoT-Vertical-Approach.git"
   },
   "keywords": [
-    "wot"
+    "wot",
+    "iot",
+    "Web of Things",
+    "Internet of Things"
   ],
-  "author": "Marius Runde",
+  "author": [
+    "Moritz Migge",
+    "Marius Runde <marius.runde@uni-muenster.de> (http://mariusrunde.de)",
+    "Daniel Ummelmann",
+    "Axel Virnich"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mrunde/WoT-Vertical-Approach/issues"
@@ -26,12 +34,12 @@
     "body-parser": "^1.15.0",
     "bower": "^1.7.9",
     "colors": "^1.1.2",
-	"connect-flash" : "~0.1.1", 
-	"cookie-parser": "^1.4.3",
+    "connect-flash" : "~0.1.1",
+    "cookie-parser": "^1.4.3",
     "del": "^2.2.0",
-	"ejs": "^2.4.2",
+    "ejs": "^2.4.2",
     "express": "^4.13.4",
-	"express-session": "^1.13.0",
+    "express-session": "^1.13.0",
     "file-saver": "^1.3.0",
     "gulp": "^3.9.1",
     "gulp-apidoc": "^0.2.3",
@@ -39,9 +47,9 @@
     "mongoose": "^4.4.13",
     "morgan": "^1.7.0",
     "mqtt": "^1.8.0",
-	"passport": "^0.3.2",
-	"passport-local": "^1.0.0",
-	"passport-local-mongoose": "^4.0.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "pm2": "^1.1.1",
     "request": "^2.72.0",
     "serve-favicon": "^2.3.0",
