@@ -39,8 +39,9 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, name, password, done) {
-
+    function(req, name, password, email, done) {
+        console.log('register user:');
+		console.log(name);
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
@@ -59,18 +60,16 @@ module.exports = function(passport) {
 
                 // if there is no user with that name
                 // create the user
-                var newUser            = new User();
+				User.register(new User({username: name, name: name}), password, email, function(err) {
 
-                // set the user's local credentials
-                newUser.name    = name;
-                newUser.password = newUser.generateHash(password);
-
-                // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
+                    if (err) {
+                        return done(null, eq.flash('signupMessage', 'Error while creating user.'));
+                    }
+				
+                    console.log('user registered!');
+			
+                    res.redirect('/');
+				});
             }
 
         });    
@@ -103,10 +102,6 @@ module.exports = function(passport) {
             // if no user is found, return the message
             if (!user)
                 return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-
-            // if the user is found but the password is wrong
-            if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
             // all is well, return successful user
             return done(null, user);
