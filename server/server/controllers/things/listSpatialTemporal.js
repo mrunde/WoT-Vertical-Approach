@@ -21,6 +21,7 @@ var async		= require('async');
  *       {
  *         "name": "ifgi",
  *         "userId": "<< generated MongoDB ID >>",
+ *		   "waterbodyId": "<< generatedMongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {
@@ -34,6 +35,7 @@ var async		= require('async');
  *       {
  *         "name": "Wersehaus",
  *         "userId": "<< generated MongoDB ID >>",
+ *		   "waterbodyId": "<< generatedMongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {

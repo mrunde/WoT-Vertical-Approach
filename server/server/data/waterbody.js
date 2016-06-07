@@ -25,6 +25,6 @@ var WaterbodySchema = mongoose.Schema({
 	}
 });
 
-WaterbodySchema.index({ coordinates : '2dsphere' });
+WaterbodySchema.index({ geometry : '2dsphere' });
 
 module.exports = mongoose.model('Waterbody', WaterbodySchema);
