@@ -109,6 +109,7 @@ app.use('/api', measurements);
 app.use('/api', users);
 app.use('/api', waterbodies);
 
+app.set("views", __dirname + "/views");
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // Start the web server
