@@ -3,8 +3,9 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
-var Thing 	= require('../../data/thing');
-var socket	= require('../../server.js');
+var Thing 		= require('../../data/thing');
+var Waterbody	= require('../../data/waterbody.js');
+var socket		= require('../../server.js');
 
 /**
  * @api {post} /things POST - Create a Thing
@@ -23,6 +24,7 @@ var socket	= require('../../server.js');
  *     {
  *       "name": "ifgi",
  *       "userId": "<< generated MongoDB ID >>",
+ *		 "waterbodyId": "<< generatedMongoDB ID >>",
  *       "_id": "<< generated MongoDB ID >>",
  *       "__v": 0,
  *       "loc": {
@@ -39,12 +41,34 @@ var socket	= require('../../server.js');
 exports.request = function(req, res) {
 	var thing = new Thing(_.extend({}, req.body));
 
-	thing.save(function(err) {
-		if (err) {
+	var coordinates = [thing.loc.coordinates[1], thing.loc.coordinates[0]];
+
+	Waterbody.find({
+		"geometry": {
+			$near: {
+				$geometry: {
+					type: "Point",
+					coordinates: coordinates
+				},
+				$maxDistance: 800,
+				$minDistance: 0
+			}
+		}
+	}, function(err, waterbody) {
+		if(err) {
 			res.send(err);
 		} else {
-			res.json(thing);
-			socket.notify("things", thing);
+			if(waterbody.length > 0) {
+				thing.waterbodyId = waterbody[0]._id;
+			}
+			thing.save(function(err) {
+				if (err) {
+					res.send(err);
+				} else {
+					res.json(thing);
+					socket.notify("things", thing);
+				}
+			});
 		}
 	});
 }

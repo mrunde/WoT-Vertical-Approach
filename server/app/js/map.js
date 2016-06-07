@@ -1,6 +1,6 @@
 'use strict';
 
-let map, markers, thingName, thingMetaInformation, thingDetails, riverTiles;
+let map, markers, thingName, thingMetaInformation, thingDetails;
 let geojson = [];
 let mapInitialization = true, hideDownloadButton = true;
 
@@ -279,33 +279,6 @@ $(document).ready(function() {
 		'Mapbox Dark':      L.mapbox.tileLayer('mapbox.dark'),
 		'Mapbox Satellite': L.mapbox.tileLayer('mapbox.satellite')
 	}).addTo(map);
-
-	riverTiles = new L.TileLayer.MVTSource({
-		// osm river data
-		//url: "https://a.tiles.mapbox.com/v4/avi92.1hej6w31/{z}/{x}/{y}.vector.pbf?access_token=" + getMapboxAccessToken(),
-		// mapbox water and waterway data
-		url: "https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token=" + getMapboxAccessToken(),
-		debug: false,
-		visibleLayers: ['water', 'waterway'],
-		clickableLayers: ['water', 'waterway'],
-		getIDForLayerFeature: function(feature) {
-			return feature.id;
-		},
-
-		style: function(feature) {
-			let style = {
-				color: 'rgba(102, 217, 255, 0.8)',
-				size: 2
-			};
-
-			return style;
-		}
-	});
-
-	// riverTiles.addTo(map);
-	map.on('zoomend', function() {
-		riverTiles.setZIndex(5);
-	});
 	
 	thingName            = document.getElementById('thingName');
 	thingMetaInformation = document.getElementById('thingMetaInformation');
