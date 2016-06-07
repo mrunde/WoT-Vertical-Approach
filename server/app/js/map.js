@@ -1,6 +1,6 @@
 'use strict';
 
-let map, markers, thingName, thingDetails, riverTiles;
+let map, markers, thingName, thingMetaInformation, thingDetails, riverTiles;
 let geojson = [];
 let mapInitialization = true, hideDownloadButton = true;
 
@@ -160,8 +160,11 @@ function drawMarkers(things) {
 		let coords = e.layer.feature.geometry.coordinates;
 		let props  = e.layer.feature.properties;
 
-		// Set the name in the details section + create Download-Button
+		// Set the name in the details section
 		thingName.innerHTML = 'Details - ' + props.title;
+
+		// Set the meta information in the meta section
+		thingMetaInformation.innerHTML = 'Latitude: ' + coords[1] + '<br/>Longitude: ' + coords[0];
 
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
@@ -175,7 +178,7 @@ function drawMarkers(things) {
 
 		if (hideDownloadButton && !$('#thingDownload').hasClass('hidden')) {
 			$('#thingDownload').addClass('hidden');
-		} else {
+		} else if (!hideDownloadButton) {
 			$('#thingDownload').removeClass('hidden');
 		}
 		document.getElementById('DownloadOptions').innerHTML = "Download-Options for Thing: " + DownloadThingName;
@@ -304,8 +307,9 @@ $(document).ready(function() {
 		riverTiles.setZIndex(5);
 	});
 	
-	thingName    = document.getElementById('thingName');
-	thingDetails = document.getElementById('thingDetails');
+	thingName            = document.getElementById('thingName');
+	thingMetaInformation = document.getElementById('thingMetaInformation');
+	thingDetails         = document.getElementById('thingDetails');
 
 	$.when(requestThings()).done(function() {
 		if (geojson.length > 0) {
