@@ -66,7 +66,7 @@
 		<div id="info" class="col-md-4">
 			<div id="thingHeader" style="margin-bottom: 20px;">
 				<h3 id="thingName">Details</h3>
-				<button id="thingDownload" class="btn btn-default pull-right hidden" data-toggle="modal" data-target="#DownloadModal">
+				<button id="btn-download" type="submit" class="btn btn-default pull-right hidden">
 					<i class="fa fa-download" aria-hidden="true"></i>&nbsp;Download Data
 				</button>
 				<div id="thingMetaInformation"></div>
@@ -120,36 +120,6 @@
 			<div id="livemap"></div>
 		</div>
 	</div>
-
-	<!-- Modal Download-->
-	<div id="DownloadModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			
-			<!-- Modal content -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 id="DownloadOptions" class="modal-title" value="Download-Options"></h4>
-				</div>
-
-				<div class="modal-body" id="modal-set-download-body">
-					<div class="form-group">
-						<label for="downloadFileNameLabel">Enter Filename</label>
-						<input id="downloadFileName" type="text" class="form-control"	>
-						<br>
-						<p><b> File will be downloaded in JSON Format</b></p>
-					</div>
-
-				</div>
-
-				<div class="modal-footer">
-					<button id="btn-download" type="submit" class="btn btn-primary" data-dismiss="modal">Download Data</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-
-			</div> <!-- END Modal content -->
-		</div>
-	</div> <!-- Modal Download--> 
 
 	<!-- Modal Filter-->
 	<div id="customFilterModal" class="modal fade" role="dialog">
