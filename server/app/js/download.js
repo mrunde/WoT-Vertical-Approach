@@ -14,7 +14,7 @@ $("#btn-download").click( function() {
 			querySensors();
 		},
 		error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Thing didn't work.");
 		}
 	});  
 });
@@ -29,7 +29,7 @@ function querySensors() {
 			queryFeatureOfEachSensor(0, sensors);
 		},
 		error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Sensor didn't work");
 		}
 	}); 
 }
@@ -49,7 +49,7 @@ function queryFeatureOfEachSensor(pos, sensors) {
 				queryFeatureOfEachSensor(pos + 1, sensors);
 			},
 			error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Feature belonging to a Sensor didn't work");
 			}
 		}); 
 	}
@@ -70,7 +70,7 @@ function queryMeasurementsOfEachSensor(pos, sensors) {
 				queryMeasurementsOfEachSensor(pos + 1, sensors);
 			},
 			error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Measurements belonging to a Sensor didn't work");
 			}
 		});
 	}
