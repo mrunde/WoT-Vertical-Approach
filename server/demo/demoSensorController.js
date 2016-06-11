@@ -49,7 +49,7 @@ async.waterfall([
 			name: 'water gauge',
 			thingId: thingId,
 			interval: interval,
-			featureId: '571f3db18727620c03fe94e1'
+			featureId: '572f0ad61d9ea4334b1adf72'
 		};
 
 		// Post the new Sensor

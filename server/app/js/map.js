@@ -102,10 +102,12 @@ function requestMeasurementsLatest(id) {
 				content = '<table class="table table-hover table-condensed table-responsive"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
 				measurements.forEach(function(measurement, key) {
 					let date = new Date(measurement.date);
+					let feature = store.features[measurement.featureId];
+
 					content += '<tr id="' + measurement.sensorId + '" class="sensor-row">' +
-						'<td><a href="#" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\')">' + measurement.sensorId + '</a></td>' +
+						'<td><a href="#" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\')">' + feature.name + ' (' + measurement.sensorId + ')</a></td>' +
 						'<td>' + date.toDateString() + '</td>' +
-						'<td>' + measurement.value + '</td>' +
+						'<td>' + measurement.value + ' ' + feature.unit + '</td>' +
 					'</tr>';
 				});
 				content +=  '</table>';
@@ -185,7 +187,7 @@ function drawMarkers(things) {
 		$('#downloadFileName').value = DownloadThingName;
 		
 		// Update the weather
-		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';
+		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=Current Weather at ' + props.title + '&units=si';
 		let forecast = '<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="' + forecastUrl + '"> </iframe>';
 		$('#forecast').html(forecast);
 		$('#radar').html('<img src="http://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif" height="245" />');

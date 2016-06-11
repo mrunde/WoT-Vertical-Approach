@@ -21,6 +21,7 @@ var Sensor      = require('../../data/sensor');
  *     [
  *       {
  *         "sensorId": "<< generated MongoDB ID >>",
+ *         "featureId": "<< generated MongoDB ID >>",
  *         "date": "2016-04-24T16:56:45.000Z",
  *         "value": 7,
  *         "_id": "<< generated MongoDB ID >>",
@@ -28,6 +29,7 @@ var Sensor      = require('../../data/sensor');
  *       },
  *       {
  *         "sensorId": "<< generated MongoDB ID >>",
+ *         "featureId": "<< generated MongoDB ID >>",
  *         "date": "2016-04-24T16:59:45.000Z",
  *         "value": 8,
  *         "_id": "<< generated MongoDB ID >>",
@@ -62,7 +64,14 @@ function aggregateMeasurements(sensors, pos, result, res){
 				if (err) {
 					res.send(err);
 				} else {
-					aggregateMeasurements(sensors, pos+1, result.concat(measurements), res);
+					var measurement = { 
+						_id: measurements[0]._id,
+						date: measurements[0].date,
+						value: measurements[0].value,
+						sensorId: measurements[0].sensorId,
+						featureId: sensors[pos].featureId
+					};
+					aggregateMeasurements(sensors, pos+1, result.concat(measurement), res);
 				}
 			});
 	}
