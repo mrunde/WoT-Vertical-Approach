@@ -7,7 +7,7 @@ var Measurement = require('../../data/measurement');
 var Sensor      = require('../../data/sensor');
 
 /**
- * @api {get} /things/:thingId/measurements GET - Request all Thing's Measurements
+ * @api {get} /things/:thingId/measurements GET - all Measurements
  * @apiName ListThingMeasurements
  * @apiGroup Thing
  * @apiVersion 1.0.0
@@ -16,25 +16,7 @@ var Sensor      = require('../../data/sensor');
  *
  * @apiSuccess {Measurement[]} measurements	Array of Measurements.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "sensorId": "<< generated MongoDB ID >>",
- *         "date": "2016-04-24T16:56:45.000Z",
- *         "value": 7,
- *         "__v": 0
- *       },
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "sensorId": "<< generated MongoDB ID >>",
- *         "date": "2016-04-24T16:59:45.000Z",
- *         "value": 8,
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Measurements
  * @apiUse ThingNotFoundError
  * @apiUse ServerError
  */

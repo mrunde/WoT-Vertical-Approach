@@ -12,20 +12,14 @@ var Thing = require('../../data/thing');
 var User  = require('../../data/user');
 
 /**
- * @api {delete} /users/:userId DELETE - Delete a User
+ * @api {delete} /users/:userId DELETE
  * @apiName DeleteUser
  * @apiGroup User
  * @apiVersion 1.0.0
  *
  * @apiParam {String} userId	User's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "ok": 1,
- *       "n": 0
- *     }
- *
+ * @apiUse SuccessExample_Deleted
  * @apiUse UserNotFoundError
  * @apiUse ServerError
  */

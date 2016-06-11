@@ -7,7 +7,7 @@ var Sensor = require('../../data/sensor');
 var socket = require('../../server.js');
 
 /**
- * @api {post} /sensors POST - Create a Sensor
+ * @api {post} /sensors POST
  * @apiName PostSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
@@ -22,20 +22,7 @@ var socket = require('../../server.js');
  *
  * @apiSuccess {String} sensorId	Sensor's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "__v": 0,
- *       "name": "Water Gauge",
- *       "interval": 30000,
- *       "refLevel": 3,
- *       "warnLevel": 8,
- *       "riskLevel": 10,
- *       "thingId": "<< generated MongoDB ID >>",
- *       "featureId": "<< generated MongoDB ID >>",
- *       "_id": "<< generated MongoDB ID >>"
- *     }
- *
+ * @apiUse SuccessExample_Get_Sensors
  * @apiUse ThingNotFoundError
  * @apiUse FeatureNotFoundError
  * @apiUse ServerError

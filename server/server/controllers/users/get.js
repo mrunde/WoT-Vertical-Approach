@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var User = require('../../data/user');
 
 /**
- * @api {get} /users/:userId GET - Request single User information
+ * @api {get} /users/:userId GET - single
  * @apiName GetUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -14,14 +14,7 @@ var User = require('../../data/user');
  *
  * @apiSuccess {String} name	Name of the User.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "__v": 0,
- *       "name": "demo",
- *       "_id": "<< generated MongoDB ID >>"
- *     }
- *
+ * @apiUse SuccessExample_Get_Users
  * @apiUse UserNotFoundError
  * @apiUse ServerError
  */

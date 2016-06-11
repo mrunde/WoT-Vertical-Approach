@@ -8,20 +8,14 @@ var Sensor      = require('../../data/sensor');
 var Thing       = require('../../data/thing');
 
 /**
- * @api {delete} /things/:thingId DELETE - Delete a Thing
+ * @api {delete} /things/:thingId DELETE
  * @apiName DeleteThing
  * @apiGroup Thing
  * @apiVersion 1.0.0
  *
  * @apiParam {String} thingId	Thing's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "ok": 1,
- *       "n": 0
- *     }
- *
+ * @apiUse SuccessExample_Deleted
  * @apiUse ThingNotFoundError
  * @apiUse ServerError
  */

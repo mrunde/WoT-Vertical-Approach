@@ -5,20 +5,14 @@ var mongoose = require('mongoose');
 var Feature = require('../../data/feature');
 
 /**
- * @api {delete} /features/:featureId DELETE - Delete a Feature
+ * @api {delete} /features/:featureId DELETE
  * @apiName DeleteFeature
  * @apiGroup Feature
  * @apiVersion 1.0.0
  *
  * @apiParam {String} featureId	Feature's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "ok": 1,
- *       "n": 0
- *     }
- *
+ * @apiUse SuccessExample_Deleted
  * @apiUse FeatureNotFoundError
  * @apiUse ServerError
  */

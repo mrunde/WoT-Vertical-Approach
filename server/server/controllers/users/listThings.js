@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Thing = require('../../data/thing');
 
 /**
- * @api {get} /users/:userId/things GET - Request all User's Things
+ * @api {get} /users/:userId/things GET - all Things
  * @apiName ListUserThings
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -14,39 +14,7 @@ var Thing = require('../../data/thing');
  *
  * @apiSuccess {Thing[]} things	Array of Thing information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "name": "ifgi",
- *         "userId": "<< generated MongoDB ID >>",
- *		   "waterbodyId": "<< generatedMongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             51.969114,
- *             7.595794
- *           ],
- *           "type": "Point"
- *         }
- *       },
- *       {
- *         "name": "Wersehaus",
- *         "userId": "<< generated MongoDB ID >>",
- *		   "waterbodyId": "<< generatedMongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             51.97338,
- *             7.700234
- *           ],
- *           "type": "Point"
- *         }
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Things
  * @apiUse UserNotFoundError
  * @apiUse ServerError
  */

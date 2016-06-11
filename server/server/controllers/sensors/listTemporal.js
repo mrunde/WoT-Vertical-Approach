@@ -7,43 +7,17 @@ var Sensor      = require('../../data/sensor');
 var Measurement = require('../../data/measurement');
 
 /**
- * @api {get} /sensors/temporal/:dateFrom/:dateTo GET - Request all sensors within one time frame
+ * @api {get} /sensors/temporal/:dateFrom/:dateTo GET - all in time frame
  * @apiName ListTemporalSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
  *
- * @apiParam {Date} dateFrom	Date from which the time frame begins.
- * @apiParam {Date} dateTo		Date at which the time frame ends.
+ * @apiParam {Date} dateFrom		Date from which the time frame begins.
+ * @apiParam {Date} dateTo			Date at which the time frame ends.
  *
  * @apiSuccess {Sensor[]} sensors	Array of Sensor information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "name": "water gauge",
- *         "interval": 30000,
- *         "refLevel": 3,
- *         "warnLevel": 8,
- *         "riskLevel": 10,
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       },
- *       {
- *         "name": "water gauge",
- *         "interval": 5000,
- *         "refLevel": 1,
- *         "warnLevel": 12,
- *         "riskLevel": 17,
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Sensors
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

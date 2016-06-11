@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Sensor = require('../../data/sensor');
 
 /**
- * @api {get} /sensors/:sensorId GET - Request single Sensor information
+ * @api {get} /sensors/:sensorId GET - single
  * @apiName GetSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
@@ -20,20 +20,7 @@ var Sensor = require('../../data/sensor');
  * @apiSuccess {String} thingId		Thing's unique ID.
  * @apiSuccess {String} featureId	Feature's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "_id": "<< generated MongoDB ID >>",
- *       "name": "Water Gauge",
- *       "interval": 30000,
- *       "refLevel": 3,
- *       "warnLevel": 8,
- *       "riskLevel": 10,
- *       "thingId": "<< generated MongoDB ID >>",
- *       "featureId": "<< generated MongoDB ID >>",
- *       "__v": 0
- *     }
- *
+ * @apiUse SuccessExample_Get_Sensors
  * @apiUse SensorNotFoundError
  * @apiUse ServerError
  */

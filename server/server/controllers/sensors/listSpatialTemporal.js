@@ -4,40 +4,18 @@ var request 	= require('request');
 var async		= require('async');
 
 /**
- * @api {get} /sensors/temporal/:dateFrom/:dateTo/spatial/:bbox GET - Request all Sensor information within a time frame and a bounding box
+ * @api {get} /sensors/temporal/:dateFrom/:dateTo/spatial/:bbox GET - all in time frame and bounding box
  * @apiName ListSpatialTemporalSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
  *
+ * @apiParam {Date} dateFrom			Date from which the time frame begins.
+ * @apiParam {Date} dateTo				Date at which the time frame ends.
+ * @apiParam {String} bbox	 			Bounding box information.
+ *
  * @apiSuccess {Sensor[]} sensors		Array of Sensor information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "name": "water gauge",
- *         "interval": 30000,
- *         "refLevel": 3,
- *         "warnLevel": 8,
- *         "riskLevel": 10,
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       },
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "name": "water gauge",
- *         "interval": 5000,
- *         "refLevel": 1,
- *         "warnLevel": 12,
- *         "riskLevel": 17,
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Sensors
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
@@ -48,7 +26,6 @@ exports.request = function(req, res) {
 
 	var resultTemporal;
 	var resultSpatial;
-
 
 	async.waterfall([
 		function(next) {

@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Feature = require('../../data/feature');
 
 /**
- * @api {get} /features/:id GET - Request single Feature information
+ * @api {get} /features/:id GET - single
  * @apiName GetFeature
  * @apiGroup Feature
  * @apiVersion 1.0.0
@@ -15,15 +15,7 @@ var Feature = require('../../data/feature');
  * @apiSuccess {String} name		Name of the Feature.
  * @apiSuccess {String} unit		Unit of the Feature.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "__v": 0,
- *       "name": "Water Level",
- *       "unit": "m",
- *       "_id": "<< generated MongoDB ID >>"
- *     }
- *
+ * @apiUse SuccessExample_Get_Features
  * @apiUse FeatureNotFoundError
  * @apiUse ServerError
  */

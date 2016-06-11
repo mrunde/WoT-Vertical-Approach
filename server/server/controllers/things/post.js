@@ -8,7 +8,7 @@ var Waterbody	= require('../../data/waterbody.js');
 var socket		= require('../../server.js');
 
 /**
- * @api {post} /things POST - Create a Thing
+ * @api {post} /things POST
  * @apiName PostThing
  * @apiGroup Thing
  * @apiVersion 1.0.0
@@ -19,23 +19,7 @@ var socket		= require('../../server.js');
  *
  * @apiSuccess {String} thingId 	Thing's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "name": "ifgi",
- *       "userId": "<< generated MongoDB ID >>",
- *		 "waterbodyId": "<< generatedMongoDB ID >>",
- *       "_id": "<< generated MongoDB ID >>",
- *       "__v": 0,
- *       "loc": {
- *         "coordinates": [
- *           51.969114,
- *           7.595794
- *         ],
- *         "type": "Point"
- *       }
- *     }
- *
+ * @apiUse SuccessExample_Get_Things
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

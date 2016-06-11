@@ -5,28 +5,14 @@ var mongoose = require('mongoose');
 var User = require('../../data/user');
 
 /**
- * @api {get} /users GET - Request all User information
+ * @api {get} /users GET - all
  * @apiName ListUser
  * @apiGroup User
  * @apiVersion 1.0.0
  *
  * @apiSuccess {User[]} users	Array of User information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "name": "demo",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       },
- *       {
- *         "name": "foo",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Users
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

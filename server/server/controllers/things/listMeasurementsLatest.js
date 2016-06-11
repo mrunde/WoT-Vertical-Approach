@@ -7,7 +7,7 @@ var Measurement = require('../../data/measurement');
 var Sensor      = require('../../data/sensor');
 
 /**
- * @api {get} /things/:thingId/measurements/latest GET - Request all Thing's latest Measurements
+ * @api {get} /things/:thingId/measurements/latest GET - all Measurements latest (single Thing)
  * @apiName ListThingMeasurementsLatest
  * @apiGroup Thing
  * @apiVersion 1.0.0
@@ -24,16 +24,14 @@ var Sensor      = require('../../data/sensor');
  *         "featureId": "<< generated MongoDB ID >>",
  *         "date": "2016-04-24T16:56:45.000Z",
  *         "value": 7,
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
+ *         "_id": "<< generated MongoDB ID >>"
  *       },
  *       {
  *         "sensorId": "<< generated MongoDB ID >>",
  *         "featureId": "<< generated MongoDB ID >>",
  *         "date": "2016-04-24T16:59:45.000Z",
  *         "value": 8,
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
+ *         "_id": "<< generated MongoDB ID >>"
  *       }
  *     ]
  *

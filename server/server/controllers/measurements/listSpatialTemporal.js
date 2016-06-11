@@ -4,32 +4,18 @@ var request  = require('request');
 var async	 = require('async');
 
 /**
- * @api {get} /measurements/temporal/:dateFrom/:dateTo/spatial/:bbox GET - Request all Measurements within one time frame and one bounding box
+ * @api {get} /measurements/temporal/:dateFrom/:dateTo/spatial/:bbox GET - all in time frame and bounding box
  * @apiName ListSpatialTemporalMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
  *
+ * @apiParam {Date} dateFrom				Date from which the time frame begins.
+ * @apiParam {Date} dateTo					Date at which the time frame ends.
+ * @apiParam {String} bbox 					Bounding box information.
+ *
  * @apiSuccess {Measurement[]} measurements	Array of Measurement information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "date": "2016-04-23T22:54:00.000Z",
- *         "value": 7,
- *         "sensorId": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       },
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "date": "2016-04-23T22:55:00.000Z",
- *         "value": 7.5,
- *         "sensorId": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Measurements
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

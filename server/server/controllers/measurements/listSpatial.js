@@ -7,7 +7,7 @@ var Sensor      = require('../../data/sensor');
 var Thing       = require('../../data/thing');
 
 /**
- * @api {get} /measurements/spatial/:bbox GET - Request all Measurement information within one bounding box
+ * @api {get} /measurements/spatial/:bbox GET - all in bounding box
  * @apiName ListSpatialMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
@@ -16,25 +16,7 @@ var Thing       = require('../../data/thing');
  *
  * @apiSuccess {Measurement[]} measurements	Array of Measurement information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "date": "2016-04-23T22:54:00.000Z",
- *         "value": 7,
- *         "sensorId": "<< generated MongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       },
- *       {
- *         "date": "2016-05-03T15:46:55.000Z",
- *         "value": 15,
- *         "sensorId": "<< generated MongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Measurements
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

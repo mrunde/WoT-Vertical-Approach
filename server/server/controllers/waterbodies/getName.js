@@ -6,33 +6,17 @@ var Errors    = require('../../data/errors');
 var Waterbody = require('../../data/waterbody');
 
 /**
- * @api {get} /waterbodies/:name GET - Request waterbody by name
- * @apiName GetWaterbody
+ * @api {get} /waterbodies/:name GET - single by name
+ * @apiName GetWaterbodyName
  * @apiGroup Waterbody
  * @apiVersion 1.0.0
  *
- * @apiParam {String} name 	Waterbody's name.
+ * @apiParam {String} name 				Waterbody's name.
  *	
  * @apiSuccess {String} name			Name of the Waterbody.
- * @apiSuccess {Geometry} gemoetry		Type and location of the waterbody.
+ * @apiSuccess {Geometry} geometry		Type and location of the waterbody.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "type": "Feature",
- *       "_id": "<< generated MongoDB ID >>",
- *       "__v": 0,
- *		 "geometry": {
- *		 	"type": "MultiLineString",
- *			"coordinates": [
- *				<< Array of LineStrings >>
- *			]
- *		 },
- *		 "properties": {
- *			 "name": "Werse" 
- *		 }   
- *     }
- *
+ * @apiUse SuccessExample_Get_Waterbodies
  * @apiUse WaterbodyNotFoundError
  * @apiUse ServerError
  */

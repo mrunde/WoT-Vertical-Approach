@@ -6,7 +6,7 @@ var _        = require('underscore');
 var Feature = require('../../data/feature');
 
 /**
- * @api {post} /feature POST - Create a Feature
+ * @api {post} /feature POST
  * @apiName PostFeature
  * @apiGroup Feature
  * @apiVersion 1.0.0
@@ -16,15 +16,7 @@ var Feature = require('../../data/feature');
  *
  * @apiSuccess {String} featureId	Feature's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "__v": 0,
- *       "name": "Water Level",
- *       "unit": "m",
- *       "_id": "<< generated MongoDB ID >>"
- *     }
- *
+ * @apiUse SuccessExample_Get_Features
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

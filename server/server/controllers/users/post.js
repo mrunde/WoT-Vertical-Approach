@@ -6,7 +6,7 @@ var _        = require('underscore');
 var User = require('../../data/user');
 
 /**
- * @api {post} /users POST - Create a User
+ * @api {post} /users POST
  * @apiName PostUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -15,14 +15,7 @@ var User = require('../../data/user');
  *
  * @apiSuccess {String} userId 	User's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "__v": 0,
- *       "name": "demo",
- *       "_id": "<< generated MongoDB ID >>"
- *     }
- *
+ * @apiUse SuccessExample_Get_Users
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

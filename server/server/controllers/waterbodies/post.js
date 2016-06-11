@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 var _        = require('underscore');
 
 // Required data schema
-var Errors      = require('../../data/errors');
-var Waterbody	= require('../../data/waterbody');
+var Errors    = require('../../data/errors');
+var Waterbody = require('../../data/waterbody');
 
 /**
- * @api {post} /waterbodies POST - Insert a Waterbody
+ * @api {post} /waterbodies POST
  * @apiName PostMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
@@ -18,23 +18,7 @@ var Waterbody	= require('../../data/waterbody');
  *
  * @apiSuccess {Number} waterbodyId		Waterbody's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       	"type": "Feature",
- *       	"_id": "<< generated MongoDB ID >>",
- *       	"__v": 0,
- *		 	"geometry": {
- *		 		"type": "MultiLineString",
- *				"coordinates": [
- *					<< Array of LineStrings >>
- *				]
- *		 	},
- *		 	"properties": {
- *				"name": "Werse" 
- *		 	}   
- *     }
- *
+ * @apiUse SuccessExample_Get_Waterbodies
  * @apiUse SensorNotFoundError
  * @apiUse ServerError
  */

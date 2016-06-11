@@ -6,7 +6,7 @@ var Errors = require('../../data/errors');
 var Thing  = require('../../data/thing');
 
 /**
- * @api {get} /things/:thingId/nearest GET - Request nearest other single Thing information
+ * @api {get} /things/:thingId/nearest GET - nearest
  * @apiName GetNearestThing
  * @apiGroup Thing
  * @apiVersion 1.0.0
@@ -17,23 +17,7 @@ var Thing  = require('../../data/thing');
  * @apiSuccess {String} userId		User's unique ID.
  * @apiSuccess {Point} loc			Location of the Thing.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "name": "ifgi",
- *       "userId": "<< generated MongoDB ID >>",
- *		 "waterbodyId": "<< generatedMongoDB ID >>",
- *       "_id": "<< generated MongoDB ID >>",
- *       "__v": 0,
- *       "loc": {
- *         "coordinates": [
- *           51.969114,
- *           7.595794
- *         ],
- *         "type": "Point"
- *       }
- *     }
- *
+ * @apiUse SuccessExample_Get_Things
  * @apiUse ThingNotFoundError
  * @apiUse ServerError
  */

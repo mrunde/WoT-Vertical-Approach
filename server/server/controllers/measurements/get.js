@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Measurement = require('../../data/measurement');
 
 /**
- * @api {get} /measurements/:measurementId GET - Request single Measurement information
+ * @api {get} /measurements/:measurementId GET - single
  * @apiName GetMeasurement
  * @apiGroup Measurement
  * @apiVersion 1.0.0
@@ -16,16 +16,7 @@ var Measurement = require('../../data/measurement');
  * @apiSuccess {Collection} properties	Properties of the Measurement.
  * @apiSuccess {String} sensorId		Sensor's unique ID.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "_id": "<< generated MongoDB ID >>",
- *       "date": "2016-04-24T16:56:45.000Z",
- *       "value": 7,
- *       "sensorId": "<< generated MongoDB ID >>",
- *       "__v": 0
- *     }
- *
+ * @apiUse SuccessExample_Get_Measurements
  * @apiUse MeasurementNotFoundError
  * @apiUse ServerError
  */

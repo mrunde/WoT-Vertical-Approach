@@ -8,7 +8,7 @@ var Sensor 		= require('../../data/sensor');
 var Thing 		= require('../../data/thing');
 
 /**
- * @api {get} /things/temporal/:dateFrom/:dateTo GET - Request all things within one time frame
+ * @api {get} /things/temporal/:dateFrom/:dateTo GET - all in time frame
  * @apiName ListTemporalThing
  * @apiGroup Thing
  * @apiVersion 1.0.0
@@ -18,39 +18,7 @@ var Thing 		= require('../../data/thing');
  *
  * @apiSuccess {Thing[]} things	Array of Thing information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "name": "ifgi",
- *         "userId": "<< generated MongoDB ID >>",
- *		   "waterbodyId": "<< generatedMongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             51.969114,
- *             7.595794
- *           ],
- *           "type": "Point"
- *         }
- *       },
- *       {
- *         "name": "Wersehaus",
- *         "userId": "<< generated MongoDB ID >>",
- *		   "waterbodyId": "<< generatedMongoDB ID >>",
- *         "_id": "<< generated MongoDB ID >>",
- *         "__v": 0,
- *         "loc": {
- *           "coordinates": [
- *             51.97338,
- *             7.700234
- *           ],
- *           "type": "Point"
- *         }
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Things
  * @apiUse ServerError
  */
 exports.request = function(req, res) {

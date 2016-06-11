@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Sensor = require('../../data/sensor');
 
 /**
- * @api {get} /things/:thingId/sensors GET - Request all Thing's sensors
+ * @api {get} /things/:thingId/sensors GET - all Sensors
  * @apiName ListThingSensors
  * @apiGroup Thing
  * @apiVersion 1.0.0
@@ -14,25 +14,7 @@ var Sensor = require('../../data/sensor');
  *
  * @apiSuccess {Sensor[]} sensors	Array of Sensor information.
  *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "name": "water gauge",
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       },
- *       {
- *         "_id": "<< generated MongoDB ID >>",
- *         "name": "water gauge",
- *         "thingId": "<< generated MongoDB ID >>",
- *         "featureId": "<< generated MongoDB ID >>",
- *         "__v": 0
- *       }
- *     ]
- *
+ * @apiUse SuccessExample_List_Sensors
  * @apiUse ThingNotFoundError
  * @apiUse ServerError
  */
