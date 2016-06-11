@@ -22,6 +22,7 @@ var Waterbody 	= require('../../data/waterbody');
  *       {
  *         "name": "ifgi",
  *         "userId": "<< generated MongoDB ID >>",
+ *		   "waterbodyId": "<< generatedMongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {
@@ -35,6 +36,7 @@ var Waterbody 	= require('../../data/waterbody');
  *       {
  *         "name": "Wersehaus",
  *         "userId": "<< generated MongoDB ID >>",
+ *		   "waterbodyId": "<< generatedMongoDB ID >>",
  *         "_id": "<< generated MongoDB ID >>",
  *         "__v": 0,
  *         "loc": {
@@ -57,50 +59,13 @@ exports.request = function(req, res) {
 		if(err || waterbody == null) {
 			res.send(Errors.WaterbodyNotFoundError);
 		} else {
-			var coordinates = [];
-			for(var i = 0; i < waterbody.geometry.coordinates.length; i++) {
-				coordinates = coordinates.concat(waterbody.geometry.coordinates[i]);
-			}
-			aggregateThings(coordinates, 0, [], res);
+			Thing.find({waterbodyId: waterbody._id}, function(err, things) {
+				if(err) {
+					res.send(err);
+				} else {
+					res.json(things);
+				}
+			});
 		}
 	});
-}
-
-function aggregateThings(coordinates, pos, result, res) {
-	if(coordinates.length == pos) {
-		res.json(result);
-	} else {
-		Thing.find({
-			loc: {
-				$near: {
-					$geometry: {
-						type: "Point",
-						coordinates: [coordinates[pos][1], coordinates[pos][0]]
-					},
-					$maxDistance: 800, // distance from the point
-					$minDistance: 0
-				}
-			}
-		}, function(err, things) {
-			if(err) {
-				res.send(err);
-			} else {
-				for(var i = 0; i < things.length; i++) {
-					if(!thingExists(things[i], result)) {
-						result.push(things[i]);
-					}
-				}
-				aggregateThings(coordinates, pos+1, result, res);
-			}
-		});
-	}
-}
-
-function thingExists(thing, thingArr) {	
-	for(var i = 0; i < thingArr.length; i++) {
-		if(thingArr[i]._id.toString() == thing._id.toString()) {
-			return true;
-		}
-	}
-	return false;
 }

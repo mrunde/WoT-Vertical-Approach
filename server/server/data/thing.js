@@ -19,6 +19,9 @@ var ThingSchema = mongoose.Schema({
 	userId: {
 		type: String,
 		required: true
+	},
+	waterbodyId: {
+		type: String
 	}
 });
 

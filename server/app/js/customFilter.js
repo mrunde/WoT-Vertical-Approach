@@ -1,11 +1,9 @@
 'use strict';
 
 let customFilterFactory = null;
-
-let savedCustomFilters = {};
 let customFilterProperties = {};
 
-let riverNames = null;
+let savedCustomFilters = {};
 
 function CustomFilterFactory() {
 
@@ -296,14 +294,5 @@ $(document).ready(function() {
 	customFilterFactory = new CustomFilterFactory();
 	customFilterFactory.init();
 
-	$.ajax({
-		url: getURL() + '/api/waterbodies/names/names',
-		global: false,
-		type: 'GET',
-		async: false,
-		success: function(names) {
-			riverNames = names;
-			$("#custom-filter-river-input").typeahead({ source:riverNames });
-		}
-	});
+	$("#custom-filter-river-input").typeahead({ source:waterbody_names });
 });

@@ -14,7 +14,7 @@ $("#btn-download").click( function() {
 			querySensors();
 		},
 		error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Thing didn't work.");
 		}
 	});  
 });
@@ -29,7 +29,7 @@ function querySensors() {
 			queryFeatureOfEachSensor(0, sensors);
 		},
 		error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Sensor didn't work");
 		}
 	}); 
 }
@@ -49,7 +49,7 @@ function queryFeatureOfEachSensor(pos, sensors) {
 				queryFeatureOfEachSensor(pos + 1, sensors);
 			},
 			error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Feature belonging to a Sensor didn't work");
 			}
 		}); 
 	}
@@ -70,16 +70,14 @@ function queryMeasurementsOfEachSensor(pos, sensors) {
 				queryMeasurementsOfEachSensor(pos + 1, sensors);
 			},
 			error: function(jqXHR, exception) {
-				console.log(jqXHR);
+				alert("Query of requested Measurements belonging to a Sensor didn't work");
 			}
 		});
 	}
 }
 
 function saveToFile() {
-	var filename = $("#downloadFileName").val();
+	var filename = DownloadThingName;
 	var blob = new Blob([JSON.stringify(contentOfFile, null, 3)], {type: "text/plain;charset=utf-8"});
 	saveAs(blob, filename + ".json");
 }
-
-
