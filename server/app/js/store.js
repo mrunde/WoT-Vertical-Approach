@@ -5,14 +5,16 @@
  */
 function Store() {
 	
-	// Initialize the features store
-	this.features = [];
+	this.features    = [];
+	this.waterbodies = [];
 
 	/**
-	 * Request all Feature information.
+	 * Initialize the stores.
 	 */
-	Store.prototype.requestFeatureList = function() {
-		let request = $.ajax({
+	Store.prototype.init = function() {
+		
+		// Initialize the Features store
+		let requestFeatures = $.ajax({
 			url: getURL() + '/api/features/',
 			global: false,
 			type: 'GET',
@@ -21,7 +23,7 @@ function Store() {
 				return features;
 			}
 		});
-		this.features = request.responseJSON;
+		this.features = requestFeatures.responseJSON;
 		this.features = this.features.reduce(function(arr, val) {
 			arr[val._id] = {
 				'name': val.name,
@@ -29,13 +31,11 @@ function Store() {
 			};
 			return arr;
 		}, []);
-	};
 
-
-	Store.prototype.getFeature = function(featureId) {
-		return store.features[featureId];
+		// Initialize the Waterbodies store
+		this.waterbodies = []; // TODO
 	};
 }
 
 let store = new Store();
-store.requestFeatureList();
+store.init();
