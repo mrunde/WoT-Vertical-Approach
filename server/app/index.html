@@ -63,7 +63,7 @@
 
 	<!-- Content -->
 	<div id="content" class="row">
-		<div id="info" class="col-md-4">
+		<div id="info" class="col-md-6">
 			<div id="thingHeader" style="margin-bottom: 20px;">
 				<h3 id="thingName">Details</h3>
 				<button id="thingDownload" class="btn btn-default pull-right hidden" data-toggle="modal" data-target="#DownloadModal">
@@ -79,12 +79,13 @@
 			<div id="chart">
 				<canvas id="waterLevelChart" width="400" height="100"></canvas>
 			</div>
-			<!--<div id="forecast">
-				<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=51.973387&lon=7.700213&name=Münster&units=si"> </iframe>
-			</div>-->
+			<div id="weather" class="row">
+				<div id="radar" class="col-md-6"></div>
+				<div id="forecast" class="col-md-6"></div>
+			</div>
 		</div>
 
-		<div id="map" class="col-md-8">
+		<div id="map" class="col-md-6">
 			<div class="btn-group btn-group-justified" id="filter" role="group" aria-label="filter">
 				<div class="btn-group" role="group">
 					<button class="btn special">
@@ -263,10 +264,11 @@
 	<script src="lib/Chart.js/dist/Chart.min.js"></script>
 	<script src="lib/socket.io-client/socket.io.js"></script>
 	<script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="lib/file-saver/FileSaver.min.js"></script>	
+	<script src="lib/file-saver/FileSaver.min.js"></script>
 
 	<!-- Script imports -->
-	<script src="js/map.js"></script>	
+	<!--<script src="js/store.js"></script>-->
+	<script src="js/map.js"></script>
 	<script src="js/resize.js"></script>
 	<script src="js/chart.js"></script>
 	<script src="js/socket.js"></script>
