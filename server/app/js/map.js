@@ -174,10 +174,11 @@ function drawMarkers(things) {
 		// Clear the chart
 		chartHandler.setData([]);
 
-		// Save Thing ID + Name for Download
+		// Save Thing's ID + name for download
 		DownloadThingID = props.id;
 		DownloadThingName = props.title;
 
+		// Display the download button
 		if (hideDownloadButton && !$('#thingDownload').hasClass('hidden')) {
 			$('#thingDownload').addClass('hidden');
 		} else if (!hideDownloadButton) {
@@ -185,6 +186,11 @@ function drawMarkers(things) {
 		}
 		$('#DownloadOptions').html("Download-Options for Thing: " + DownloadThingName);
 		$('#downloadFileName').value = DownloadThingName;
+
+		// Display the chart
+		if ($('#chart').attr('hidden')) {
+			$('#chart').removeAttr('hidden');
+		}
 		
 		// Update the weather
 		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=Current Weather at ' + props.title + '&units=si';
