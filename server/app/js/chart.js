@@ -61,6 +61,12 @@ function ChartHandler(container){
 	 * @param {Number} sensorId Sensor's unique ID.
 	 */
 	ChartHandler.prototype.requestData = function(sensorId) {
+		// Display the chart
+		if ($('#chart').attr('hidden')) {
+			$('#chart').removeAttr('hidden');
+			$('#chartWell').attr('hidden', true);
+		}
+
 		$.ajax({
 			url: getURL() + '/api/sensors/' + sensorId + '/measurements',
 			global: false,
