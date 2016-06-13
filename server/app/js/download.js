@@ -3,7 +3,7 @@
 
 var contentOfFile = null;
 
-$("#btn-download").click( function() {
+$("#thingDownload").click( function() {
  	$.ajax({
 		url: getURL() + '/api/things/' + DownloadThingID,
 		global: false,
