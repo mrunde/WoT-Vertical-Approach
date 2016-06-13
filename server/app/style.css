@@ -82,3 +82,7 @@ a:link, a:visited, a:hover, a:active {
 #filter-selection a:hover h4{
   color: white;
 }
+
+#body   {
+  padding-top:80px; 
+}

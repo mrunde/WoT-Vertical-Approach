@@ -11,7 +11,6 @@ var colors        = require('colors');
 var cookieParser  = require('cookie-parser');
 var express       = require('express');
 var favicon       = require('serve-favicon');
-var flash         = require('connect-flash');
 var LocalStrategy = require('passport-local').Strategy
 var mongoose      = require('mongoose');
 var morgan        = require('morgan');
@@ -87,19 +86,10 @@ app.use(require('express-session')({
 	saveUninitialized: false
 }));
 
-// --------------------------------------------------
-// Passport Config
-// --------------------------------------------------
-require('./config/passport')(passport); // pass passport for configuration
-
-// required for passport
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
-
-require('./routes/passport.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
-app.use(express.static(path.join(__dirname, 'public')));
+// Set up of View Engine
+app.set("views", path.join(__dirname, '/../app/'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs'); // 
 
 // Set up the REST API
 app.use('/api', features);
@@ -109,8 +99,24 @@ app.use('/api', measurements);
 app.use('/api', users);
 app.use('/api', waterbodies);
 
-app.set("views", __dirname + "/views");
-app.set('view engine', 'ejs'); // set up ejs for templating
+// --------------------------------------------------
+// Passport Config
+// --------------------------------------------------
+
+// Loading passport-config
+require(path.join(__dirname,'passport-config'));
+var routepassport	= require(path.join(__dirname, '/routes/passport'));
+
+// Required for passport
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use('/', routepassport);
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+// --------------------------------------------------
+// Starting Services
+// --------------------------------------------------
 
 // Start the web server
 var server = app.listen(config.express_port, function() {
