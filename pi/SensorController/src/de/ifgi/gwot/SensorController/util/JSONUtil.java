@@ -35,7 +35,7 @@ public class JSONUtil {
 	 */
 	public static String encodePostThingRequest(double latitude, double longitude, String userId){
 		JsonObject register = Json.createObjectBuilder()
-				.add("name", "HCSR04Sensor")
+				.add("name", "HCSR04Sensor created by JavaMe")
 				.add("loc", Json.createObjectBuilder()
 						.add("type", "Point")
 						.add("coordinates", Json.createArrayBuilder()
@@ -118,13 +118,21 @@ public class JSONUtil {
 	 * @param description Sensor description.
 	 * @param thingId Id of the sensor thing.
 	 * @param featureId Id of the feature observed.
+	 * @param interval Time to wait between taking measurements in ms.
+	 * @param refLevel Reference Level used to calculate the water level from.
+	 * @param warnLevel Water level to trigger warn notifications at.
+	 * @param riskLevel Water level to trigger alerts at.
 	 * @return The POST body as json string.
 	 */
-	public static String encodePostSensorRequest(String description, String thingId, String featureId){
+	public static String encodePostSensorRequest(String description, String thingId, String featureId, int interval, double refLevel, double warnLevel, double riskLevel){
 		JsonObject sensor = Json.createObjectBuilder()
 				.add("name", description)
 				.add("thingId", thingId)
 				.add("featureId", featureId)
+				.add("interval", interval)
+				.add("refLevel", refLevel)
+				.add("warnLevel", warnLevel)
+				.add("riskLevel", riskLevel)
 				.build();
 		return sensor.toString();
 	}

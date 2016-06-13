@@ -1,4 +1,5 @@
 package de.ifgi.gwot.SensorController;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,7 @@ public class HCSR04Device {
 	private final int PULSE = 10000;
 	// speed of sound = 34029 cm/s
 	private final int SPEEDOFSOUND = 34029;
-	// configuration 
+	// configuration
 	private HCSR04Config configuration;
 
 	private GPIOPin trigger = null;
@@ -25,51 +26,72 @@ public class HCSR04Device {
 
 	/**
 	 * Constructor for HCSR04 Ultrasonic sensor handler.
-	 * @param _trigger The GPIO Pin number of the trigger interface.
-	 * @param _echo The GPIO Pin number of the echo listener.
+	 * 
+	 * @param _trigger
+	 *            The GPIO Pin number of the trigger interface.
+	 * @param _echo
+	 *            The GPIO Pin number of the echo listener.
 	 * @throws UnavailableDeviceException
 	 * @throws DeviceNotFoundException
 	 * @throws InvalidDeviceConfigException
 	 * @throws IOException
 	 * @throws UnsupportedDeviceTypeException
 	 */
-	public HCSR04Device(int _trigger, int _echo) 
-			throws UnavailableDeviceException, DeviceNotFoundException, InvalidDeviceConfigException, IOException, UnsupportedDeviceTypeException {
+	public HCSR04Device(int _trigger, int _echo)
+			throws UnavailableDeviceException, DeviceNotFoundException,
+			InvalidDeviceConfigException, IOException,
+			UnsupportedDeviceTypeException {
 
 		this.configuration = new HCSR04Config();
-		
+
 		// Trigger Pin
-		trigger = (GPIOPin) DeviceManager.open(new GPIOPinConfig.Builder().setControllerNumber(0)
-				.setPinNumber(_trigger).setDirection(GPIOPinConfig.DIR_OUTPUT_ONLY)
-				.setDriveMode(GPIOPinConfig.MODE_OUTPUT_PUSH_PULL).setTrigger(GPIOPinConfig.TRIGGER_NONE)
-				.setInitValue(false).build());
+		trigger = (GPIOPin) DeviceManager.open(new GPIOPinConfig.Builder()
+				.setControllerNumber(0).setPinNumber(_trigger)
+				.setDirection(GPIOPinConfig.DIR_OUTPUT_ONLY)
+				.setDriveMode(GPIOPinConfig.MODE_OUTPUT_PUSH_PULL)
+				.setTrigger(GPIOPinConfig.TRIGGER_NONE).setInitValue(false)
+				.build());
 
 		// Echo Pin
-		echo = (GPIOPin) DeviceManager.open(new GPIOPinConfig.Builder().setControllerNumber(0).setPinNumber(_echo)
-				.setDirection(GPIOPinConfig.DIR_INPUT_ONLY).setDriveMode(GPIOPinConfig.MODE_INPUT_PULL_UP)
-				.setTrigger(GPIOPinConfig.TRIGGER_NONE).setInitValue(false).build());
-		
-		I2CUtils.I2Cdelay(500);
+		echo = (GPIOPin) DeviceManager.open(new GPIOPinConfig.Builder()
+				.setControllerNumber(0).setPinNumber(_echo)
+				.setDirection(GPIOPinConfig.DIR_INPUT_ONLY)
+				.setDriveMode(GPIOPinConfig.MODE_INPUT_PULL_UP)
+				.setTrigger(GPIOPinConfig.TRIGGER_NONE).setInitValue(false)
+				.build());
+
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	/**
-	 * Sends a trigger to the sensor and waits for the echo.
-	 * Calculates distance depending on the echo timespan.
+	 * Sends a trigger to the sensor and waits for the echo. Calculates distance
+	 * depending on the echo timespan.
+	 * 
 	 * @return Measured distance from object to sensor in cm.
 	 */
 	public double pulse() {
 		long distance = 0;
 		try {
 			// send pulse trigger
-			trigger.setValue(true); 
-			// wait 10 microseconds						
-			I2CUtils.I2CdelayNano(0, PULSE);
+			trigger.setValue(true);
+			// wait 10 microseconds
+			try {
+				Thread.sleep(0, PULSE);
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
 			trigger.setValue(false);
 			long starttime = System.nanoTime();
 			long stop = starttime;
 			long start = starttime;
-			// echo will go 0 to 1 and need to save time for that. 2 seconds difference
-			while ((!echo.getValue()) && (start < starttime + 1000000000L * 2)) {
+			// echo will go 0 to 1 and need to save time for that. 2 seconds
+			// difference
+			while ((!echo.getValue())
+					&& (start < starttime + 1000000000L * 2)) {
 				start = System.nanoTime();
 			}
 			while ((echo.getValue()) && (stop < starttime + 1000000000L * 2)) {
@@ -77,7 +99,7 @@ public class HCSR04Device {
 			}
 			long delta = (stop - start);
 			// echo from 0 to 1 depending on object distance
-			distance = delta * SPEEDOFSOUND; 
+			distance = delta * SPEEDOFSOUND;
 		} catch (IOException ex) {
 			Logger.getGlobal().log(Level.WARNING, ex.getMessage());
 		}
@@ -97,51 +119,52 @@ public class HCSR04Device {
 			ex.printStackTrace();
 		}
 	}
-	
-	public HCSR04Config getHCSR04Config(){
+
+	public HCSR04Config getConfig() {
 		return this.configuration;
 	}
-	
+
 	/**
-	 * Inner class providing metadata and 
-	 * configuration for the Sensor.
+	 * Inner class providing metadata and configuration for the Sensor.
 	 */
-	class HCSR04Config{
-		
+	class HCSR04Config {
+
 		private String sensorId;
 		private String thingId;
 		private double latitude;
 		private double longitude;
 		private long delay;
 		private double waterLevelReference;
+		private double warnLevel;
+		private double riskLevel;
 		private boolean run;
-		
+
 		/**
-		 * Creates a new Configuration file.
-		 * By default the id is empty,
-		 * the delay is set to 5 seconds
-		 * and the sensor will not yet measure.
+		 * Creates a new Configuration file. By default the id is empty, the
+		 * delay is set to 5 seconds and the sensor will not yet measure.
 		 */
-		HCSR04Config(){
+		HCSR04Config() {
 			this.thingId = "";
 			this.sensorId = "";
 			this.delay = 5000L;
+			this.warnLevel = 0;
+			this.riskLevel = 0;
 			this.run = false;
 		}
-		
-		public String getSensorId(){
+
+		public String getSensorId() {
 			return this.sensorId;
 		}
-		
-		public void setSensorId(final String sensorId){
+
+		public void setSensorId(final String sensorId) {
 			this.sensorId = sensorId;
 		}
-		
-		public String getThingId(){
+
+		public String getThingId() {
 			return this.thingId;
 		}
-		
-		public void setThingId(final String thingId){
+
+		public void setThingId(final String thingId) {
 			this.thingId = thingId;
 		}
 
@@ -175,26 +198,41 @@ public class HCSR04Device {
 
 		public void setWaterLevelReference(final double waterLevelReference) {
 			this.waterLevelReference = waterLevelReference;
-		}		
-		
-		public boolean isRunning(){
+		}
+
+		public double getWarnLevel() {
+			return this.warnLevel;
+		}
+
+		public void setWarnLevel(final double warnLevel) {
+			this.warnLevel = warnLevel;
+		}
+
+		public double getRiskLevel() {
+			return this.riskLevel;
+		}
+
+		public void setRiskLevel(final double riskLevel) {
+			this.riskLevel = riskLevel;
+		}
+
+		public boolean isRunning() {
 			return this.run;
 		}
-		
-		public void setRun(final boolean run){
+
+		public void setRun(final boolean run) {
 			this.run = run;
 		}
-		
-		public String toString(){
-			return "ThingId: " + getThingId() +
-					", SensorId: " + getSensorId() +
-					", Latitude: " + getLatitude() + 
-					", Longitude: " + getLongitude() + 
-					", Delay: " + getDelay() + 
-					", WaterLevelReference: " + getWaterLevelReference() +
-					", Running: " + isRunning(); 
+
+		public String toString() {
+			return "ThingId: " + getThingId() + ", SensorId: " + getSensorId()
+					+ ", Latitude: " + getLatitude() + ", Longitude: "
+					+ getLongitude() + ", Delay: " + getDelay()
+					+ ", WaterLevelReference: " + getWaterLevelReference()
+					+ ", Warn Level: " + getWarnLevel() + ", Risk Level: "
+					+ getRiskLevel() + ", Running: " + isRunning();
 		}
-		
+
 	}
 
 }

@@ -24,9 +24,8 @@ public class DateUtil {
 		int year = calendar.get(Calendar.YEAR);
 		
 		String isodate = fillZero(year) + "-" + fillZero(month) + "-" + fillZero(day) + "T" + 
-				fillZero(hours) + ":" + fillZero(minutes) + ":" + fillZero(seconds) + "-02:00";
+				fillZero(hours) + ":" + fillZero(minutes) + ":" + fillZero(seconds);
 		
-		System.out.println(isodate);
 		return isodate;
 	}
 	
