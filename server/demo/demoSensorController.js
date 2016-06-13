@@ -60,7 +60,7 @@ async.waterfall([
 				coordinates: [ thingLocLat, thingLocLng ]
 			},
 			userId: userId,
-			waterbodyId: '5752d2d7e5d703480187e0d9'
+			waterbodyId: '5752d2d7e5d703480187e0d9' // TODO should be requested from the server, too
 		};
 		
 		// Post the new Thing
@@ -111,7 +111,7 @@ async.waterfall([
 		console.log('  Creating a new', 'Sensor...'.cyan);
 
 		const sensorJson = {
-			name: 'water gauge',
+			name: 'demoSensor',
 			interval: interval,
 			refLevel: 2,
 			warnLevel: 7,
