@@ -3,6 +3,7 @@
 let map, markers, thingName, thingMetaInformation, thingDetails;
 let geojson = [];
 let mapInitialization = true, hideDownloadButton = true;
+let currentSensor;
 
 const markerOptions = {
 	radius: 3,
@@ -64,22 +65,21 @@ function requestLast7d() {
 	});
 }
 
-// Request a river by its name (temporary)
-function requestRiver(name) {
+// Request a waterbody by its name (temporary)
+function requestWaterbody(name) {
 	$.ajax({
 		url: getURL() + '/api/waterbodies/name/' + name,
 		global: false,
 		type: 'GET',
 		async: false,
-		success: function(data) {
-			console.log(data);
-			addRiver(data);
+		success: function(waterbody) {
+			addWaterbody(waterbody);
 		}
 	});
 }
 
-// Add a river to the map, remove others (temporary)
-function addRiver(river) {
+// Add a waterbody to the map, remove others (temporary)
+function addWaterbody(river) {
 	river.properties.stroke = "#0066ff";
 	river.properties["stroke-width"] = 3;
 
@@ -99,18 +99,48 @@ function requestMeasurementsLatest(id) {
 				content = '<div class="well">No measurements available</div>';
 				hideDownloadButton = true;
 			} else {
-				content = '<table class="table table-hover table-condensed table-responsive"><tr><th>Sensor</th><th>Datum</th><th>Wert</th></tr>';
+				content = '<table class="table table-hover table-condensed table-responsive">' +
+					'<tr>' +
+						'<th class="text-center">ID</th>' +
+						'<th class="text-center">Sensor</th>' +
+						'<th class="text-center">Feature</th>' +
+						'<th class="text-center">Latest</th>' +
+						'<th class="text-center">Value</th>' +
+						'<th class="text-center bg-info">Ref.</th>' +
+						'<th class="text-center bg-warning">Warn</th>' +
+						'<th class="text-center bg-danger">Risk</th>' +
+					'</tr>';
 				measurements.forEach(function(measurement, key) {
-					let date = new Date(measurement.date);
-					let feature = store.features[measurement.featureId];
+					let currentDate         = new Date(measurement.date);
+					let currentMonth        = (currentDate.getMonth() + 1) < 10 ? '0' + (currentDate.getMonth() + 1) : (currentDate.getMonth() + 1);
+					let currentDateAsString = currentDate.getFullYear() + '-' + currentMonth  + '-' + currentDate.getDate();
+					let currentFeature      = store.features[measurement.featureId];
 
-					content += '<tr id="' + measurement.sensorId + '" class="sensor-row">' +
-						'<td><a href="#" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\')">' + feature.name + ' (' + measurement.sensorId + ')</a></td>' +
-						'<td>' + date.toDateString() + '</td>' +
-						'<td>' + measurement.value + ' ' + feature.unit + '</td>' +
+					$.ajax({
+						url: getURL() + '/api/sensors/' + measurement.sensorId,
+						global: false,
+						type: 'GET',
+						async: false,
+						success: function(sensor) {
+							currentSensor = sensor;
+						}
+					});
+
+					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + currentSensor._id + '\')">' +
+						'<td class="text-center">' + currentSensor._id + '</td>' +
+						'<td class="text-center">' + currentSensor.name + '</td>' +
+						'<td class="text-center">' + currentFeature.name + '</td>' +
+						'<td class="text-center">' + currentDateAsString + '</td>' +
+						'<td class="text-right">' + measurement.value + ' ' + currentFeature.unit + '</td>' +
+						'<td class="text-right">' + currentSensor.refLevel + ' ' + currentFeature.unit + '</td>' +
+						'<td class="text-right">' + currentSensor.warnLevel + ' ' + currentFeature.unit + '</td>' +
+						'<td class="text-right">' + currentSensor.riskLevel + ' ' + currentFeature.unit + '</td>' +
 					'</tr>';
 				});
-				content +=  '</table>';
+				content +=  '</table>' +
+					'<div id="chartWell" class="well">' +
+						'Click on a sensor row for a chart visualisation...' +
+					'</div>';
 				hideDownloadButton = false;
 			}
 			thingDetails.innerHTML = content;
@@ -189,11 +219,6 @@ function drawMarkers(things) {
 		}
 		$('#DownloadOptions').html("Download-Options for Thing: " + DownloadThingName);
 		$('#downloadFileName').value = DownloadThingName;
-
-		// Display the chart
-		if ($('#chart').attr('hidden')) {
-			$('#chart').removeAttr('hidden');
-		}
 		
 		// Update the weather
 		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';
