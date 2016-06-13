@@ -166,7 +166,10 @@ function drawMarkers(things) {
 		thingName.innerHTML = 'Details - ' + props.title;
 
 		// Set the meta information in the meta section
-		thingMetaInformation.innerHTML = 'Latitude: ' + coords[1] + '<br/>Longitude: ' + coords[0];
+		thingMetaInformation.innerHTML = '<button type="button" class="btn btn-primary btn-xs" onclick="panTo(' + coords[1] + ', ' + coords[0] + ')">' +
+			'<i class="fa fa-map-marker" aria-hidden="true"></i>' +
+			'&nbsp;' + coords[1] + ',&nbsp;' + coords[0] +
+		'</button>';
 
 		// Set the latest Measurements in the details section
 		requestMeasurementsLatest(props.id);
@@ -193,12 +196,16 @@ function drawMarkers(things) {
 		}
 		
 		// Update the weather
-		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=Current Weather at ' + props.title + '&units=si';
+		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';
 		let forecast = '<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="' + forecastUrl + '"> </iframe>';
 		$('#forecast').html(forecast);
 		$('#radar').html('<img src="http://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif" height="245" />');
 	});
 };
+
+function panTo(lat, lng) {
+	map.panTo(L.latLng(lat, lng));
+}
 
 // Add a new marker to the map
 function addMarker(thing) {
