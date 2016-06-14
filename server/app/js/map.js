@@ -3,7 +3,6 @@
 let map, markers, thingName, thingMetaInformation, thingDetails;
 let geojson = [];
 let mapInitialization = true, hideDownloadButton = true;
-let currentSensor;
 
 const markerOptions = {
 	radius: 3,
@@ -11,10 +10,6 @@ const markerOptions = {
 	opacity: 1,
 	fillOpacity: 0.8
 };
-
-// Saves a ThingID + Name for Download 
-var DownloadThingID;
-var DownloadThingName;
 
 // Request the data from the REST API
 function requestThings() {
@@ -95,10 +90,27 @@ function requestMeasurementsLatest(id) {
 		async: false,
 		success: function(measurements) {
 			let content = '';
+
+			$('#chart').attr('hidden', true);
+
 			if (measurements.length == 0) {
 				content = '<div class="well">No measurements available</div>';
 				hideDownloadButton = true;
+
+				$.ajax({
+					url: getURL() + '/api/sensors',
+					global: false,
+					type: 'GET',
+					async: false,
+					success: function(sensors) {
+						sensors.forEach(function(sensor) {
+							store.addSensor(sensor);
+						});
+					}
+				});
 			} else {
+				store.currentThingSensors = [];
+
 				content = '<table class="table table-hover table-condensed table-responsive">' +
 					'<tr>' +
 						'<th class="text-center">ID</th>' +
@@ -106,28 +118,31 @@ function requestMeasurementsLatest(id) {
 						'<th class="text-center">Feature</th>' +
 						'<th class="text-center">Latest</th>' +
 						'<th class="text-center">Value</th>' +
-						'<th class="text-center bg-info">Ref.</th>' +
+						'<th class="text-center">Ref.</th>' +
 						'<th class="text-center bg-warning">Warn</th>' +
 						'<th class="text-center bg-danger">Risk</th>' +
 					'</tr>';
+				
 				measurements.forEach(function(measurement, key) {
 					let currentDate         = new Date(measurement.date);
 					let currentMonth        = (currentDate.getMonth() + 1) < 10 ? '0' + (currentDate.getMonth() + 1) : (currentDate.getMonth() + 1);
 					let currentDateAsString = currentDate.getFullYear() + '-' + currentMonth  + '-' + currentDate.getDate();
-					let currentFeature      = store.features[measurement.featureId];
-
+					
 					$.ajax({
 						url: getURL() + '/api/sensors/' + measurement.sensorId,
 						global: false,
 						type: 'GET',
 						async: false,
 						success: function(sensor) {
-							currentSensor = sensor;
+							store.addSensor(sensor);
 						}
 					});
+					let currentSensor  = store.currentThingSensors[measurement.sensorId];
+					
+					let currentFeature = store.features[measurement.featureId];
 
-					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + currentSensor._id + '\')">' +
-						'<td class="text-center">' + currentSensor._id + '</td>' +
+					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\')">' +
+						'<td class="text-center">' + measurement.sensorId + '</td>' +
 						'<td class="text-center">' + currentSensor.name + '</td>' +
 						'<td class="text-center">' + currentFeature.name + '</td>' +
 						'<td class="text-center">' + currentDateAsString + '</td>' +
@@ -141,6 +156,7 @@ function requestMeasurementsLatest(id) {
 					'<div id="chartWell" class="well">' +
 						'Click on a sensor row for a chart visualisation...' +
 					'</div>';
+				
 				hideDownloadButton = false;
 			}
 			thingDetails.innerHTML = content;
@@ -208,8 +224,8 @@ function drawMarkers(things) {
 		chartHandler.setData([]);
 
 		// Save Thing's ID + name for download
-		DownloadThingID = props.id;
-		DownloadThingName = props.title;
+		store.currentThingId   = props.id;
+		store.currentThingName = props.title;
 
 		// Display the download button
 		if (hideDownloadButton && !$('#thingDownload').hasClass('hidden')) {
@@ -217,8 +233,8 @@ function drawMarkers(things) {
 		} else if (!hideDownloadButton) {
 			$('#thingDownload').removeClass('hidden');
 		}
-		$('#DownloadOptions').html("Download-Options for Thing: " + DownloadThingName);
-		$('#downloadFileName').value = DownloadThingName;
+		$('#DownloadOptions').html("Download-Options for Thing: " + store.currentThingId);
+		$('#downloadFileName').value = store.currentThingName;
 		
 		// Update the weather
 		let forecastUrl = 'http://forecast.io/embed/#lat=' + coords[1] + '&lon=' + coords[0] + '&name=' + props.title + '&units=si';

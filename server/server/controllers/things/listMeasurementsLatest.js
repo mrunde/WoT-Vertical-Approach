@@ -62,14 +62,18 @@ function aggregateMeasurements(sensors, pos, result, res){
 				if (err) {
 					res.send(err);
 				} else {
-					var measurement = { 
-						_id: measurements[0]._id,
-						date: measurements[0].date,
-						value: measurements[0].value,
-						sensorId: measurements[0].sensorId,
-						featureId: sensors[pos].featureId
-					};
-					aggregateMeasurements(sensors, pos+1, result.concat(measurement), res);
+					if (measurements.length > 0) {
+						var measurement = { 
+							_id: measurements[0]._id,
+							date: measurements[0].date,
+							value: measurements[0].value,
+							sensorId: measurements[0].sensorId,
+							featureId: sensors[pos].featureId
+						};
+						aggregateMeasurements(sensors, pos+1, result.concat(measurement), res);
+					} else {
+						aggregateMeasurements(sensors, pos+1, result.concat(measurements), res);
+					}
 				}
 			});
 	}

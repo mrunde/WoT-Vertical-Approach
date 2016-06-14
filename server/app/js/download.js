@@ -1,11 +1,10 @@
 'use strict';
 
-
 var contentOfFile = null;
 
 $("#thingDownload").click( function() {
  	$.ajax({
-		url: getURL() + '/api/things/' + DownloadThingID,
+		url: getURL() + '/api/things/' + store.currentThingId,
 		global: false,
 		type: 'GET',
 		async: false,
@@ -21,7 +20,7 @@ $("#thingDownload").click( function() {
 
 function querySensors() {
 	$.ajax({
-		url: getURL() + '/api/things/' + DownloadThingID + '/sensors',
+		url: getURL() + '/api/things/' + store.currentThingId + '/sensors',
 		global: false,
 		type: 'GET',
 		async: false,
@@ -77,7 +76,7 @@ function queryMeasurementsOfEachSensor(pos, sensors) {
 }
 
 function saveToFile() {
-	var filename = DownloadThingName;
-	var blob = new Blob([JSON.stringify(contentOfFile, null, 3)], {type: "text/plain;charset=utf-8"});
+	var filename = store.currentThingName;
+	var blob     = new Blob([JSON.stringify(contentOfFile, null, 3)], {type: "text/plain;charset=utf-8"});
 	saveAs(blob, filename + ".json");
 }
