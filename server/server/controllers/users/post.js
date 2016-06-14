@@ -21,11 +21,11 @@ var User = require('../../data/user');
 exports.request = function(req, res) {
 	var user = new User(_.extend({}, req.body));
 
-	user.save(function(err) {
-		if (err) {
+	User.register(new User(req.body), req.body.password, function(err, user) {
+		if(err) {
 			res.send(err);
 		} else {
-			res.json(user);
+			res.jsonp(user);
 		}
 	});
 }
