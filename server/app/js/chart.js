@@ -58,9 +58,10 @@ function ChartHandler(container){
 
 	/**
 	 * Request all Measurements of a Sensor.
-	 * @param {Number} sensorId Sensor's unique ID.
+	 * @param {String} sensorId Sensor's unique ID.
+	 * @param {String} featureName Name of the Sensor's Feature.
 	 */
-	ChartHandler.prototype.requestData = function(sensorId) {
+	ChartHandler.prototype.requestData = function(sensorId, featureName) {
 		// Display the chart
 		if ($('#chart').attr('hidden')) {
 			$('#chart').removeAttr('hidden');
@@ -86,7 +87,7 @@ function ChartHandler(container){
 				chartHandler.sensorId = sensorId;
 				
 				// Store the Sensor's Measurements
-				chartHandler.setData(measurements);
+				chartHandler.setData(measurements, featureName);
 			}
 		});
 	}
@@ -95,8 +96,9 @@ function ChartHandler(container){
 	 * Sets the data of the chart. The data has to fit the
 	 * schema of a measurement as described by the REST API.
 	 * @param {Measurement[]} measurements - The measurements to display in the chart.
+	 * @param {String} featureName Name of the Sensor's Feature.
 	 */
-	ChartHandler.prototype.setData = function(measurements) {
+	ChartHandler.prototype.setData = function(measurements, featureName) {
 		measurements.sort(this.compareMeasurements);
 
 		// if array contains too many elements, remove oldest elements
@@ -112,7 +114,8 @@ function ChartHandler(container){
 		}
 
 		this.lineChart.data.labels = labels;
-		this.lineChart.data.datasets[0].data = values;
+		this.lineChart.data.datasets[0].data  = values;
+		this.lineChart.data.datasets[0].label = featureName;
 
 		this.lineChart.update();
 	}
