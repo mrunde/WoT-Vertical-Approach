@@ -1,0 +1,52 @@
+<div class="col-sm-6 col-sm-offset-3">
+	<h1>
+		<span class="fa fa-sign-in"> Login</span> 
+	</h1>
+
+<!-- 	<script type="text/javascript">
+		function sendLoginData() {
+			var email = document.getElementById('email_input').value;
+			var password = document.getElementById('password_input').value;
+
+			var formData = {
+				"email": email,
+				"password": password
+			};
+			$.ajax({
+			  type: "POST",
+			  url: "/signin",
+			  data: formData,
+			  success: function(){
+			  	console.log("success!");
+			  },
+			  dataType: "json",
+			  contentType : "application/json"
+			});
+		}
+	</script> -->
+
+	<!-- LOGIN FORM -->
+	<form ng-submit="login()">
+		<div class="form-group">
+			<label>Email</label>
+			<input type="email" class="form-control" for="username" ng-model="user.username" name="email">
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" class="form-control" for="password" ng-model="user.password" name="password">
+		</div>
+
+		<br>
+		<div>
+			<a href="/" class="btn btn-link">Return to Main Page</a>
+			<button type="submit" class="btn btn-success pull-right btn-lg">Login</button>
+			<br>
+		</div>
+		<br>
+		<hr>
+		<div>
+			<p><a href="/internal#/register"><i>Need an account?</i> Signup</a></p>
+		</div>
+
+	</form>
+</div>

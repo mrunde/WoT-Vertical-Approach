@@ -15,7 +15,7 @@ var User = require('./data/user');
 // required for persistent login sessions
 // passport needs ability to serialize and unserialize users out of session
 
-passport.use(new LocalStrategy(User.authenticate(), {usernameField: "name"}));
+passport.use(new LocalStrategy(User.authenticate(), {usernameField: "email"}));
 
 // used to serialize the user for the session
 passport.serializeUser(User.serializeUser());

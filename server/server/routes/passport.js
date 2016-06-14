@@ -17,13 +17,21 @@ router.get('/', function(req, res) {
 });
 
 // SIGNUP show the signup form
-router.get('/signup', function(req, res) {
-	res.render('signup.html');
+router.get('/register', function(req, res) {
+	res.redirect('/internal#/register');
 });
 
 // LOGIN show the login form
-router.get('/login', function(req, res) {
-	res.render('login.html');
+router.get('/internal', function(req, res) {
+	res.render('internal.html');
+});
+
+router.get('/internal/profile', function(req, res) {
+	res.redirect('/internal#/profile');
+});
+
+router.get('/user', isLoggedIn, function(req, res) {
+	res.jsonp(req.user);
 });
 
 // LOGIN show the login form
@@ -49,23 +57,22 @@ router.get('/logout', function(req, res) {
 // POST
 // --------------------------------------------------
 
+router.post('/login', passport.authenticate('local'), function(req, res) {
+	res.jsonp(req.user);
+});
+
 // process the signup form
-router.post('/signup', function(req, res) {
+router.post('/register', function(req, res) {
 	var user = new User(_.extend({}, req.body));
 
 	User.register(new User(req.body), req.body.password, function(err, user) {
 		if(err) {
-			res.render('signup.html');
+			res.send(err);
 		} else {
-			res.render('login.html');
+			res.jsonp(user);
 		}
 	});
 });
-
-router.post('/login', passport.authenticate('local', {
-	successRedirect: '/profile', // redirect to the secure profile section
-	failureRedirect: '/login' // redirect back to the login page if there is an error
-}));
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
