@@ -126,7 +126,7 @@ function requestMeasurementsLatest(id) {
 						}
 					});
 
-					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + currentSensor._id + '\')">' +
+					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + currentSensor._id + '\', \'' + currentFeature.name + '\')">' +
 						'<td class="text-center">' + currentSensor._id + '</td>' +
 						'<td class="text-center">' + currentSensor.name + '</td>' +
 						'<td class="text-center">' + currentFeature.name + '</td>' +
