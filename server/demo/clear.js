@@ -9,18 +9,13 @@ var async   = require('async');
 var colors  = require('colors');
 var request = require('request');
 
-console.log('////////////////////////////////////////////////////////////');
-console.log('');
+console.log('\n////////////////////////////////////////////////////////////\n');
 console.log('          STARTING TO CLEAR DEMO DATA...'.cyan);
-console.log('');
-console.log('////////////////////////////////////////////////////////////');
-console.log('');
+console.log('\n////////////////////////////////////////////////////////////\n');
 
 // Find and delete all demo Users
 console.log('  Searching for demo', 'Users...'.cyan);
-console.log('');
-console.log('------------------------------------------------------------');
-console.log('');
+console.log('\n------------------------------------------------------------\n');
 
 // Get all Users
 request.get({
@@ -41,9 +36,9 @@ request.get({
 					} else {
 						console.log('  Deletion of User ' + user._id, 'failed'.red);
 					}
-					console.log('');
-					console.log('------------------------------------------------------------');
-					console.log('');
+					
+					console.log('\n------------------------------------------------------------\n');
+
 					callback(error);
 				});
 			}
@@ -53,9 +48,7 @@ request.get({
 
 // Find and delete all demo Features
 console.log('  Searching for demo', 'Features...'.cyan);
-console.log('');
-console.log('------------------------------------------------------------');
-console.log('');
+console.log('\n------------------------------------------------------------\n');
 
 // Get all Features
 request.get({
@@ -76,9 +69,9 @@ request.get({
 					} else {
 						console.log('  Deletion of Feature ' + feature._id, 'failed'.red);
 					}
-					console.log('');
-					console.log('------------------------------------------------------------');
-					console.log('');
+					
+					console.log('\n------------------------------------------------------------\n');
+
 					callback(error);
 				});
 			}

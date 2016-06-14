@@ -1,5 +1,6 @@
 // Required modules
 var mongoose = require('mongoose');
+var socket   = require('../../server.js');
 var _        = require('underscore');
 
 // Required data schema
@@ -27,6 +28,7 @@ exports.request = function(req, res) {
 			res.send(err);
 		} else {
 			res.json(feature);
+			socket.notify('features', feature);
 		}
 	});
 }

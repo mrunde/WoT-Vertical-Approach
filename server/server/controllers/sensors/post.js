@@ -1,10 +1,10 @@
 // Required modules
 var mongoose = require('mongoose');
+var socket   = require('../../server.js');
 var _        = require('underscore');
 
 // Required data schema
 var Sensor = require('../../data/sensor');
-var socket = require('../../server.js');
 
 /**
  * @api {post} /sensors POST
@@ -35,7 +35,7 @@ exports.request = function(req, res) {
 			res.send(err);
 		} else {
 			res.json(sensor);
-			socket.notify("sensors", sensor);
+			socket.notify('sensors', sensor);
 		}
 	});
 }

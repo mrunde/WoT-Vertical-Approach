@@ -1,11 +1,11 @@
 // Required modules
 var mongoose = require('mongoose');
+var socket   = require('../../server.js');
 var _        = require('underscore');
 
 // Required data schema
-var Thing 		= require('../../data/thing');
-var Waterbody	= require('../../data/waterbody.js');
-var socket		= require('../../server.js');
+var Thing     = require('../../data/thing');
+var Waterbody = require('../../data/waterbody.js');
 
 /**
  * @api {post} /things POST
@@ -50,7 +50,7 @@ exports.request = function(req, res) {
 					res.send(err);
 				} else {
 					res.json(thing);
-					socket.notify("things", thing);
+					socket.notify('things', thing);
 				}
 			});
 		}

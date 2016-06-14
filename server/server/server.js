@@ -31,36 +31,23 @@ var waterbodies	 = require('./routes/waterbodies');
 // Start Message
 // --------------------------------------------------
 
-console.log('');
+console.log('\n############################################################');
 console.log('############################################################');
-console.log('############################################################');
-console.log('');
-console.log('  Application:', 'Vertical Approach of the Geospatial'.cyan);
+console.log('\n  Application:', 'Vertical Approach of the Geospatial'.cyan);
 console.log('               Web of Things for Mobile Water Gauges'.cyan);
-console.log('');
-console.log('  Version:    ', '1.0.0'.cyan);
-console.log('');
-console.log('  Copyright:  ', '2016'.cyan);
-console.log('');
-console.log('  Licence:    ', 'MIT'.cyan);
-console.log('');
-console.log('  Authors:    ', '- Moritz Migge'.cyan);
+console.log('\n  Version:    ', '1.0.0'.cyan);
+console.log('\n  Copyright:  ', '2016'.cyan);
+console.log('\n  Licence:    ', 'MIT'.cyan);
+console.log('\n  Authors:    ', '- Moritz Migge'.cyan);
 console.log('               - Marius Runde'.cyan);
 console.log('               - Daniel Ummelmann'.cyan);
 console.log('               - Axel Virnich'.cyan);
-console.log('');
-console.log('############################################################');
-console.log('############################################################');
-console.log('');
-console.log('');
-console.log('////////////////////////////////////////////////////////////');
-console.log('');
+console.log('\n############################################################');
+console.log('############################################################\n');
+console.log('\n////////////////////////////////////////////////////////////\n');
 console.log('               STARTING SERVER...'.cyan);
-console.log('');
-console.log('////////////////////////////////////////////////////////////');
-console.log('');
-console.log('');
-console.log('------------------------------------------------------------');
+console.log('\n////////////////////////////////////////////////////////////\n');
+console.log('\n------------------------------------------------------------');
 
 // --------------------------------------------------
 // MQTT Client

@@ -10,7 +10,7 @@ To specify the demo sensor controller, there are some parameters which can be se
 
 Order | Parameter     | Type   | Default   | Description
 ------|---------------|--------|-----------|------------
-2     | `interval`    | Number | 5000      | Interval in which the measurements shall be posted.
+2     | `interval`    | Number | 2000      | Interval in which the measurements shall be posted.
 3     | `thingName`   | String | Demo      | Name of the Thing.
 4     | `thingLocLat` | Number | 51.964113 | Latitude of the Thing's location.
 5     | `thingLocLng` | Number | 7.624862  | Longitude of the Thing's location.

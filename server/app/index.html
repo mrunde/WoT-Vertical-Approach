@@ -20,6 +20,9 @@
 	<link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/mapbox.js/mapbox.css">
 	<link rel="stylesheet" type="text/css" href="lib/leaflet-draw/dist/leaflet.draw.css">
+	<link rel="stylesheet" type="text/css" href="lib/toastr/toastr.min.css">
+
+	<!-- Import custom stylesheet -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
@@ -54,6 +57,9 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="#"><label class="checkbox-inline"><input type="checkbox" onclick="store.toggleNotifications()" checked>Show Notifications</label></a>
+					</li>
 					<li><a href="/internal#/register"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up</a></li>
 					<li><a href="/internal"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a></li>
 				</ul>
@@ -234,6 +240,7 @@
 	<script src="lib/socket.io-client/socket.io.js"></script>
 	<script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="lib/file-saver/FileSaver.min.js"></script>
+	<script src="lib/toastr/toastr.min.js"></script>
 
 	<!-- Script imports -->
 	<script src="js/waterbodies.js"></script>

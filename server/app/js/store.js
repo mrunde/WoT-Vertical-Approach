@@ -10,6 +10,7 @@ function Store() {
 	this.currentThingId      = null;
 	this.currentThingName    = null;
 	this.currentThingSensors = [];
+	this.showNotifications   = true;
 
 	/**
 	 * Initialize the stores.
@@ -43,9 +44,11 @@ function Store() {
 		if (!this.currentThingSensors[sensor._id]) {
 			this.currentThingSensors[sensor._id] = {
 				'name': sensor.name,
+				'interval': sensor.interval,
 				'refLevel': sensor.refLevel,
 				'warnLevel': sensor.warnLevel,
-				'riskLevel': sensor.riskLevel
+				'riskLevel': sensor.riskLevel,
+				'featureId': sensor.featureId
 			};
 		}
 	};
@@ -62,6 +65,18 @@ function Store() {
 			};
 		}
 	};
+
+	/**
+	 * Turn the notifcations on or off.
+	 */
+	Store.prototype.toggleNotifications = function() {
+		if (this.showNotifications) {
+			this.showNotifications = false;
+			toastr.clear();
+		} else {
+			this.showNotifications = true;
+		}
+	}
 }
 
 let store = new Store();
