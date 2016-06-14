@@ -10,6 +10,7 @@ function Store() {
 	this.currentThingId      = null;
 	this.currentThingName    = null;
 	this.currentThingSensors = [];
+	this.showNotifications   = true;
 
 	/**
 	 * Initialize the stores.
@@ -64,6 +65,18 @@ function Store() {
 			};
 		}
 	};
+
+	/**
+	 * Turn the notifcations on or off.
+	 */
+	Store.prototype.toggleNotifications = function() {
+		if (this.showNotifications) {
+			this.showNotifications = false;
+			toastr.clear();
+		} else {
+			this.showNotifications = true;
+		}
+	}
 }
 
 let store = new Store();

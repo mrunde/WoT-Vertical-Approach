@@ -44,7 +44,7 @@ socket.on('measurements', function(measurement) {
 		chartHandler.addMeasurement(measurement);
 
 		// Check whether the new Measurement is greater than the Sensor's warn or risk level
-		if (measurement.value >= currentSensor.warnLevel) {
+		if (measurement.value >= currentSensor.warnLevel && store.showNotifications) {
 			let toastrOptions = {
 				closeButton       : true,
 				newestOnTop       : true,
