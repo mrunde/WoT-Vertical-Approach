@@ -55,9 +55,9 @@ router.post('/signup', function(req, res) {
 
 	User.register(new User(req.body), req.body.password, function(err, user) {
 		if(err) {
-			res.redirect('/signup');
+			res.render('signup.html');
 		} else {
-			res.redirect('/profile');
+			res.render('login.html');
 		}
 	});
 });
