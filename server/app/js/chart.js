@@ -13,7 +13,7 @@ function ChartHandler(container){
 
 	this.sensorId = null;
 
-	this.maxElements = 25;
+	this.maxElements = 129600; // 72 hours * 3600 seconds per hour * 0.5 Measurements per second
 
 	/**
 	 * Gets the default settings for the chart at first initialisation.
@@ -103,7 +103,7 @@ function ChartHandler(container){
 
 		// if array contains too many elements, remove oldest elements
 		if(measurements.length > this.maxElements)
-			measurements.splice(0, (measurements - this.maxElements));
+			measurements.splice(0, (measurements.length - this.maxElements));
 
 		let labels = [];
 		let values = [];
