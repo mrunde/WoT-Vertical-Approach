@@ -33,7 +33,7 @@ function Store() {
 		}, []);
 
 		// Initialize the Waterbodies store
-		this.waterbodies = []; // TODO
+		this.waterbodies = waterbody_names;
 	};
 }
 
