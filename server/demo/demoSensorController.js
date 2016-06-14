@@ -28,9 +28,8 @@ async.waterfall([
 		console.log('  Creating a new', 'User...\n'.cyan);
 
 		const userJson = {
-			name: 'demoUser#' + Math.random(),
-			password: 'demo',
-			email: 'demo@example.com'
+			email: 'demo#' + Math.random().toFixed() + '@example.com',
+			password: 'demoPass'
 		};
 
 		// Post the new User

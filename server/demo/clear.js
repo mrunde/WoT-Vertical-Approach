@@ -26,7 +26,7 @@ request.get({
 	if (!error) {
 		async.each(body, function(user, callback) {
 			// Check if the User is a demo User
-			if (user.name.indexOf('demo') > -1) {
+			if (user.email.indexOf('demo') > -1) {
 				// Delete the demo User
 				request.delete({
 					url: url + '/users/' + user._id
