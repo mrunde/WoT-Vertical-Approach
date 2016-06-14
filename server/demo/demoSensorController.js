@@ -13,7 +13,7 @@ const request = require('request');
 let counter = 1;
 
 // Read the arguments from the command line or set them to the default values
-const interval    = process.argv[2] || 5000;
+const interval    = process.argv[2] || 2000;
 const thingName   = process.argv[3] || 'Demo';
 const thingLocLat = process.argv[4] || 51.964113;
 const thingLocLng = process.argv[5] || 7.624862;
@@ -114,8 +114,8 @@ async.waterfall([
 			name: 'demoSensor',
 			interval: interval,
 			refLevel: 2,
-			warnLevel: 7,
-			riskLevel: 9,
+			warnLevel: 6,
+			riskLevel: 8,
 			thingId: thingId,
 			featureId: featureId
 		};
@@ -142,11 +142,17 @@ async.waterfall([
 		console.log('  Finished demo setup. Measuring now...'.cyan);
 		console.log('\n------------------------------------------------------------\n');
 
+		let value = 4;
+
 		setInterval(function() {
 			console.log('  Creating a new', 'Measurement...\n'.cyan);
 			
-			// Calculate the Measurement's value as a random number between 0 and 10
-			let value = Math.random() * 10;
+			// Calculate the Measurement's value as a random number with respect to its previous value
+			if (value < 1 || Math.random() > 0.5) {
+				value += Math.random();
+			} else {
+				value -= Math.random();
+			}
 			value = parseFloat(value.toFixed(2));
 			
 			let measurementJson = {
@@ -162,7 +168,7 @@ async.waterfall([
 				json: measurementJson
 			}, function(error, response, body) {
 				if (!error) {
-					console.log('  New Measurement', ('#' + counter).cyan, 'created.'.green);
+					console.log('  New Measurement', ('#' + counter).cyan, 'created.'.green, '\nValue:', value.cyan);
 					counter++;
 				} else {
 					console.log('  New Measurement creation', 'failed'.red);

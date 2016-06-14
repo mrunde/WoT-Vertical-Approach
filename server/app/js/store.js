@@ -43,9 +43,11 @@ function Store() {
 		if (!this.currentThingSensors[sensor._id]) {
 			this.currentThingSensors[sensor._id] = {
 				'name': sensor.name,
+				'interval': sensor.interval,
 				'refLevel': sensor.refLevel,
 				'warnLevel': sensor.warnLevel,
-				'riskLevel': sensor.riskLevel
+				'riskLevel': sensor.riskLevel,
+				'featureId': sensor.featureId
 			};
 		}
 	};

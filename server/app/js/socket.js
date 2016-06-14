@@ -34,9 +34,37 @@ socket.on('sensors', function(sensor) {
 
 // New Measurement created
 socket.on('measurements', function(measurement) {
+	let currentSensor = store.currentThingSensors[measurement.sensorId];
+
 	// Add the new Measurement to the table and chart
-	if (store.currentThingSensors[measurement.sensorId]) {
+	if (currentSensor) {
+		// Add to table
 		requestMeasurementsLatest(store.currentThingId);
+		// Add to chart
 		chartHandler.addMeasurement(measurement);
+
+		// Check whether the new Measurement is greater than the Sensor's warn or risk level
+		if (measurement.value >= currentSensor.warnLevel) {
+			let toastrOptions = {
+				closeButton       : true,
+				newestOnTop       : true,
+				onClick           : chartHandler.requestData(measurement.sensorId, store.features[currentSensor.featureId].name),
+				positionClass     : 'toast-bottom-right',
+				preventDuplicates : true,
+				progressBar       : false,
+				showDuration      : '0',
+				hideDuration      : '0',
+				timeOut           : '-1',
+				extendedTimeOut   : '0'
+			};
+
+			if (measurement.value >= currentSensor.riskLevel) {
+				// Risk level reached
+				toastr.error('Sensor reached risk level\nID:' + measurement.sensorId, 'DANGER!', toastrOptions);
+			} else {
+				// Warn level reached
+				toastr.warning('Sensor reached warn level\nID:' + measurement.sensorId, 'WARNING!', toastrOptions);
+			}
+		}
 	}
 });
