@@ -91,9 +91,9 @@ function requestMeasurementsLatest(id) {
 		success: function(measurements) {
 			let content = '';
 
-			$('#chart').attr('hidden', true);
-
 			if (measurements.length == 0) {
+				$('#chart').attr('hidden', true);
+
 				content = '<div class="well">No measurements available</div>';
 				hideDownloadButton = true;
 
@@ -152,10 +152,13 @@ function requestMeasurementsLatest(id) {
 						'<td class="text-right">' + currentSensor.riskLevel + ' ' + currentFeature.unit + '</td>' +
 					'</tr>';
 				});
-				content +=  '</table>' +
-					'<div id="chartWell" class="well">' +
+				content += '</table>';
+
+				if ($('#chart').attr('hidden')) {
+					content += '<div id="chartWell" class="well">' +
 						'Click on a sensor row for a chart visualisation...' +
 					'</div>';
+				}
 				
 				hideDownloadButton = false;
 			}

@@ -5,7 +5,6 @@ var _        = require('underscore');
 // Required data schema
 var Sensor = require('../../data/sensor');
 var Errors = require('../../data/errors');
-var socket = require('../../server.js');
 
 /**
  * @api {put} /sensors/:sensorId PUT
