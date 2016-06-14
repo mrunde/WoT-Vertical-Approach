@@ -144,6 +144,7 @@ async.waterfall([
 			
 			// Calculate the Measurement's value as a random number between 0 and 10
 			let value = Math.random() * 10;
+			value = parseFloat(value.toFixed(2));
 			
 			let measurementJson = {
 				date: Date.now(),
