@@ -17,10 +17,50 @@
 
 	<body ng-app="internal">
 
+		<!-- Navigation bar -->
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span> 
+					</button>
+					<a class="navbar-brand" href="#">WoT - Vertical Approach</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="/"><i class="fa fa-home"></i>&nbsp;Map</a></li>
+						<li>
+							<a href="/docs" target="_blank"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;API</a>
+						</li>
+						<li>
+							<a href="https://github.com/mrunde/WoT-Vertical-Approach" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Source</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;Help</a>
+						</li>
+						<li>
+							<a href="/imprint"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;Imprint</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#"><label class="checkbox-inline"><input type="checkbox" onclick="store.toggleNotifications()" checked>Show Notifications</label></a>
+						</li>
+						<li><a href="/internal#/register"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up</a></li>
+						<li><a href="/internal"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
 		<div class="container" ng-view>
 
 		</div>
 
+		<!-- Config import -->
+		<script src="js/config.js"></script>
 
 		<script src="/lib/jquery/dist/jquery.min.js"></script>
 		<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -31,5 +71,6 @@
 		<script type="text/javascript" src="/angular/controller/LoginController.js"></script>
 		<script type="text/javascript" src="/angular/controller/RegisterController.js"></script>
 		<script type="text/javascript" src="/angular/controller/ProfileController.js"></script>
+		<script type="text/javascript" src="/angular/controller/ThingController.js"></script>
 	</body>
 </html>

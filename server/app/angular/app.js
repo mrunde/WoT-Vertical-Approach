@@ -13,5 +13,9 @@ app.config(function($routeProvider) {
 		templateUrl: "/angular/templates/profile.html",
 		controller: "ProfileController"
 	})
+	.when("/thing/:thingId", {
+		templateUrl: "/angular/templates/thing.html",
+		controller: "ThingController"
+	})
 	.otherwise({redirectTo: "/login"});
 });

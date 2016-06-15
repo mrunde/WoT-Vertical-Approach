@@ -12,13 +12,25 @@
 				<span class="fa fa-user"></span> Local
 			</h3>
 			<p>
-				<strong>id</strong> {{user._id}}
+				<strong>ID</strong> {{user._id}}
 				<br>
-				<strong>username</strong> {{user.email}}
+				<strong>Email</strong> {{user.email}}
 			</p>
 		</div>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<h3>Your Things</h3>
+		<div class="list-group">
+
+			<a href="/internal#/thing/{{thing._id}}" ng-repeat="thing in things" class="list-group-item"><strong>Name: </strong>{{ thing.name }}<br><strong>ID: </strong>{{thing._id}}</a>
+
+		</div>
+	</div>
+</div>
+
 <div>
 	<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	<a href="/" class="btn btn-link">Return to Main Page</a>

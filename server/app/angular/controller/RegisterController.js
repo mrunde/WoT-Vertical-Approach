@@ -9,7 +9,7 @@ app.controller("RegisterController", function($scope, $http) {
 	$scope.register = function() {
 		$('#register_success').hide();
 		$('#register_error').hide();
-		$http.post('http://localhost:3000/register', $scope.user)
+		$http.post(getURL() + '/register', $scope.user)
 		.success(function(response) {
 			console.log(response);
 			$('#register_email').val('');
