@@ -99,9 +99,9 @@ public class SensorMIDlet extends MIDlet{
 				}
 				Arrays.sort(measurements);
 
-				// calculate average of six values
-//				double avg = Math.max((measurements[2] + measurements[3] + measurements[4] + measurements[5] + measurements[6] + measurements[7]) / 6, 0);
-				double avg = (measurements[2] + measurements[3] + measurements[4] + measurements[5] + measurements[6] + measurements[7]) / 6;
+				// use the modal as the best measurement
+				double avg = measurements[(int)(measurements.length / 2)];
+//				double avg = Math.max(measurements[(int)(measurements.length / 2)], 0);
 				
 //				if(avg > 0){
 					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), avg);
