@@ -3,10 +3,10 @@ var host = 'giv-gwot-va.uni-muenster.de';
 var port = 3000;
 
 // Twitter Config
-var consumer_key 		= '<< Your Consumer Key here >>';
-var consumer_secret 	= '<< Your Consumer Secret here >>';
-var access_token_key 	= '<< Your Access Token here >>';
-var access_token_secret = '<< Your Token Secret here >>';
+var twitterConsumerKey			= '<< Your Consumer Key here >>';
+var twitterConsumerSecret		= '<< Your Consumer Secret here >>';
+var twitterAccessTokenKey		= '<< Your Access Token here >>';
+var twitteraccessTokenSecret	= '<< Your Token Secret here >>';
 
 module.exports = {
 	express_host: 'http://' + host + ':' + port,
