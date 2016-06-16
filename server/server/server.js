@@ -18,6 +18,7 @@ var passport      = require('passport');
 var path          = require('path');
 var session       = require('express-session');
 var socketio      = require('socket.io');
+var twitter		  = require('twitter');
 
 // Required routes
 var features     = require('./routes/features');
@@ -26,6 +27,7 @@ var sensors      = require('./routes/sensors');
 var measurements = require('./routes/measurements');
 var users        = require('./routes/users');
 var waterbodies	 = require('./routes/waterbodies');
+var twitter      = require('./routes/twitter');
 
 // --------------------------------------------------
 // Start Message
