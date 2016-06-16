@@ -1,5 +1,5 @@
 // General-Config
-var host = 'localhost';
+var host = 'giv-gwot-va.uni-muenster.de';
 var port = 3000;
 
 // Twitter Config
