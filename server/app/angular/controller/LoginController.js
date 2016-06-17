@@ -4,7 +4,6 @@ app.controller("LoginController", function($scope, $http) {
 	$scope.user = {};
 
 	$scope.login = function() {
-		console.log($scope.user);
 		$http.post(getURL() + '/login', $scope.user)
 		.success(function(response) {
 			if(response.email == $scope.user.username) {

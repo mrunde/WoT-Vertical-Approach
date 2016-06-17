@@ -30,6 +30,10 @@ router.get('/internal/profile', function(req, res) {
 	res.redirect('/internal#/profile');
 });
 
+router.get('/internal/thing/:thingId', function(req, res) {
+	res.redirect('/internal#/thing/' + req.params.thingId);
+})
+
 router.get('/user', isLoggedIn, function(req, res) {
 	res.jsonp(req.user);
 });

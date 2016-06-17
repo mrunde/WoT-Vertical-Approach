@@ -27,7 +27,6 @@ app.controller("ThingController", function($scope, $http, $routeParams) {
 	$scope.querySensors = function() {
 		$http.get(getURL() + '/api/things/' + thingId + '/sensors').success(function(response) {
 			$scope.sensors = response;
-			console.log($scope.sensors);
 		});
 	};
 
