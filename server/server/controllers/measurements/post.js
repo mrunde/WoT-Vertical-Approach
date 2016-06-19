@@ -1,12 +1,25 @@
+// Load the application's configuration
+var config = require('./../config');
+
 // Required modules
 var mongoose = require('mongoose');
 var socket   = require('../../server.js');
 var _        = require('underscore');
+var Twitter  = require('twitter');
 
 // Required data schema
 var Errors      = require('../../data/errors');
 var Measurement = require('../../data/measurement');
 var Sensor      = require('../../data/sensor');
+
+// Define Client who sends new Tweets
+var client = new Twitter({
+  consumer_key: config.twitterConsumerKey,
+  consumer_secret: config.twitterConsumerSecret,
+  access_token_key: config.twitterAccessTokenKey,
+  access_token_secret: config.twitteraccessTokenSecret
+});
+
 
 /**
  * @api {post} /measurements POST
@@ -39,8 +52,28 @@ exports.request = function(req, res) {
 				} else {
 					res.json(measurement);
 					socket.notify('measurements', measurement);
+					// Check whether the new Measurement is greater than the Sensor's warn or risk level
+					//if (measurement.value >= sensor.warnLevel && store.showNotifications) {
+					if (measurement.value >= sensor.warnLevel) {
+						if (measurement.value >= sensor.riskLevel) {
+							// Risk level reached: Send tweet
+							var content = 'DANGER: Sensor reached risk level\nID:' + measurement.sensorId;
+							newStatusTwitter(content);
+						} else {
+							// Warn level reached: Send Tweet
+							var content = 'DANGER: Sensor reached risk level\nID:' + measurement.sensorId;
+							newStatusTwitter(content);
+						}
+					}
 				}
 			});
 		}
+	});
+}
+
+function newStatusTwitter(content) {
+	client.post('statuses/update', {status: content},  function(error, tweet, response){
+		if(error)
+			throw console.log(error);
 	});
 }

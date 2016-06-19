@@ -59,17 +59,11 @@ socket.on('measurements', function(measurement) {
 			};
 
 			if (measurement.value >= currentSensor.riskLevel) {
-				// Risk level reached
-					// Display Toast on Webside
-						toastr.error('Sensor reached risk level\nID:' + measurement.sensorId, 'DANGER!', toastrOptions);
-					// Send Tweet 
-						newStatusTwitter('DANGER: Sensor reached risk level\nID:' + measurement.sensorId);
+				// Risk level reached: Display Toast on Webside
+				toastr.error('Sensor reached risk level\nID:' + measurement.sensorId, 'DANGER!', toastrOptions);
 			} else {
-				// Warn level reached
-					// Display Toast on Webside
-						toastr.warning('Sensor reached warn level\nID:' + measurement.sensorId, 'WARNING!', toastrOptions);
-					// Send Tweet 
-						newStatusTwitter('WARNING: Sensor reached risk level\nID:' + measurement.sensorId);
+				// Warn level reached: Display Toast on Webside
+				toastr.warning('Sensor reached warn level\nID:' + measurement.sensorId, 'WARNING!', toastrOptions);
 			}
 		}
 	}
