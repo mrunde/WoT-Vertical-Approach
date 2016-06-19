@@ -1,5 +1,5 @@
 // Load the application's configuration
-var config = require('./../config');
+var config = require('./../../config');
 
 // Required modules
 var mongoose = require('mongoose');
