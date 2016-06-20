@@ -20,7 +20,6 @@ var client = new Twitter({
   access_token_secret: config.twitteraccessTokenSecret
 });
 
-
 /**
  * @api {post} /measurements POST
  * @apiName PostMeasurement
@@ -53,16 +52,13 @@ exports.request = function(req, res) {
 					res.json(measurement);
 					socket.notify('measurements', measurement);
 					// Check whether the new Measurement is greater than the Sensor's warn or risk level
-					//if (measurement.value >= sensor.warnLevel && store.showNotifications) {
 					if (measurement.value >= sensor.warnLevel) {
 						if (measurement.value >= sensor.riskLevel) {
-							// Risk level reached: Send tweet
-							var content = 'DANGER: Sensor reached risk level\nID:' + measurement.sensorId;
-							newStatusTwitter(content);
+							// Risk level reached
+							newRiskLevelTweet(sensor.name, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
 						} else {
-							// Warn level reached: Send Tweet
-							var content = 'DANGER: Sensor reached risk level\nID:' + measurement.sensorId;
-							newStatusTwitter(content);
+							// Warn level reached
+							newWarnLevelTweet(sensor.name, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
 						}
 					}
 				}
@@ -71,9 +67,23 @@ exports.request = function(req, res) {
 	});
 }
 
-function newStatusTwitter(content) {
-	client.post('statuses/update', {status: content},  function(error, tweet, response){
-		if(error)
-			throw console.log(error);
+// Create a warn level tweet
+function newWarnLevelTweet(name, id, time, value) {
+	tweetStatus('WARNING: Sensor "' + name + '" reached #warn_level\nID: #' + id + '\nTime: ' + time + '\nValue: ' + value);
+}
+
+// Create a risk level tweet
+function newRiskLevelTweet(name, id, time, value) {
+	tweetStatus('DANGER: Sensor "' + name + '" reached #risk_level\nID: #' + id + '\nTime: ' + time + '\nValue: ' + value);
+}
+
+// Submit a tweet
+function tweetStatus(status) {
+	client.post('statuses/update', { status: status }, function(error, tweet, response) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log(tweet);
+		}
 	});
 }
