@@ -1,6 +1,7 @@
 var app = angular.module("internal");
 
 app.controller("RegisterController", function($scope, $http) {
+	socketEnabled = false;
 	$scope.user = {};
 
 	$('#register_success').hide();

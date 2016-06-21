@@ -1,6 +1,7 @@
 var app = angular.module("internal");
 
 app.controller("ProfileController", function($scope, $http) {
+	socketEnabled = false;
 	$scope.user = {};
 	$scope.things = {};
 

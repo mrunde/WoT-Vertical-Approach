@@ -1,6 +1,7 @@
 var app = angular.module("internal");
 
 app.controller("ThingController", function($scope, $http, $routeParams) {
+	socketEnabled = false;
 	let thingId = $routeParams.thingId;
 	let sensor;
 

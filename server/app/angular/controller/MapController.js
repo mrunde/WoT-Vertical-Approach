@@ -1,6 +1,7 @@
 var app = angular.module("internal");
 
 app.controller("MapController", function($scope, $http) {
+	socketEnabled = true;
 	$scope.user = {};
 
 	// Handle filter events

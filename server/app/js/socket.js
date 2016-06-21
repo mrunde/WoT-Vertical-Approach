@@ -1,6 +1,7 @@
 'use strict';
 
 let socket = io(getURL());
+let socketEnabled = true;
 
 // Connection established
 socket.on('connect', function() {
@@ -37,7 +38,7 @@ socket.on('measurements', function(measurement) {
 	let currentSensor = store.currentThingSensors[measurement.sensorId];
 
 	// Add the new Measurement to the table and chart
-	if (currentSensor) {
+	if (currentSensor && socketEnabled) {
 		// Add to table
 		requestMeasurementsLatest(store.currentThingId);
 		// Add to chart
