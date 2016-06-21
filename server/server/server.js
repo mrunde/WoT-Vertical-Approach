@@ -11,6 +11,7 @@ const colors        = require('colors');
 const cookieParser  = require('cookie-parser');
 const express       = require('express');
 const favicon       = require('serve-favicon');
+const jwt           = require('jsonwebtoken');
 const mongoose      = require('mongoose');
 const morgan        = require('morgan');
 const passport      = require('passport');
