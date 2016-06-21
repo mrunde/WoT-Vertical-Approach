@@ -3,29 +3,28 @@
 // --------------------------------------------------
 
 // Load the application's configuration
-var config = require('./config');
+const config = require('./config');
 
 // Required modules
-var bodyParser    = require('body-parser');
-var colors        = require('colors');
-var cookieParser  = require('cookie-parser');
-var express       = require('express');
-var favicon       = require('serve-favicon');
-var LocalStrategy = require('passport-local').Strategy
-var mongoose      = require('mongoose');
-var morgan        = require('morgan');
-var passport      = require('passport');
-var path          = require('path');
-var session       = require('express-session');
-var socketio      = require('socket.io');
+const bodyParser    = require('body-parser');
+const colors        = require('colors');
+const cookieParser  = require('cookie-parser');
+const express       = require('express');
+const favicon       = require('serve-favicon');
+const mongoose      = require('mongoose');
+const morgan        = require('morgan');
+const passport      = require('passport');
+const path          = require('path');
+const session       = require('express-session');
+const socketio      = require('socket.io');
 
 // Required routes
-var features     = require('./routes/features');
-var things       = require('./routes/things');
-var sensors      = require('./routes/sensors');
-var measurements = require('./routes/measurements');
-var users        = require('./routes/users');
-var waterbodies	 = require('./routes/waterbodies');
+const features     = require('./routes/features');
+const things       = require('./routes/things');
+const sensors      = require('./routes/sensors');
+const measurements = require('./routes/measurements');
+const users        = require('./routes/users');
+const waterbodies  = require('./routes/waterbodies');
 
 // --------------------------------------------------
 // Start Message
@@ -91,15 +90,12 @@ app.use('/api', waterbodies);
 // --------------------------------------------------
 
 // Loading passport-config
-require(path.join(__dirname,'passport-config'));
-var routepassport	= require(path.join(__dirname, '/routes/passport'));
+require('./passport-config');
 
 // Required for passport
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.use('/', routepassport);
-app.use(express.static(path.join(__dirname, 'public')));
-
 
 // --------------------------------------------------
 // Starting Services

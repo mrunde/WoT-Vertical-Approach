@@ -1,13 +1,9 @@
+// Required modules
+const LocalStrategy = require('passport-local').Strategy;
+const passport      = require('passport');
 
-// load all the things we need
-var LocalStrategy   = require('passport-local').Strategy;
-var passport		= require('passport');
-
-
-// load up the user model
-var User = require('./data/user');
-
-// expose this function to our app using module.exports
+// Required data schema
+const User = require('./data/user');
 
 // =========================================================================
 // passport session setup ==================================================
