@@ -94,8 +94,7 @@ require('./passport-config');
 
 // Required for passport
 app.use(passport.initialize());
-app.use(passport.session()); 
-app.use('/', routepassport);
+app.use(passport.session());
 
 // --------------------------------------------------
 // Starting Services
