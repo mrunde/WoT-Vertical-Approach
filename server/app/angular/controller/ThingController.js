@@ -13,7 +13,7 @@ app.controller("ThingController", function($scope, $http, $routeParams) {
 			$scope.user = response;
 			$scope.queryThing();
 		} else {
-			window.location.href = '/internal#/';
+			window.location.href = '/login';
 		}
 	});
 

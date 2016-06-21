@@ -9,7 +9,7 @@ app.controller("ProfileController", function($scope, $http) {
 			$scope.user = response;
 			$scope.queryThings($scope.user._id);
 		} else {
-			window.location.href = '/internal#/';
+			window.location.href = '/login';
 		}
 	});
 

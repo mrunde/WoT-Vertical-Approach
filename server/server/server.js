@@ -96,6 +96,7 @@ require('./passport-config');
 // Required for passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/', require(path.join(__dirname, '/routes/passport')));
 
 // --------------------------------------------------
 // Starting Services

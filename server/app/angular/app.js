@@ -1,7 +1,16 @@
 var app = angular.module("internal", ["ngRoute"]);
 
-app.config(function($routeProvider) {
-	$routeProvider.when("/login", {
+app.config(function($routeProvider, $locationProvider) {
+	$routeProvider
+	.when("/", {
+		templateUrl: "/angular/templates/map.html",
+		controller: "MapController"
+	})
+	.when("/imprint", {
+		templateUrl: "/angular/templates/imprint.html",
+		controller: "ImprintController"
+	})
+	.when("/login", {
 		templateUrl: "/angular/templates/login.html",
 		controller: "LoginController"
 	})
@@ -23,7 +32,9 @@ app.config(function($routeProvider) {
 			loggedIn: checkLoggedin
 		}
 	})
-	.otherwise({redirectTo: "/login"});
+	.otherwise({redirectTo: "/"});
+
+	$locationProvider.html5Mode(true);
 });
 
 var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ 
@@ -37,7 +48,6 @@ var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){
 			deferred.resolve(); 
 		// Not Authenticated
 		 else { 
-			 $rootScope.message = 'You need to log in.'; 
 			 deferred.reject(); 
 			 $location.url('/login'); 
 		 } 

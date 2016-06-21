@@ -159,6 +159,6 @@ function ChartHandler(container){
 	ChartHandler.prototype.compareMeasurements = function(measurementA, measurementB) {
 		return new Date(measurementA.date) - new Date(measurementB.date);
 	}
-}
+};
 
-let chartHandler = new ChartHandler('waterLevelChart');
+let chartHandler = null;

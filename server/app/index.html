@@ -1,260 +1,112 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="en">
 
-<head>
-	
-	<title>WoT - Vertical Approach</title>
-	
-	<meta name="author" content="Marius Runde">
-	<meta name="keywords" content="Geospatial Web of Things">
+	<head>
+		<base href="/">
 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="theme-color" content="#1F4BFF">
+		<title>WoT - Vertical Approach</title>
 
-	<link rel="icon" type="image/ico" href="img/favicon.ico">
+		<meta name="author" content="Marius Runde">
+		<meta name="keywords" content="Geospatial Web of Things">
 
-	<!-- Import stylesheets -->
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/mapbox.js/mapbox.css">
-	<link rel="stylesheet" type="text/css" href="lib/leaflet-draw/dist/leaflet.draw.css">
-	<link rel="stylesheet" type="text/css" href="lib/toastr/toastr.min.css">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#1F4BFF">
 
-	<!-- Import custom stylesheet -->
-	<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="icon" type="image/ico" href="img/favicon.ico">
 
-</head>
+		<!-- Import stylesheets -->
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/mapbox.js/mapbox.css">
+		<link rel="stylesheet" type="text/css" href="lib/leaflet-draw/dist/leaflet.draw.css">
+		<link rel="stylesheet" type="text/css" href="lib/toastr/toastr.min.css">
 
-<body>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
 
-	<!-- Navigation bar -->
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span> 
-				</button>
-				<a class="navbar-brand" href="#">WoT - Vertical Approach</a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#"><i class="fa fa-home"></i>&nbsp;Map</a></li>
-					<li>
-						<a href="/docs" target="_blank"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;API</a>
-					</li>
-					<li>
-						<a href="https://github.com/mrunde/WoT-Vertical-Approach" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Source</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;Help</a>
-					</li>
-					<li>
-						<a href="/imprint"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;Imprint</a>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="#"><label class="checkbox-inline"><input type="checkbox" onclick="store.toggleNotifications()" checked>Show Notifications</label></a>
-					</li>
-					<li><a href="/internal#/register"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up</a></li>
-					<li><a href="/internal"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<body ng-app="internal">
 
-	<!-- Content -->
-	<div id="content" class="row">
-		<div id="info" class="col-md-6">
-			<div id="thingHeader" style="margin-bottom: 20px;">
-				<h3 id="thingName">Details</h3>
-				<button id="thingDownload" type="submit" class="btn btn-default pull-right hidden">
-					<i class="fa fa-download" aria-hidden="true"></i>&nbsp;Download Data
-				</button>
-				<div id="thingMetaInformation"></div>
-			</div>
-			<div id="thingDetails">
-				<div class="well">
-					Click on a marker to display further details...
+		<!-- Navigation bar -->
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span> 
+					</button>
+					<a class="navbar-brand" href="/">WoT - Vertical Approach</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="/"><i class="fa fa-home"></i>&nbsp;Map</a></li>
+						<li>
+							<a href="/docs" target="_blank"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;API</a>
+						</li>
+						<li>
+							<a href="https://github.com/mrunde/WoT-Vertical-Approach" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Source</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;Help</a>
+						</li>
+						<li>
+							<a href="/imprint"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;Imprint</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#"><label class="checkbox-inline"><input type="checkbox" onclick="store.toggleNotifications()" checked>Show Notifications</label></a>
+						</li>
+						<li><a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up</a></li>
+						<li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a></li>
+					</ul>
 				</div>
 			</div>
-			<div id="chart" hidden>
-				<canvas id="waterLevelChart" width="400" height="100"></canvas>
-			</div>
-			<div id="weather" class="row">
-				<div id="radar" class="col-md-6" style="width: 295px;"></div>
-				<div id="forecast" class="col-md-6"></div>
-			</div>
+		</nav>
+
+		<div class="container-fluid" ng-view>
+
 		</div>
 
-		<div id="map" class="col-md-6">
-			<div class="btn-group btn-group-justified" id="filter" role="group" aria-label="filter">
-				<div class="btn-group" role="group">
-					<button class="btn special">
-						<b>Filters:</b>
-					</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button id="filter_all" type="button" class="btn btn-primary">
-						<i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;&nbsp;All
-					</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button id="filter_last_24h" type="button" class="btn btn-default">
-						<i class="fa fa-clock-o"></i>&nbsp;&nbsp;Last 24h
-					</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button id="filter_last_7d" type="button" class="btn btn-default">
-						<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;Last Week
-					</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button id="filter_my_things" type="button" class="btn btn-default">
-						<i class="fa fa-user"></i>&nbsp;&nbsp;My Things
-					</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button id="filter_custom" class="btn btn-default" data-toggle="modal" data-target="#customFilterModal" onclick="customFilterFactory.reset()">
-						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;Custom
-					</button>
-				</div>
-			</div>
-			<div id="livemap"></div>
-		</div>
-	</div>
+		<!-- Config import -->
+		<script src="js/config.js"></script>
 
-	<!-- Modal Filter-->
-	<div id="customFilterModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			
-			<!-- Modal content -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Custom Filter</h4>
-				</div>
-				<div class="modal-body" id="custom-filter-selection">
-					<div class="list-group" id="filter-selection">
-					  	<a href="#" class="list-group-item filter-select" onclick="customFilterFactory.createCustomFilter('temporal')">
-					    	<h4 class="list-group-item-heading">Temporal Query</h4>
-					    	<p class="list-group-item-text">Query sensors based on the latest measurement.</p>
-					  	</a>
-					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('spatial')">
-					    	<h4 class="list-group-item-heading">Spatial Query</h4>
-					    	<p class="list-group-item-text">Query sensors based on their location.</p>
-					  	</a>
-					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('spatiotemporal')">
-					    	<h4 class="list-group-item-heading">Spatio-Temporal Query</h4>
-					    	<p class="list-group-item-text">Query sensors based on the latest measurement and their location.</p>
-					  	</a>
-					  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('river')">
-					    	<h4 class="list-group-item-heading">Select by River</h4>
-					    	<p class="list-group-item-text">Query all sensors located at a certain river.</p>
-					  	</a>
-					</div>
-				</div>
-				<div class="modal-body" id="custom-filter-datetime">
-					<h4>Select a start time</h4>
-					<div class="container">
-					    <div class="row">
-					        <div class='col-sm-6'>
-					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker-start'>
-					                    <input type='text' class="form-control" />
-					                    <span class="input-group-addon">
-					                        <span class="glyphicon glyphicon-calendar"></span>
-					                    </span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					</div>
-					<h4>Select an end time</h4>
-					<div class="container">
-					    <div class="row">
-					        <div class='col-sm-6'>
-					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker-end'>
-					                    <input type='text' class="form-control" />
-					                    <span class="input-group-addon">
-					                        <span class="glyphicon glyphicon-calendar"></span>
-					                    </span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					</div>
-					<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
-					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
-				</div>
-				<div class="modal-body" id="custom-filter-spatial">
-					<h4>Spatial Selection</h4>
+		<script src="/lib/jquery/dist/jquery.min.js"></script>
+		<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="lib/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
+		<script src="lib/mapbox.js/mapbox.js"></script>
+		<script src="lib/leaflet-draw/dist/leaflet.draw.js"></script>
+		<script src="lib/leaflet.draw.drag/dist/Leaflet.draw.drag-src.js"></script>
+		<script src="lib/moment/min/moment.min.js"></script>
+		<script src="lib/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+		<script src="lib/Chart.js/dist/Chart.min.js"></script>
+		<script src="lib/socket.io-client/socket.io.js"></script>
+		<script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="lib/file-saver/FileSaver.min.js"></script>
+		<script src="lib/toastr/toastr.min.js"></script>
 
-					<p>Click 'Next' to enter drawing mode. Use the Bounding Box to select the filter area. You can resize and move the Bounding Box to adjust it to your needs. When you are done, double click the bounding box to apply the filter.</p>
-					
-					<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
-					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
-				</div>
-				<div class="modal-body" id="custom-filter-river">
-					<h4>Select by River</h4>
+		<!-- Script imports -->
+		<script src="js/waterbodies.js"></script>
+		<script src="js/store.js"></script>
+		<script src="js/map.js"></script>
+		<script src="js/resize.js"></script>
+		<script src="js/chart.js"></script>
+		<script src="js/socket.js"></script>
+		<script src="js/customFilter.js"></script>
+		<script src="js/download.js"></script>
 
-					<p>Select a river to display all sensors that are located at or close to that river.</p>
 
-					<p>
-						<label for="custom-filter-river-input">Enter River Name</label>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon">River Name:</span>
-							<input type="text" data-provide="typeahead" id="custom-filter-river-input" class="form-control" placeholder="Werse" aria-describedby="basic-addon">
-						</div>
-					</p>
-					
-					<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
-					<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
+		<script type="text/javascript" src="/lib/angular/angular.js"></script>
+		<script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
 
-		</div>
-	</div> <!-- Modal Filter-->
-	
-	<!-- Config import -->
-	<script src="js/config.js"></script>
-
-	<!-- Library imports -->
-	<script src="lib/jquery/dist/jquery.min.js"></script>
-	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="lib/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
-	<script src="lib/mapbox.js/mapbox.js"></script>
-	<script src="lib/leaflet-draw/dist/leaflet.draw.js"></script>
-	<script src="lib/leaflet.draw.drag/dist/Leaflet.draw.drag-src.js"></script>
-	<script src="lib/moment/min/moment.min.js"></script>
-	<script src="lib/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
-	<script src="lib/Chart.js/dist/Chart.min.js"></script>
-	<script src="lib/socket.io-client/socket.io.js"></script>
-	<script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="lib/file-saver/FileSaver.min.js"></script>
-	<script src="lib/toastr/toastr.min.js"></script>
-
-	<!-- Script imports -->
-	<script src="js/waterbodies.js"></script>
-	<script src="js/store.js"></script>
-	<script src="js/map.js"></script>
-	<script src="js/resize.js"></script>
-	<script src="js/chart.js"></script>
-	<script src="js/socket.js"></script>
-	<script src="js/customFilter.js"></script>
-	<script src="js/download.js"></script>
-
-	<!-- Load AngularJS as last library to reduce conflict potential with the config functions -->
-	<script src="lib/angular/angular.min.js"</script>
-
-</body>
-
+		<script type="text/javascript" src="/angular/app.js"></script>
+		<script type="text/javascript" src="/angular/controller/LoginController.js"></script>
+		<script type="text/javascript" src="/angular/controller/RegisterController.js"></script>
+		<script type="text/javascript" src="/angular/controller/ProfileController.js"></script>
+		<script type="text/javascript" src="/angular/controller/ThingController.js"></script>
+		<script type="text/javascript" src="/angular/controller/MapController.js"></script>
+		<script type="text/javascript" src="/angular/controller/ImprintController.js"></script>
+	</body>
 </html>
