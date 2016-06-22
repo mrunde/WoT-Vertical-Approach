@@ -1,6 +1,6 @@
 var app = angular.module("internal");
 
-app.controller("MapController", function($scope, $http, $rootScope) {
+app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	socketEnabled = true;
 	
 	// adjust navbar to login status
@@ -46,7 +46,7 @@ app.controller("MapController", function($scope, $http, $rootScope) {
 		$('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
 		$('#filter_my_things').removeClass('btn-default').addClass('btn-primary');
 		$('#filter_custom').removeClass('btn-primary').addClass('btn-default');
-		// TODO requestMyThings();
+		$scope.requestMyThings();
 	});
 
 	$('#filter_custom').on('click', function() {
@@ -55,7 +55,6 @@ app.controller("MapController", function($scope, $http, $rootScope) {
 		$('#filter_last_7d').removeClass('btn-primary').addClass('btn-default');
 		$('#filter_my_things').removeClass('btn-primary').addClass('btn-default');
 		$('#filter_custom').removeClass('btn-default').addClass('btn-primary');
-		// TODO requestCustom();
 	});
 
 	L.mapbox.accessToken = getMapboxAccessToken();
@@ -80,4 +79,25 @@ app.controller("MapController", function($scope, $http, $rootScope) {
 
 	chartHandler = new ChartHandler('waterLevelChart');
 	requestThings();
+
+	// Request all things of the currently logged in user or redirect to login
+	// page if no user is logged in.
+	$scope.requestMyThings = function() {
+		if($rootScope.user) {
+			console.log($rootScope.user);
+			return $.ajax({
+				url: getURL() + '/api/users/' + $rootScope.user._id + '/things',
+				global: false,
+				type: 'GET',
+				async: false,
+				success: function(things) {
+					drawMarkers(things);
+				}
+			});
+		} else {
+			$scope.$apply(function() {
+				$location.path('/login');
+			});
+		}
+	};
 });
