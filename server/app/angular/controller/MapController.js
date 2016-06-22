@@ -84,7 +84,6 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	// page if no user is logged in.
 	$scope.requestMyThings = function() {
 		if($rootScope.user) {
-			console.log($rootScope.user);
 			return $.ajax({
 				url: getURL() + '/api/users/' + $rootScope.user._id + '/things',
 				global: false,

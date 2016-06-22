@@ -1,6 +1,6 @@
 var app = angular.module("internal");
 
-app.controller("ProfileController", function($scope, $http, $rootScope) {
+app.controller("ProfileController", function($scope, $http, $rootScope, $location, $timeout) {
 	socketEnabled = false;
 	$scope.user = {};
 	$scope.things = {};
@@ -26,7 +26,58 @@ app.controller("ProfileController", function($scope, $http, $rootScope) {
 	$scope.queryThings = function(userid) {
 		$http.get(getURL() + '/api/users/' + userid + '/things').success(function(response) {
 			$scope.things = response;
+			$timeout(function() {
+				$scope.initMaps();
+			}, 1000);
 		});
 	};
 
+	$scope.showThing = function(thingId) {
+		$location.path('/thing/' + thingId);
+	};
+
+	$scope.initMaps = function() {
+		L.mapbox.accessToken = getMapboxAccessToken();
+		for(var i = 0; i < $scope.things.length; i++) {
+			var container = $('#map-' + $scope.things[i]._id);
+	
+			var tGeojson = [
+				{
+					"type": "FeatureCollection",
+					"features": [
+						{
+							"type": "Feature",
+							"geometry": {
+								"type": "Point",
+								"coordinates": [$scope.things[i].loc.coordinates[1], $scope.things[i].loc.coordinates[0]]
+							},
+							"properties": {}
+						}
+					]
+				}
+			];
+
+			var tMap = L.mapbox.map('map-' + $scope.things[i]._id, 'mapbox.dark', {
+				scrollWheelZoom: false,
+				zoomControl: false,
+				dragging: false,
+				touchZoom: false,
+				doubleClickZoom: false,
+				boxZoom: false,
+				attributionControl: false
+			}).setView($scope.things[i].loc.coordinates, 14);
+
+			$('.leaflet-container').css('cursor','pointer');
+
+			var myLayer = L.mapbox.featureLayer(tGeojson, {
+				pointToLayer: function(feature, latlon) {
+					return L.circleMarker(latlon, {
+						fillColor: '#ff0000',
+						fillOpacity: 0.8,
+						stroke: false
+					});
+				}
+			}).addTo(tMap);
+		}
+	};
 });
