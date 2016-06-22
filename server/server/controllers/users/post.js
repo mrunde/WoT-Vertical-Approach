@@ -11,7 +11,8 @@ var User = require('../../data/user');
  * @apiGroup User
  * @apiVersion 1.0.0
  *
- * @apiParam {String} name	Name of the User.
+ * @apiParam {String} name		Name of the User.
+ * @apiParam {Object} twitter	Twitter login information of the User (optional).
  *
  * @apiSuccess {String} userId 	User's unique ID.
  *

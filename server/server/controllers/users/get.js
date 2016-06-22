@@ -13,6 +13,7 @@ var User = require('../../data/user');
  * @apiParam {String} userId 	User's unique ID.
  *
  * @apiSuccess {String} name	Name of the User.
+ * @apiSuccess {Object} twitter	Twitter login information of the User (optional).
  *
  * @apiUse SuccessExample_Get_Users
  * @apiUse UserNotFoundError

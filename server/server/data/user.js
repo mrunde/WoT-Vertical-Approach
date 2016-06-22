@@ -6,6 +6,24 @@ var UserSchema = mongoose.Schema({
 	email: {
 		type: String,
 		required: true
+	},
+	twitter: {
+		twitterConsumerKey: {
+			type: String,
+			required: false
+		},
+		twitterConsumerSecret: {
+			type: String,
+			required: false
+		},
+		twitterAccessTokenKey: {
+			type: String,
+			required: false
+		},
+		twitteraccessTokenSecret: {
+			type: String,
+			required: false
+		}
 	}
 });
 

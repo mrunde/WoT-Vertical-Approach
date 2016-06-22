@@ -175,7 +175,13 @@
  *     HTTP/1.1 200 OK
  *     {
  *       "_id": "<< generated MongoDB ID >>",
- *       "name": "demo"
+ *       "email": "demo@example.com",
+ *       "twitter": {
+ *         "twitterConsumerKey": "<< generated Twitter consumer key >>",
+ *         "twitterConsumerSecret": "<< generated Twitter consumer secret >>",
+ *         "twitterAccessTokenKey": "<< generated Twitter access token key >>",
+ *         "twitteraccessTokenSecret": "<< generated Twitter access token secret >>"
+ *       }
  *     }
  */
 
@@ -186,11 +192,17 @@
  *     [
  *       {
  *         "_id": "<< generated MongoDB ID >>"
- *         "name": "demo",
+ *         "email": "demo@example.com",
+ *         "twitter": {
+ *           "twitterConsumerKey": "<< generated Twitter consumer key >>",
+ *           "twitterConsumerSecret": "<< generated Twitter consumer secret >>",
+ *           "twitterAccessTokenKey": "<< generated Twitter access token key >>",
+ *           "twitteraccessTokenSecret": "<< generated Twitter access token secret >>"
+ *         }
  *       },
  *       {
  *         "_id": "<< generated MongoDB ID >>",
- *         "name": "foo"
+ *         "email": "user@example.com"
  *       }
  *     ]
  */

@@ -8,6 +8,8 @@ Here you can find the source code for the web server.
 * Perform the *gulp* tasks with `gulp`
 * Then you can start the web server with `pm2 start server\server.js`
 
+*In case the API documentation is not generated at the first time, please run the gulp task again.*
+
 ## REST API
 
 Here you can see an overview of the available REST API functions and whether they have been implemented already or are still in development.
