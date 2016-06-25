@@ -53,6 +53,7 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 						]
 					},
 					'properties': {
+						'title': $scope.things[i].name,
 						'icon': {
 							'iconUrl': '../img/marker.png',
 							'iconSize': [32, 32],
@@ -63,21 +64,20 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 				}
 			];
 
-			var tMap = L.mapbox.map('map-' + $scope.things[i]._id, 'mapbox.dark', {
+			var tMap = L.mapbox.map('map-' + $scope.things[i]._id, 'mapbox.streets', {
 				scrollWheelZoom: false,
-				zoomControl: false,
-				dragging: false,
+				zoomControl: true,
+				dragging: true,
 				touchZoom: false,
-				doubleClickZoom: false,
+				doubleClickZoom: true,
 				boxZoom: false,
 				attributionControl: false
-			}).setView($scope.things[i].loc.coordinates, 14);
+			}).setView($scope.things[i].loc.coordinates, 10);
 
 			$('.leaflet-container').css('cursor', 'default');
 
 			// Add Thing marker to the map
 			var tMarker = L.mapbox.featureLayer().addTo(tMap);
-			tMarker.off('click');
 			tMarker.on('layeradd', function(e) {
 				var marker = e.layer;
 				marker.setIcon(L.icon(marker.feature.properties.icon));
