@@ -89,14 +89,9 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .thing-square {
-  cursor: pointer;
   border: 1px solid black;
   background-color: white;
   color: black;
-  height: 128px;
+  height: 234px;
   margin-bottom: 20px;
-}
-
-.thing-square:hover {
-  color: #3AB6FE;
 }

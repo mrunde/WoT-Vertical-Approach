@@ -1,35 +1,80 @@
-<div class="text-center" style="padding: 30px 0 20px; border-bottom: 1px solid #eee; background-color: #3AB6FE; color: white; margin: 0 -15px;">
-	<h1>
-		<span class="fa fa-user"> Profile Page</span>
-	</h1>
+<div class="row">
+	
+	<div class="col-sm-10 col-sm-offset-1">
+		
+		<h2 class="text-center" style="padding-bottom: 30px;">
+			<i class="fa fa-user"></i>&nbsp;My Profile
+		</h2>
+		
+		<p>Here you can view, edit and control your things and the sensors connected to them. To enter a thing's configuration, simply click on one of the buttons below.</p>
+
+		<div class="panel panel-primary">
+
+			<div class="panel-heading">
+				Profile Information
+			</div>
+			
+			<div class="panel-body">
+				You are currently logged in as <strong>{{ user.email }}</strong>.
+			</div>
+			
+			<div class="panel-body">
+				Your Id is <strong>{{ user._id }}</strong>.
+			</div>
+
+		</div>
+
+		<p class="text-right"><button class="btn btn-primary">Edit Profile Settings</button></p>
+
+	</div>
+
 </div>
 
 <div class="row">
-	<!-- LOCAL INFORMATION -->
-	<div class="col-sm-10 col-sm-offset-1">
-		<h2 class="text-center"><span class="fa fa-cog"> Account Settings</span></h2>
-		<p>Here you can view, edit and control your Things and the sensors connected to them. To enter a thing's configuration, simply click on one of the buttons below.</p> 
-		<p>You are currently logged in as <strong>{{user.email}}</strong>. Your Id is <strong>{{user._id}}</strong>.</p>
-		<p class="text-right"><button class="btn btn-info">Edit Account Settings</button></p>
-	</div>
-</div>
+	
+	<h2 class="text-center" style="padding-bottom: 30px;">
+		<i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;My Things
+	</h2>
 
-<div style="padding: 20px 0 20px; border-bottom: 1px solid #eee; background-color: #3AB6FE; color: white; margin: 0 -15px;">
-	<h2 class="text-center"><span class="fa fa-connectdevelop"> My Things</span></h2>
+	<br/>
+
 	<div class="row" style="padding: 0px;">
-		<div class="col-md-10 col-md-offset-1 thing-square" ng-repeat="thing in things" ng-click="showThing(thing._id)">
+		
+		<div class="col-md-10 col-md-offset-1 thing-square list-group" ng-repeat="thing in things">
+			
 			<div class="row" style="height: 100%;">
-				<div class="col-md-4" style="border-right: 1px solid black; padding: 14px; height: 100%;">
-					<p><strong>Name:</strong> {{thing.name}}</p>
-					<p><strong>Position:</strong> {{thing.loc.coordinates}}</p>
-					<p><strong>ID:</strong> {{thing._id}}</p>
-				</div>
-				<div class="col-md-8" style="margin: 0 -15px; height: 100%;">
-					<div id="map-{{thing._id}}" style="height: 100%; width: 104.5%;">
-
+				
+				<div class="col-md-4" style="padding-right: 0px;">
+					
+					<div class="list-group-item">
+						<p class="list-group-item-text">Name</p>
+						<h4 class="list-group-item-heading">{{ thing.name }}</h4>
 					</div>
+
+					<div class="list-group-item">
+						<p class="list-group-item-text">Position</p>
+						<h4 class="list-group-item-heading">{{ thing.loc.coordinates[0] }}, {{ thing.loc.coordinates[1] }}</h4>
+					</div>
+
+					<div class="list-group-item">
+						<p class="list-group-item-text">ID</p>
+						<h4 class="list-group-item-heading">{{ thing._id }}</h4>
+					</div>
+
+					<button type="button" class="list-group-item active" style="border-radius: 0px;" ng-click="showThing(thing._id)">
+						Edit Thing Settings
+					</button>
+
 				</div>
+
+				<div class="col-md-8" style="margin: 0 -15px; height: 100%;">
+					<div id="map-{{thing._id}}" style="height: 100%; width: 104%;" />
+				</div>
+
 			</div>
+
 		</div>
+
 	</div>
+
 </div>

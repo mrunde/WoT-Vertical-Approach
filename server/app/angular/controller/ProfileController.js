@@ -38,22 +38,28 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 
 	$scope.initMaps = function() {
 		L.mapbox.accessToken = getMapboxAccessToken();
-		for(var i = 0; i < $scope.things.length; i++) {
+
+		for (var i = 0; i < $scope.things.length; i++) {
 			var container = $('#map-' + $scope.things[i]._id);
 	
 			var tGeojson = [
 				{
-					"type": "FeatureCollection",
-					"features": [
-						{
-							"type": "Feature",
-							"geometry": {
-								"type": "Point",
-								"coordinates": [$scope.things[i].loc.coordinates[1], $scope.things[i].loc.coordinates[0]]
-							},
-							"properties": {}
+					'type': 'Feature',
+					'geometry': {
+						'type': 'Point',
+						'coordinates': [
+							$scope.things[i].loc.coordinates[1],
+							$scope.things[i].loc.coordinates[0]
+						]
+					},
+					'properties': {
+						'icon': {
+							'iconUrl': '../img/marker.png',
+							'iconSize': [32, 32],
+							'iconAnchor': [16, 16],
+							'popupAnchor': [0, -16]
 						}
-					]
+					}
 				}
 			];
 
@@ -67,17 +73,16 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 				attributionControl: false
 			}).setView($scope.things[i].loc.coordinates, 14);
 
-			$('.leaflet-container').css('cursor','pointer');
+			$('.leaflet-container').css('cursor', 'default');
 
-			var myLayer = L.mapbox.featureLayer(tGeojson, {
-				pointToLayer: function(feature, latlon) {
-					return L.circleMarker(latlon, {
-						fillColor: '#ff0000',
-						fillOpacity: 0.8,
-						stroke: false
-					});
-				}
-			}).addTo(tMap);
+			// Add Thing marker to the map
+			var tMarker = L.mapbox.featureLayer().addTo(tMap);
+			tMarker.off('click');
+			tMarker.on('layeradd', function(e) {
+				var marker = e.layer;
+				marker.setIcon(L.icon(marker.feature.properties.icon));
+			});
+			tMarker.setGeoJSON(tGeojson);
 		}
 	};
 });
