@@ -5,10 +5,19 @@ let customFilterProperties = {};
 
 let savedCustomFilters = {};
 
+/**
+ * Factory class to create and manage custom filters.
+ * CustomFilterFactory produces the appropriate 
+ * filter for each selection and delegates the user
+ * input to the filter methods.
+ */
 function CustomFilterFactory() {
 
 	this.currentFilter = null;
 
+	/**
+	 * Initializes all interactive DOM elements.
+	 */
 	CustomFilterFactory.prototype.init = function() {
 		// init datetimepickers
 		$('#datetimepicker-start').datetimepicker();
@@ -30,6 +39,9 @@ function CustomFilterFactory() {
 	    $('#custom-filter-spatial').hide();
 	}
 
+	/**
+	 * Resets all filters and clears the current filter settings.
+	 */
 	CustomFilterFactory.prototype.reset = function() {
 		$('#custom-filter-datetime').hide();
 		$('#custom-filter-spatial').hide();
@@ -38,6 +50,10 @@ function CustomFilterFactory() {
 		$('#custom-filter-selection').show();
 	}
 
+	/**
+	 * Creates a custom filter depending on the user selection.
+	 * @param {String} type Name of the selected filter.
+	 */
 	CustomFilterFactory.prototype.createCustomFilter = function(type) {
 		customFilterProperties.filter = type;
 		switch(type) {
@@ -57,56 +73,27 @@ function CustomFilterFactory() {
 		this.currentFilter.init();
 	}
 
+	/**
+	 * Proceed to next filter procedure.
+	 */
 	CustomFilterFactory.prototype.next = function() {
 		this.currentFilter.next();
 	}
 
+	/**
+	 * Return to last filter procedure.
+	 */
 	CustomFilterFactory.prototype.back = function() {
 		this.currentFilter.back();
 	}
 }
 
-function RiverFilter() {
-	this.steps = ['riverSelection', 'applyFilter'];
-	this.currentStep = null;
-
-	RiverFilter.prototype.init = function() {
-		$('#custom-filter-selection').hide();
-		$('#custom-filter-river').show(200);
-		this.currentStep = 0;
-	}
-
-	RiverFilter.prototype.next = function() {
-		this.currentStep++;
-
-		if(this.steps[this.currentStep] == 'applyFilter') {
-			customFilterProperties.river = $('#custom-filter-river-input').val();
-			this.applyFilter();
-		}
-	}
-
-	RiverFilter.prototype.back = function() {
-		if(this.steps[this.currentStep] == 'riverSelection') {
-			customFilterFactory.reset();
-		}		
-
-		this.currentStep--;
-	}
-
-	RiverFilter.prototype.applyFilter = function() {
-		$.ajax({
-			url: getURL() + '/api/things/spatial/waterbodies/' + customFilterProperties.river,
-			global: false,
-			type: 'GET',
-			async: false,
-			success: function(things) {
-				drawMarkers(things);
-				$('#customFilterModal').modal('hide');
-			}
-		});
-	}
-}
-
+/**
+ * Custom filter class for temporal selection.
+ * Provides methods and settings to filter things
+ * by time.
+ * Product of the CustomFilterFactory.
+ */
 function TemporalFilter() {
 	this.steps = ["timeSelection", "applyFilter"];
 	this.currentStep = null;
@@ -149,6 +136,61 @@ function TemporalFilter() {
 	}
 }
 
+/**
+ * Custom filter class for spatial selection.
+ * Provides methods and settings to filter things
+ * by spatial selection (bounding box).
+ * Product of the CustomFilterFactory.
+ */
+function SpatialFilter() {
+	this.steps = ['spatialSelectionInfo', 'spatialSelection', 'applyFilter'];
+	this.currentStep = null;
+
+	SpatialFilter.prototype.init = function() {
+		$('#custom-filter-selection').hide();
+		$('#custom-filter-spatial').show(200);
+		this.currentStep = 0;
+	}
+
+	SpatialFilter.prototype.next = function() {
+		this.currentStep++;
+
+		if(this.steps[this.currentStep] == 'spatialSelection') {
+			$('#customFilterModal').modal('hide');
+			enterDrawingMode();	
+		}
+		else if(this.steps[this.currentStep] == 'applyFilter') {
+			this.applyFilter();
+		}
+	}
+
+	SpatialFilter.prototype.back = function() {
+		if(this.steps[this.currentStep] == 'spatialSelectionInfo') {
+			customFilterFactory.reset();
+		}
+
+		this.currentStep--;
+	}
+
+	SpatialFilter.prototype.applyFilter = function() {
+		$.ajax({
+			url: getURL() + '/api/things/spatial/bbox/' + customFilterProperties.bounds,
+			global: false,
+			type: 'GET',
+			async: false,
+			success: function(things) {
+				drawMarkers(things);
+			}
+		});
+	}
+}
+
+/**
+ * Custom filter class for spatio-temporal selection.
+ * Provides methods and settings to filter things
+ * by time and spatial selection (bounding box).
+ * Product of the CustomFilterFactory.
+ */
 function SpatioTemporalFilter() {
 	this.steps = ['spatialSelectionInfo', 'spatialSelection', 'timeSelection', 'applyFilter'];
 	this.currentStep = null;
@@ -204,49 +246,57 @@ function SpatioTemporalFilter() {
 	}
 }
 
-function SpatialFilter() {
-	this.steps = ['spatialSelectionInfo', 'spatialSelection', 'applyFilter'];
+/**
+ * Custom filter class for selection by river name.
+ * Provides methods and settings to filter things
+ * by river name. Only things close to the given
+ * river will be displayed.
+ * Product of the CustomFilterFactory.
+ */
+function RiverFilter() {
+	this.steps = ['riverSelection', 'applyFilter'];
 	this.currentStep = null;
 
-	SpatialFilter.prototype.init = function() {
+	RiverFilter.prototype.init = function() {
 		$('#custom-filter-selection').hide();
-		$('#custom-filter-spatial').show(200);
+		$('#custom-filter-river').show(200);
 		this.currentStep = 0;
 	}
 
-	SpatialFilter.prototype.next = function() {
+	RiverFilter.prototype.next = function() {
 		this.currentStep++;
 
-		if(this.steps[this.currentStep] == 'spatialSelection') {
-			$('#customFilterModal').modal('hide');
-			enterDrawingMode();	
-		}
-		else if(this.steps[this.currentStep] == 'applyFilter') {
+		if(this.steps[this.currentStep] == 'applyFilter') {
+			customFilterProperties.river = $('#custom-filter-river-input').val();
 			this.applyFilter();
 		}
 	}
 
-	SpatialFilter.prototype.back = function() {
-		if(this.steps[this.currentStep] == 'spatialSelectionInfo') {
+	RiverFilter.prototype.back = function() {
+		if(this.steps[this.currentStep] == 'riverSelection') {
 			customFilterFactory.reset();
-		}
+		}		
 
 		this.currentStep--;
 	}
 
-	SpatialFilter.prototype.applyFilter = function() {
+	RiverFilter.prototype.applyFilter = function() {
 		$.ajax({
-			url: getURL() + '/api/things/spatial/bbox/' + customFilterProperties.bounds,
+			url: getURL() + '/api/things/spatial/waterbodies/' + customFilterProperties.river,
 			global: false,
 			type: 'GET',
 			async: false,
 			success: function(things) {
 				drawMarkers(things);
+				$('#customFilterModal').modal('hide');
 			}
 		});
 	}
 }
 
+// Places a bounding box on the map. The bounding box is draggable and resizable.
+// Double clicking the bounding box will init the next filter procedure, depending
+// on the filter selected.
 function enterDrawingMode() {
 	let mapCenter = map.getCenter();
 	let bounds = map.getBounds();
@@ -289,10 +339,3 @@ function enterDrawingMode() {
 
 	map.addLayer(rectangle);
 }
-
-$(document).ready(function() {
-	customFilterFactory = new CustomFilterFactory();
-	customFilterFactory.init();
-
-	$("#custom-filter-river-input").typeahead({ source:waterbody_names });
-});

@@ -2,6 +2,8 @@ var app = angular.module("internal");
 
 app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	socketEnabled = true;
+
+	$scope.mapInitiated = false;
 	
 	// adjust navbar to login status
 	if($rootScope.user) {
@@ -67,7 +69,7 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	map._onResize();
 	
 	L.control.layers({
-		'Mapbox Streets':   L.mapbox.tileLayer('mapbox.streets').addTo(map),
+		'Mapbox Streets':   L.mapbox.tileLayer('mapbox.streets').on('load', function(){ $scope.zoomToThingsOnLoad(); }).addTo(map),
 		'Mapbox Dark':      L.mapbox.tileLayer('mapbox.dark'),
 		'Mapbox Satellite': L.mapbox.tileLayer('mapbox.satellite')
 	}).addTo(map);
@@ -77,8 +79,13 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	thingMetaInformation = document.getElementById('thingMetaInformation');
 	thingDetails         = document.getElementById('thingDetails');
 
+	// init Chart
 	chartHandler = new ChartHandler('waterLevelChart');
-	requestThings();
+
+	// init Filter functions and river autofill
+	customFilterFactory = new CustomFilterFactory();
+	customFilterFactory.init();
+	$("#custom-filter-river-input").typeahead({ source:waterbody_names });
 
 	// Request all things of the currently logged in user or redirect to login
 	// page if no user is logged in.
@@ -99,4 +106,13 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 			});
 		}
 	};
+
+	// When the page is loaded, wait for all tiles to load and
+	// then fit Bounds to requested Things.
+	$scope.zoomToThingsOnLoad = function() {
+		if($scope.mapInitiated == false) {
+			requestThings();
+			$scope.mapInitiated = true;
+		}
+	}
 });
