@@ -64,7 +64,7 @@ Status | URL | Method | Description
 Status | URL | Method | Description
 -------|-----|--------|------------
 :white_check_mark: | `api/features` | GET, POST | all features
-:white_check_mark: | `api/features/:featureId` | DELETE, GET | one feature
+:white_check_mark: | `api/features/:featureId` | GET | one feature
 
 ### Waterbodies
 
