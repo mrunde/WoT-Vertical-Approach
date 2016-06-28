@@ -121,6 +121,9 @@ router.get('/users/:userId/things', users.listThings.request);
 // Create one User
 router.post('/users', users.post.request);
 
+// Update a user
+router.put('/users/:userId', users.put.request);
+
 // --------------------------------------------------
 // WATERBODIES
 // --------------------------------------------------

@@ -3,5 +3,6 @@ module.exports = {
 	MeasurementNotFoundError: 	'{ "error": "MeasurementNotFound" }',
 	SensorNotFoundError: 		'{ "error": "SensorNotFound" }',
 	ServerError: 				'{ "error": "ServerError" }',
-	ThingNotFoundError: 		'{ "error": "ThingNotFound" }'
+	ThingNotFoundError: 		'{ "error": "ThingNotFound" }',
+	UserNotFoundErrerkey:  		'{ "error": "UserNotFound" }'
 };

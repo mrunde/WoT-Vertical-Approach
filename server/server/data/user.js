@@ -27,6 +27,12 @@ var UserSchema = mongoose.Schema({
 	}
 });
 
+UserSchema.statics = {
+	load: function(id, cb) {
+		this.findOne({_id: id}, cb);
+	}
+};
+
 // Adds a username, hash and salt field to store the username, the hashed password and the salt value.
 UserSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
 

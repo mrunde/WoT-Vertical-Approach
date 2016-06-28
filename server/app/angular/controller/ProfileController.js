@@ -85,4 +85,33 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 			tMarker.setGeoJSON(tGeojson);
 		}
 	};
+
+	$scope.fillSettingsDialog = function() {
+		$('#profile_settings_email').val($scope.user.email);
+		if($scope.user.twitter) {
+			$('#profile_settings_twitterConsumerKey').val($scope.user.twitter.twitterConsumerKey);
+			$('#profile_settings_twitterConsumerSecret').val($scope.user.twitter.twitterConsumerSecret);
+			$('#profile_settings_twitterAccessToken').val($scope.user.twitter.twitterAccessTokenKey);
+			$('#profile_settings_twitterAccessSecret').val($scope.user.twitter.twitteraccessTokenSecret);
+		}
+	};
+
+	$scope.saveSettings = function() {
+		let userUpdate = {
+			email: $('#profile_settings_email').val(),
+			twitter: {
+				twitterConsumerKey: $('#profile_settings_twitterConsumerKey').val(),
+				twitterConsumerSecret: $('#profile_settings_twitterConsumerSecret').val(),
+				twitterAccessTokenKey: $('#profile_settings_twitterAccessToken').val(),
+				twitteraccessTokenSecret: $('#profile_settings_twitterAccessSecret').val()
+			}
+		};
+
+		$http.put(getURL() + '/api/users/' + $scope.user._id, userUpdate).success(function(response) {
+			console.log(response);
+			$scope.user = response;
+			$('#profileModal').modal('hide');
+		});
+	};
+
 });
