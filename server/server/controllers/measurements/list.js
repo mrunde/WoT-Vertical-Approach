@@ -1,8 +1,10 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Measurement = require('../../data/measurement');
+const Measurement = require('../../data/measurement');
 
 /**
  * @api {get} /measurements GET - all

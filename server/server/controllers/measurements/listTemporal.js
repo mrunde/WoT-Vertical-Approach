@@ -1,9 +1,11 @@
+'use strict';
+
 // Required modules
-var moment   = require('moment');
-var mongoose = require('mongoose');
+const moment   = require('moment');
+const mongoose = require('mongoose');
 
 // Required data schema 	
-var Measurement = require('../../data/measurement');
+const Measurement = require('../../data/measurement');
 
 /**
  * @api {get} /measurements/temporal/:dateFrom/:dateTo GET - all in time interval
@@ -20,10 +22,10 @@ var Measurement = require('../../data/measurement');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var dateFrom = req.params.dateFrom;
-	var dateTo   = req.params.dateTo;
+	let dateFrom = req.params.dateFrom;
+	let dateTo   = req.params.dateTo;
 
-	var startDate, endDate;
+	let startDate, endDate;
 
 	if (dateFrom.toUpperCase().charAt(0) == 'P') {
 		startDate = moment(dateTo).subtract(moment.duration(dateFrom)).toISOString();

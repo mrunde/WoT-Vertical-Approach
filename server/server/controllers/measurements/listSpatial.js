@@ -1,10 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Measurement = require('../../data/measurement');
-var Sensor      = require('../../data/sensor');
-var Thing       = require('../../data/thing');
+const Measurement = require('../../data/measurement');
+const Sensor      = require('../../data/sensor');
+const Thing       = require('../../data/thing');
 
 /**
  * @api {get} /measurements/spatial/:bbox GET - all in bounding box
@@ -20,9 +22,9 @@ var Thing       = require('../../data/thing');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var coordinates = req.params.bbox.split(',');
-	var bottomLeft  = [ parseFloat(coordinates[0]), parseFloat(coordinates[1]) ];
-	var upperRight  = [ parseFloat(coordinates[2]), parseFloat(coordinates[3]) ];
+	let coordinates = req.params.bbox.split(',');
+	let bottomLeft  = [ parseFloat(coordinates[0]), parseFloat(coordinates[1]) ];
+	let upperRight  = [ parseFloat(coordinates[2]), parseFloat(coordinates[3]) ];
 
 	Thing.find({
 		loc: {

@@ -1,7 +1,9 @@
-// Required modules
-var mongoose = require('mongoose');
+'use strict';
 
-var WaterbodySchema = mongoose.Schema({
+// Required modules
+const mongoose = require('mongoose');
+
+const WaterbodySchema = mongoose.Schema({
 	type: {
 		type: String,
 		required: true

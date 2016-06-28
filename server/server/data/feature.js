@@ -1,7 +1,9 @@
-// Required modules
-var mongoose = require('mongoose');
+'use strict';
 
-var FeatureSchema = mongoose.Schema({
+// Required modules
+const mongoose = require('mongoose');
+
+const FeatureSchema = mongoose.Schema({
 	name: {
 		type: String,
 		required: true

@@ -1,8 +1,10 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Feature = require('../../data/feature');
+const Feature = require('../../data/feature');
 
 /**
  * @api {get} /features/:id GET - single
@@ -20,7 +22,7 @@ var Feature = require('../../data/feature');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.featureId;
+	let id = req.params.featureId;
 	
 	Feature.findOne({ _id: id }, function(err, feature) {
 		if (err || feature == null) {

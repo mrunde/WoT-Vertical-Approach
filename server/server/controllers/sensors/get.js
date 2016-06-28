@@ -1,8 +1,10 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Sensor = require('../../data/sensor');
+const Sensor = require('../../data/sensor');
 
 /**
  * @api {get} /sensors/:sensorId GET - single
@@ -25,7 +27,7 @@ var Sensor = require('../../data/sensor');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.sensorId;
+	let id = req.params.sensorId;
 
 	Sensor.findOne({ _id: id }, function(err, sensor) {
 		if (err || sensor == null) {

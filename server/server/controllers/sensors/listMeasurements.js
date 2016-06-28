@@ -1,8 +1,10 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Measurement = require('../../data/measurement');
+const Measurement = require('../../data/measurement');
 
 /**
  * @api {get} /sensors/:sensorId/measurements GET - all Measurements
@@ -19,7 +21,7 @@ var Measurement = require('../../data/measurement');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.sensorId;
+	let id = req.params.sensorId;
 
 	Measurement.find({ sensorId: id }, function(err, things) {
 		if (err) {

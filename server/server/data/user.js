@@ -1,8 +1,10 @@
-// Required modules
-var mongoose = require('mongoose');
-var passportLocalMongoose = require('passport-local-mongoose');
+'use strict';
 
-var UserSchema = mongoose.Schema({
+// Required modules
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const UserSchema = mongoose.Schema({
 	email: {
 		type: String,
 		required: true

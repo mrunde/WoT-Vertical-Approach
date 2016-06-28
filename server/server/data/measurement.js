@@ -1,7 +1,9 @@
-// Required modules
-var mongoose = require('mongoose');
+'use strict';
 
-var MeasurementSchema = mongoose.Schema({
+// Required modules
+const mongoose = require('mongoose');
+
+const MeasurementSchema = mongoose.Schema({
 	date: {
 		type: Date,
 		required: true

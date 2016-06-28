@@ -1,10 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
-var socket   = require('../../server.js');
-var _        = require('underscore');
+const mongoose = require('mongoose');
+const socket   = require('../../server.js');
+const _        = require('underscore');
 
 // Required data schema
-var Feature = require('../../data/feature');
+const Feature = require('../../data/feature');
 
 /**
  * @api {post} /feature POST
@@ -21,7 +23,7 @@ var Feature = require('../../data/feature');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var feature = new Feature(_.extend({}, req.body));
+	let feature = new Feature(_.extend({}, req.body));
 	
 	feature.save(function(err) {
 		if (err) {

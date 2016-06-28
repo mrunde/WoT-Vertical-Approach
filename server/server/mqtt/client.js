@@ -1,14 +1,16 @@
+'use strict';
+
 // Load the application's configuration
-var config = require('../config');
-var url    = config.express_host + '/api';
+const config = require('../config');
+const url    = config.express_host + '/api';
 
 // Required modules
-var colors  = require('colors');
-var mqtt    = require('mqtt');
-var request = require('request');
+const colors  = require('colors');
+const mqtt    = require('mqtt');
+const request = require('request');
 
 // Set up the mqtt client and connect it to the mqtt broker
-var client = mqtt.connect(config.mqtt_host);
+const client = mqtt.connect(config.mqtt_host);
 
 // Subscribe to the API's topics
 client.once('connect', function () {
@@ -39,7 +41,7 @@ client.on('message', handleMessage);
 
 function handleMessage(topic, payload) {
 	// Convert the payload into JSON data format
-	var json = JSON.parse(payload);
+	let json = JSON.parse(payload);
 
 	// Handle the received message
 	switch (topic.split('/')[0]) {

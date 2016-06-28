@@ -1,8 +1,10 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Feature = require('../../data/feature');
+const Feature = require('../../data/feature');
 
 /**
  * @api {get} /features GET - all
