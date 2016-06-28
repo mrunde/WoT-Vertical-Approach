@@ -1,8 +1,11 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Waterbody = require('../../data/waterbody');
+const Errors    = require('../../data/errors');
+const Waterbody = require('../../data/waterbody');
 
 /**
  * @api {get} /waterbodies GET - all
@@ -18,9 +21,13 @@ var Waterbody = require('../../data/waterbody');
 exports.request = function(req, res) {
 	Waterbody.find(function(err, waterbodies) {
 		if (err) {
-			res.send(err);
+			
+			res.send(Errors.ServerError);
+
 		} else {
+			
 			res.json(waterbodies);
+
 		}
 	});
 }

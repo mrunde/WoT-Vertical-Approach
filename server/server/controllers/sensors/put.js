@@ -1,14 +1,16 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
-var _        = require('underscore');
+const mongoose = require('mongoose');
+const _        = require('underscore');
 
 // Required data schema
-var Sensor = require('../../data/sensor');
-var Errors = require('../../data/errors');
+const Sensor = require('../../data/sensor');
+const Errors = require('../../data/errors');
 
 /**
  * @api {put} /sensors/:sensorId PUT
- * @apiName PUTSensor
+ * @apiName PutSensor
  * @apiGroup Sensor
  * @apiVersion 1.0.0
  *

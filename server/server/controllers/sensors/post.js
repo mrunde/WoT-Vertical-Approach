@@ -1,10 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
-var socket   = require('../../server.js');
-var _        = require('underscore');
+const mongoose = require('mongoose');
+const socket   = require('../../server.js');
+const _        = require('underscore');
 
 // Required data schema
-var Sensor = require('../../data/sensor');
+const Sensor = require('../../data/sensor');
 
 /**
  * @api {post} /sensors POST
@@ -28,7 +30,7 @@ var Sensor = require('../../data/sensor');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var sensor = new Sensor(_.extend({}, req.body));
+	const sensor = new Sensor(_.extend({}, req.body));
 	
 	sensor.save(function(err) {
 		if (err) {

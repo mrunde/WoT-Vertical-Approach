@@ -1,10 +1,14 @@
+'use strict';
+
 // Required modules
-var async    = require('async');
-var mongoose = require('mongoose');
+const async    = require('async');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Measurement = require('../../data/measurement');
-var Sensor      = require('../../data/sensor');
+const Errors      = require('../../data/errors');
+const Measurement = require('../../data/measurement');
+const Sensor      = require('../../data/sensor');
+const User        = require('../../data/user');
 
 /**
  * @api {delete} /sensors/:sensorId DELETE
@@ -13,32 +17,55 @@ var Sensor      = require('../../data/sensor');
  * @apiVersion 1.0.0
  *
  * @apiParam {String} sensorId	Sensor's unique ID.
+ * @apiParam {String} token		User's unique token for API requests.
  *
  * @apiUse SuccessExample_Deleted
  * @apiUse SensorNotFoundError
+ * @apiUse TokenNotFoundError
+ * @apiUse InvalidTokenError
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.sensorId;
+	let token = req.body.token;
 
-	async.waterfall([
-		// Delete Measurements
-		function(callback) {
-			Measurement.remove({ sensorId: id }, function(err) {
-				callback(err);
-			});
-		},
-		// Delete Sensor
-		function(callback) {
-			Sensor.remove({ _id: id }, function(err, removed) {
-				callback(err, removed);
-			});
-		}
-	], function(err, result) {
-		if (err) {
-			res.send(err);
-		} else {
-			res.json(result);
-		}
-	});
+	if (token) {
+		User.findOne({ token: token }, function(err, user) {
+			if (err) {
+				res.send(Errors.InvalidTokenError);
+			} else {
+				let sensor = new Measurement(_.extend({}, req.body));
+
+				let sensorId = req.params.sensorId;
+
+				Sensor.findOne({ _id: sensorId, userId: user._id }, function(err, sensor) {
+					if (err) {
+						res.send(Errors.SensorNotFoundError);
+					} else {
+						async.waterfall([
+							// Delete Measurements
+							function(callback) {
+								Measurement.remove({ sensorId: id }, function(err) {
+									callback(err);
+								});
+							},
+							// Delete Sensor
+							function(callback) {
+								Sensor.remove({ _id: id }, function(err, removed) {
+									callback(err, removed);
+								});
+							}
+						], function(err, result) {
+							if (err) {
+								res.send(Errors.ServerError);
+							} else {
+								res.json(result);
+							}
+						});
+					}
+				});
+			}
+		});
+	} else {
+		res.send(Errors.TokenNotFoundError);
+	}
 }

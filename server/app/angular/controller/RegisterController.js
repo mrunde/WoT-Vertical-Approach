@@ -23,6 +23,7 @@ app.controller("RegisterController", function($scope, $http, $rootScope) {
 		.success(function(response) {
 			$('#register_email').val('');
 			$('#register_password').val('');
+			$('#register_token').val('');
 			if(response.email == $scope.user.email) {
 				$('#register_success').show(800);
 			}

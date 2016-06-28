@@ -1,8 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Thing = require('../../data/thing');
+const Errors = require('../../data/errors');
+const Thing  = require('../../data/thing');
+const User   = require('../../data/user');
 
 /**
  * @api {get} /users/:userId/things GET - all Things
@@ -19,13 +23,36 @@ var Thing = require('../../data/thing');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.userId;
+	let token  = req.body.token;
+	let userId = req.params.userId;
 
-	Thing.find({ userId: id }, function(err, things) {
-		if (err) {
-			res.send(err);
-		} else {
-			res.json(things);
-		}
-	});
+	if (token) {
+		
+		User.findOne({ _id: userId, token: token }, function(err, user) {
+			if (err) {
+				
+				res.send(Errors.InvalidTokenError);
+
+			} else {
+				
+				Thing.find({ userId: userId }, function(err, things) {
+					if (err) {
+						
+						res.send(Errors.ServerError);
+
+					} else {
+						
+						res.json(things);
+
+					}
+				});
+
+			}
+		});
+
+	} else {
+
+		res.send(Errors.TokenNotFoundError);
+
+	}
 }

@@ -1,9 +1,11 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Errors    = require('../../data/errors');
-var Waterbody = require('../../data/waterbody');
+const Errors    = require('../../data/errors');
+const Waterbody = require('../../data/waterbody');
 
 /**
  * @api {get} /waterbodies/:name GET - single by name
@@ -21,13 +23,21 @@ var Waterbody = require('../../data/waterbody');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var name = req.params.name;
+	let name = req.params.name;
 
 	Waterbody.findOne({ "properties.name": name }, function(err, waterbody) {
 		if (err) {
-			res.send(Errors.WaterbodyNotFoundError);
+			
+			res.send(Errors.ServerError);
+
+		} else if (waterbody == null) {
+
+			res.json(Errors.WaterbodyNotFoundError);
+
 		} else {
+			
 			res.json(waterbody);
+			
 		}
 	});
 }

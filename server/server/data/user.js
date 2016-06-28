@@ -9,6 +9,10 @@ const UserSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	token: {
+		type: String,
+		required: true
+	},
 	twitter: {
 		twitterConsumerKey: {
 			type: String,

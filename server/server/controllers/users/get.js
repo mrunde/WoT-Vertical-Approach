@@ -1,8 +1,11 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var User = require('../../data/user');
+const Errors = require('../../data/errors');
+const User   = require('../../data/user');
 
 /**
  * @api {get} /users/:userId GET - single
@@ -13,20 +16,31 @@ var User = require('../../data/user');
  * @apiParam {String} userId 	User's unique ID.
  *
  * @apiSuccess {String} name	Name of the User.
- * @apiSuccess {Object} twitter	Twitter login information of the User (optional).
  *
  * @apiUse SuccessExample_Get_Users
  * @apiUse UserNotFoundError
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.userId;
+	let userId = req.params.userId;
 
-	User.findOne({ _id: id }, function(err, user) {
-		if (err || user == null) {
-			res.send(err);
+	User.findOne({ _id: userId }, function(err, user) {
+		if (err) {
+			
+			res.send(Errors.ServerError);
+
+		} else if (user == null) {
+			
+			res.send(Errors.UserNotFoundError);
+
 		} else {
-			res.json(user);
+			
+			let publicUser = Object.assign(user);
+			
+			delete publicUser.token;
+			delete publicUser.twitter;
+
+			res.json(publicUser);
 		}
 	});
 }

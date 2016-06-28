@@ -55,8 +55,8 @@ Status | URL | Method | Description
 
 Status | URL | Method | Description
 -------|-----|--------|------------
-:white_check_mark: | `api/users` | GET, POST | all users
-:white_check_mark: | `api/users/:userId` | DELETE, GET | one user
+:white_check_mark: | `api/users` | POST | one user
+:white_check_mark: | `api/users/:userId` | DELETE, GET, PUT | one user
 :white_check_mark: | `api/users/:userId/things` | GET | all things of one user
 
 ### Features

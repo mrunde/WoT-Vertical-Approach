@@ -113,15 +113,13 @@ router.delete('/users/:userId', users.del.request);
 
 // Get one User
 router.get('/users/:userId', users.get.request);
-// Get all Users
-router.get('/users', users.list.request);
 // Get all Things of one User
 router.get('/users/:userId/things', users.listThings.request);
 
 // Create one User
 router.post('/users', users.post.request);
 
-// Update a user
+// Edit a user
 router.put('/users/:userId', users.put.request);
 
 // --------------------------------------------------
@@ -134,10 +132,5 @@ router.get('/waterbodies/:waterbodyId', waterbodies.get.request);
 router.get('/waterbodies/name/:name', waterbodies.getName.request);
 // GET all Waterbodies
 router.get('/waterbodies', waterbodies.list.request);
-// GET all Waterbodies names
-router.get('/waterbodies/names/names', waterbodies.listNames.request);
-
-// Create one Waterbody
-router.post('/waterbodies', waterbodies.post.request);
 
 module.exports = router;
