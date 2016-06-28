@@ -246,12 +246,10 @@ function drawMarkers(things) {
 		$('#radar').html('<img src="http://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif" height="245" />');
 	});
 
-	setTimeout(function() {
-		if(geojson.length > 0) {
-			map.fitBounds(markers.getBounds());
-		}
-	}, 1);
+	if(geojson.length > 0)
+		map.fitBounds(markers.getBounds());
 };
+
 
 function panTo(lat, lng) {
 	map.panTo(L.latLng(lat, lng));

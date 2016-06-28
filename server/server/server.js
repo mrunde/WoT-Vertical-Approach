@@ -6,26 +6,21 @@
 const config = require('./config');
 
 // Required modules
-const bodyParser    = require('body-parser');
-const colors        = require('colors');
-const cookieParser  = require('cookie-parser');
-const express       = require('express');
-const favicon       = require('serve-favicon');
-const jwt           = require('jsonwebtoken');
-const mongoose      = require('mongoose');
-const morgan        = require('morgan');
-const passport      = require('passport');
-const path          = require('path');
-const session       = require('express-session');
-const socketio      = require('socket.io');
+const bodyParser   = require('body-parser');
+const colors       = require('colors');
+const cookieParser = require('cookie-parser');
+const express      = require('express');
+const favicon      = require('serve-favicon');
+const jwt          = require('jsonwebtoken');
+const mongoose     = require('mongoose');
+const morgan       = require('morgan');
+const passport     = require('passport');
+const path         = require('path');
+const session      = require('express-session');
+const socketio     = require('socket.io');
 
 // Required routes
-const features     = require('./routes/features');
-const things       = require('./routes/things');
-const sensors      = require('./routes/sensors');
-const measurements = require('./routes/measurements');
-const users        = require('./routes/users');
-const waterbodies  = require('./routes/waterbodies');
+const router = require('./routes/router');
 
 // --------------------------------------------------
 // Start Message
@@ -79,12 +74,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs'); // 
 
 // Set up the REST API
-app.use('/api', features);
-app.use('/api', things);
-app.use('/api', sensors);
-app.use('/api', measurements);
-app.use('/api', users);
-app.use('/api', waterbodies);
+app.use('/api', router);
 
 // --------------------------------------------------
 // Passport Config
