@@ -1,5 +1,8 @@
 'use strict';
 
+// Load the application's configuration
+const config = require('../../config');
+
 // Required modules
 const mongoose = require('mongoose');
 
@@ -36,7 +39,7 @@ exports.request = function(req, res) {
 			// The secret should not be displayed in the API docs !!!
 			let secret = req.headers.secret;
 
-			if (secret) {
+			if (secret && secret == config.secret) {
 
 				res.json(user);
 
