@@ -15,8 +15,6 @@ const User   = require('../../data/user');
  *
  * @apiParam {String} userId 	User's unique ID.
  *
- * @apiSuccess {String} name	Name of the User.
- *
  * @apiUse SuccessExample_Get_Users
  * @apiUse UserNotFoundError
  * @apiUse ServerError
@@ -35,12 +33,23 @@ exports.request = function(req, res) {
 
 		} else {
 			
-			let publicUser = Object.assign(user);
-			
-			delete publicUser.token;
-			delete publicUser.twitter;
+			// The secret should not be displayed in the API docs !!!
+			let secret = req.params.secret;
 
-			res.json(publicUser);
+			if (secret) {
+
+				res.json(user);
+
+			} else {
+
+				let publicUser = Object.assign(user);
+				
+				delete publicUser.email;
+				delete publicUser.token;
+				delete publicUser.twitter;
+
+				res.json(publicUser);
+			}
 		}
 	});
 }
