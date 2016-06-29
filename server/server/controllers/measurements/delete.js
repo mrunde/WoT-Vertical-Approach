@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const Errors      = require('../../data/errors');
 const Measurement = require('../../data/measurement');
 const Sensor      = require('../../data/sensor');
+const Thing       = require('../../data/thing');
 const User        = require('../../data/user');
 
 /**
@@ -30,32 +31,54 @@ exports.request = function(req, res) {
 	if (token) {
 		User.findOne({ token: token }, function(err, user) {
 			if (err) {
+				
 				res.send(Errors.InvalidTokenError);
+
 			} else {
+				
 				let measurementId = req.body.measurementId;
 
 				Measurement.findOne({ _id: measurementId }, function(err, measurement) {
 					if (err) {
+						
 						res.send(Errors.MeasurementNotFoundError);
+
 					} else {
+
 						let sensorId = measurement.sensorId;
 
-						Sensor.findOne({ _id: sensorId, userId: user._id }, function(err, sensor) {
+						Sensor.findOne({ _id: sensorId }, function(err, sensor) {
 							if (err) {
+								
 								res.send(Errors.InvalidTokenError);
+
 							} else {
-								Measurement.remove({ _id: measurementId }, function(err, removed) {
+
+								let thingId = sensor.thingId;
+
+								Thing.findOne({ _id: thingId, userId: user._id }, function(err, thing) {
 									if (err) {
-										res.send(Errors.ServerError);
+
+										res.send(Errors.InvalidTokenError);
+
 									} else {
-										res.json(removed);
+
+										Measurement.remove({ _id: measurementId }, function(err, removed) {
+											if (err) {
+												
+												res.send(Errors.ServerError);
+
+											} else {
+												
+												res.json(removed);
+											}
+										});
 									}
 								});
 							}
 						});
 					}
 				});
-
 			}
 		});
 	} else {

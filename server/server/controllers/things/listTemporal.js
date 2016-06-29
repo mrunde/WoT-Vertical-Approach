@@ -1,11 +1,14 @@
-// Required modules
-var moment   = require('moment');
-var mongoose = require('mongoose');
+'use strict';
 
-// Required data schema 	
-var Measurement = require('../../data/measurement');
-var Sensor 		= require('../../data/sensor');
-var Thing 		= require('../../data/thing');
+// Required modules
+const moment   = require('moment');
+const mongoose = require('mongoose');
+
+// Required data schema
+const Errors      = require('../../data/errors');
+const Measurement = require('../../data/measurement');
+const Sensor      = require('../../data/sensor');
+const Thing       = require('../../data/thing');
 
 /**
  * @api {get} /things/temporal/:dateFrom/:dateTo GET - all in time frame
@@ -22,10 +25,10 @@ var Thing 		= require('../../data/thing');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var dateFrom = req.params.dateFrom;
-	var dateTo   = req.params.dateTo;
+	let dateFrom = req.params.dateFrom;
+	let dateTo   = req.params.dateTo;
 
-	var startDate, endDate;
+	let startDate, endDate;
 
 	if (dateFrom.toUpperCase().charAt(0) == 'P') {
 		startDate = moment(dateTo).subtract(moment.duration(dateFrom)).toISOString();
@@ -40,8 +43,11 @@ exports.request = function(req, res) {
 
 	Sensor.find(function(err, sensors) {
 		if (err) {
-			res.send(err);
+			
+			res.send(Errors.ServerError);
+
 		} else {
+			
 			aggregateSensors(sensors, 0, [], res, startDate, endDate);
 		}
 	});
@@ -53,12 +59,16 @@ function aggregateSensors(sensors, pos, result, res, startDate, endDate){
 	} else {
 		Measurement.find({ sensorId: sensors[pos]._id, date: { $gte: startDate, $lte: endDate }}, function(err, measurements) {
 			if (err) {
-				res.send(err);
+				
+				res.send(Errors.ServerError);
+
 			} else {
+				
 				// if sensor contains measurements, add sensor to result
 				if (measurements.length > 0) {
 					result.push(sensors[pos]);
 				}
+				
 				aggregateSensors(sensors, pos+1, result, res, startDate, endDate);
 			}
 		});
@@ -67,12 +77,18 @@ function aggregateSensors(sensors, pos, result, res, startDate, endDate){
 
 function aggregateThings(uniqueThingIds, pos, result, res) {
 	if (pos == uniqueThingIds.length) {
+		
 		res.json(result);
+
 	} else {
+		
 		Thing.findOne({ _id: uniqueThingIds[pos] }, function(err, thing) {
 			if (err) {
-				res.send(err);
+				
+				res.send(Errors.ServerError);
+
 			} else {
+
 				aggregateThings(uniqueThingIds, pos+1, result.concat(thing), res);
 			}
 		})
@@ -82,17 +98,21 @@ function aggregateThings(uniqueThingIds, pos, result, res) {
 // takes the sensor array and returns an array
 // with the thingIds contained in the sensor array
 function removeDuplicateThingIds(sensors){
-	var result = [];
-	for (var x = 0; x < sensors.length; x++) {
-		var exists = false;
-		for (var y = 0; y < result.length; y++) {
+	let result = [];
+	for (let x = 0; x < sensors.length; x++) {
+		let exists = false;
+
+		for (let y = 0; y < result.length; y++) {
 			if (result[y] == sensors[x].thingId) {
 				exists = true;
 				break;
 			}
 		}
-		if (!exists) 
+		
+		if (!exists) {
 			result.push(sensors[x].thingId);
+		}
 	}
+	
 	return result;
 }

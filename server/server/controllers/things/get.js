@@ -1,9 +1,11 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Errors = require('../../data/errors');
-var Thing  = require('../../data/thing');
+const Errors = require('../../data/errors');
+const Thing  = require('../../data/thing');
 
 /**
  * @api {get} /things/:thingId GET - single
@@ -22,12 +24,19 @@ var Thing  = require('../../data/thing');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.thingId;
+	let id = req.params.thingId;
 
 	Thing.findOne({ _id: id }, function(err, thing) {
-		if (err || thing == null) {
+		if (err) {
+
+			res.send(Errors.ServerError);
+			
+		} else if (thing == null) {
+			
 			res.send(Errors.ThingNotFoundError);
+
 		} else {
+			
 			res.json(thing);
 		}
 	});

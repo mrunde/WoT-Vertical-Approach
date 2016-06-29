@@ -3,9 +3,7 @@
 // General-Config
 const host = 'giv-gwot-va.uni-muenster.de';
 const port = 3000;
-
-// JSON Web Token
-const token = '<< Your JSON Web Token here >>';
+const secret = '<< Your API secret here >>';
 
 // Twitter Config
 const twitterConsumerKey       = '<< Your Consumer Key here >>';
@@ -18,7 +16,7 @@ module.exports = {
 	express_port: port,
 	mongodb_host: 'mongodb://' + host + '/wot-vertical-approach',
 	mqtt_host: 'mqtt://' + host + '/',
-	token,
+	secret,
 	twitterConsumerKey,
 	twitterConsumerSecret,
 	twitterAccessTokenKey,

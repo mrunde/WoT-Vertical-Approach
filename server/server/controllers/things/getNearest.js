@@ -1,9 +1,11 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Errors = require('../../data/errors');
-var Thing  = require('../../data/thing');
+const Errors = require('../../data/errors');
+const Thing  = require('../../data/thing');
 
 /**
  * @api {get} /things/:thingId/nearest GET - nearest
@@ -22,13 +24,20 @@ var Thing  = require('../../data/thing');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.thingId;
-	var location = '';
+	let thingId = req.params.thingId;
+	let location = '';
 
-	Thing.findOne({ _id: id }, function(err, thing) {
+	Thing.findOne({ _id: thingId }, function(err, thing) {
 		if (err) {
+			
+			res.send(Errors.ServerError);
+
+		} else if (thing == null) {
+
 			res.send(Errors.ThingNotFoundError);
+			
 		} else {
+			
 			coordinates = thing.loc.coordinates;
 
 			Thing.find({
@@ -42,8 +51,11 @@ exports.request = function(req, res) {
 				}
 			}, function(err, things) {
 				if (err) {
-					res.send(err);
+					
+					res.send(Errors.ServerError);
+
 				} else {
+					
 					res.json(things[1]);
 				}
 			});

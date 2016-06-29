@@ -1,10 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Thing 		= require('../../data/thing');
-var Errors    	= require('../../data/errors');
-var Waterbody 	= require('../../data/waterbody');
+const Errors    = require('../../data/errors');
+const Thing     = require('../../data/thing');
+const Waterbody = require('../../data/waterbody');
 
 /**
  * @api {get} /things/spatial/waterbodies/:waterbodyId GET - all at Waterbody
@@ -21,16 +23,26 @@ var Waterbody 	= require('../../data/waterbody');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var name = req.params.name;
+	let name = req.params.name;
 
 	Waterbody.findOne({"properties.name": name}, function(err, waterbody) {
-		if(err || waterbody == null) {
+		if (err) {
+			
+			res.send(Errors.ServerError);
+
+		} else if (waterbody == null) {
+
 			res.send(Errors.WaterbodyNotFoundError);
+
 		} else {
+			
 			Thing.find({waterbodyId: waterbody._id}, function(err, things) {
 				if(err) {
-					res.send(err);
+					
+					res.send(Errors.ServerError);
+
 				} else {
+					
 					res.json(things);
 				}
 			});

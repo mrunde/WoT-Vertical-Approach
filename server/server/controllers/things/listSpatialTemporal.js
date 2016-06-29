@@ -1,7 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose 	= require('mongoose');
-var request 	= require('request');
-var async		= require('async');
+const mongoose = require('mongoose');
+const request  = require('request');
+const async    = require('async');
+
+// Required data schema
+const Errors = require('../../data/errors');
 
 /**
  * @api {get} /things/temporal/:dateFrom/:dateTo/spatial/:bbox GET - all in time frame and bounding box
@@ -19,13 +24,13 @@ var async		= require('async');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var coordinates = req.params.bbox;
+	let coordinates = req.params.bbox;
 
-	var dateFrom = req.params.dateFrom;
-	var dateTo   = req.params.dateTo;
+	let dateFrom = req.params.dateFrom;
+	let dateTo   = req.params.dateTo;
 
-	var resultTemporal;
-	var resultSpatial;
+	let resultTemporal;
+	let resultSpatial;
 
 
 	async.waterfall([
@@ -35,34 +40,42 @@ exports.request = function(req, res) {
 
 		function(response, body, next) {
 			resultTemporal = JSON.parse(body);
+			
 			if(resultTemporal.error) {
 				resultTemporal = [];
 			}
+			
 			request.get('http://' + req.headers.host + '/api/things/spatial/bbox/' + coordinates, next);	
 		},
 
 		function(response, body, next) {			
 			resultSpatial = JSON.parse(body);
+			
 			if(resultSpatial.error) {
 				resultSpatial = [];
 			}
+			
 			next(null);
 		}
 	], function(err, result) {
-		if(err) {
-			res.send(err);
+		if (err) {
+			
+			res.send(Errors.ServerError);
+
 		} else {
-			var result = [];
-			for(var i = 0; i < resultTemporal.length; i++) {
-				for(var x = 0; x < resultSpatial.length; x++) {
+			
+			let result = [];
+			
+			for(let i = 0; i < resultTemporal.length; i++) {
+				for(let x = 0; x < resultSpatial.length; x++) {
 					if(resultTemporal[i]._id == resultSpatial[x]._id) {
 						result.push(resultTemporal[i]);
 						break;
 					}
 				}
 			}
+
 			res.json(result);
 		}
 	});
 }
-

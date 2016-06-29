@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 
 // Required data schema
+const Errors  = require('../../data/errors');
 const Feature = require('../../data/feature');
 
 /**
@@ -25,9 +26,16 @@ exports.request = function(req, res) {
 	let id = req.params.featureId;
 	
 	Feature.findOne({ _id: id }, function(err, feature) {
-		if (err || feature == null) {
-			res.send(err);
+		if (err) {
+
+			res.send(Errors.ServerError);
+
+		} else if (feature == null) {
+			
+			res.send(Errors.FeatureNotFoundError);
+
 		} else {
+			
 			res.json(feature);
 		}
 	});

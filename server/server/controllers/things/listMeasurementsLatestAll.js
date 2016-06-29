@@ -1,10 +1,12 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Errors      = require('../../data/errors');
-var Measurement = require('../../data/measurement');
-var Sensor      = require('../../data/sensor');
+const Errors      = require('../../data/errors');
+const Measurement = require('../../data/measurement');
+const Sensor      = require('../../data/sensor');
 
 /**
  * @api {get} /things/measurements/latest GET - all Measurements latest (all Things)
@@ -18,12 +20,15 @@ var Sensor      = require('../../data/sensor');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	var id = req.params.thingId;
+	let id = req.params.thingId;
 
 	Sensor.find({}, function(err, sensors) {
 		if (err) {
-			res.send(err);
+			
+			res.send(Errors.ServerError);
+
 		} else {
+			
 			aggregateMeasurements(sensors, 0, [], res);
 		}
 	});
@@ -31,16 +36,22 @@ exports.request = function(req, res) {
 
 function aggregateMeasurements(sensors, pos, result, res){
 	if (pos == sensors.length) {
+		
 		res.json(result);
+
 	} else {
+		
 		Measurement
 			.find({ sensorId: sensors[pos]._id })
 			.sort({ date: 'desc' })
 			.limit(1)
 			.exec(function(err, measurements) {
 				if (err) {
-					res.send(err);
+					
+					res.send(Errors.ServerError);
+
 				} else {
+					
 					aggregateMeasurements(sensors, pos+1, result.concat(measurements), res);
 				}
 			});

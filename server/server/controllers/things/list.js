@@ -1,8 +1,11 @@
+'use strict';
+
 // Required modules
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Required data schema
-var Thing = require('../../data/thing');
+const Errors = require('../../data/errors');
+const Thing  = require('../../data/thing');
 
 /**
  * @api {get} /things GET - all
@@ -18,8 +21,11 @@ var Thing = require('../../data/thing');
 exports.request = function(req, res) {
 	Thing.find(function(err, things) {
 		if (err) {
-			res.send(err);
+			
+			res.send(Errors.ServerError);
+
 		} else {
+			
 			res.json(things);
 		}
 	});

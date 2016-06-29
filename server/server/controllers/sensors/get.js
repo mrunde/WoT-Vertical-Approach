@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 
 // Required data schema
+const Errors = require('../../data/errors');
 const Sensor = require('../../data/sensor');
 
 /**
@@ -30,9 +31,16 @@ exports.request = function(req, res) {
 	let id = req.params.sensorId;
 
 	Sensor.findOne({ _id: id }, function(err, sensor) {
-		if (err || sensor == null) {
-			res.send(err);
+		if (err) {
+
+			res.send(Errors.ServerError);
+			
+		} else if (sensor == null) {
+			
+			res.send(Errors.SensorNotFoundError);
+
 		} else {
+			
 			res.json(sensor);
 		}
 	});

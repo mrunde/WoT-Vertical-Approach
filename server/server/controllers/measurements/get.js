@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 
 // Required data schema
+const Errors      = require('../../data/errors');
 const Measurement = require('../../data/measurement');
 
 /**
@@ -26,9 +27,16 @@ exports.request = function(req, res) {
 	let id = req.params.measurementId;
 
 	Measurement.findOne({ _id: id }, function(err, measurement) {
-		if (err || measurement == null) {
-			res.send(err);
+		if (err) {
+
+			res.send(Errors.ServerError);
+
+		} else if (measurement == null) {
+			
+			res.send(Errors.MeasurementNotFoundError);
+
 		} else {
+			
 			res.json(measurement);
 		}
 	});
