@@ -34,7 +34,7 @@ exports.request = function(req, res) {
 		} else {
 			
 			// The secret should not be displayed in the API docs !!!
-			let secret = req.params.secret;
+			let secret = req.headers.secret;
 
 			if (secret) {
 
