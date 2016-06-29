@@ -65,7 +65,8 @@ app.controller("ThingController", function($scope, $http, $routeParams, $rootSco
 			refLevel: $('#sensor_config_refLevel').val(),
 			warnLevel: $('#sensor_config_warnLevel').val(),
 			riskLevel: $('#sensor_config_riskLevel').val(),
-			interval: $('#sensor_config_interval').val()
+			interval: $('#sensor_config_interval').val(),
+			token: $scope.user.token
 		};
 
 		$http.put(getURL() + '/api/sensors/' + sensor._id, sensorUpdate).success(function(response) {

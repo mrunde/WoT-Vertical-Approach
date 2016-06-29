@@ -17,7 +17,6 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 	$http.get(getURL() + '/user').success(function(response) {
 		if(response.email){
 			$scope.user = response;
-			console.log(response);
 			$scope.queryThings($scope.user._id);
 		} else {
 			window.location.href = '/login';
