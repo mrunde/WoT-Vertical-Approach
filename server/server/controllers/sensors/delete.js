@@ -33,8 +33,6 @@ exports.request = function(req, res) {
 			if (err) {
 				res.send(Errors.InvalidTokenError);
 			} else {
-				let sensor = new Measurement(_.extend({}, req.body));
-
 				let sensorId = req.params.sensorId;
 
 				Sensor.findOne({ _id: sensorId, userId: user._id }, function(err, sensor) {
@@ -44,13 +42,13 @@ exports.request = function(req, res) {
 						async.waterfall([
 							// Delete Measurements
 							function(callback) {
-								Measurement.remove({ sensorId: id }, function(err) {
+								Measurement.remove({ sensorId: sensorId }, function(err) {
 									callback(err);
 								});
 							},
 							// Delete Sensor
 							function(callback) {
-								Sensor.remove({ _id: id }, function(err, removed) {
+								Sensor.remove({ _id: sensorId }, function(err, removed) {
 									callback(err, removed);
 								});
 							}

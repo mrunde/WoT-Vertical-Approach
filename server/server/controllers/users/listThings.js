@@ -23,36 +23,18 @@ const User   = require('../../data/user');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	let token  = req.body.token;
 	let userId = req.params.userId;
 
-	if (token) {
-		
-		User.findOne({ _id: userId, token: token }, function(err, user) {
-			if (err) {
 				
-				res.send(Errors.InvalidTokenError);
+	Thing.find({ userId: userId }, function(err, things) {
+		if (err) {
+			
+			res.send(Errors.ServerError);
 
-			} else {
-				
-				Thing.find({ userId: userId }, function(err, things) {
-					if (err) {
-						
-						res.send(Errors.ServerError);
+		} else {
+			
+			res.json(things);
 
-					} else {
-						
-						res.json(things);
-
-					}
-				});
-
-			}
-		});
-
-	} else {
-
-		res.send(Errors.TokenNotFoundError);
-
-	}
+		}
+	});
 }

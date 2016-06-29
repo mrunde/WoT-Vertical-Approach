@@ -29,8 +29,8 @@ const Errors = require('../../data/errors');
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
-	let token  = req.body;
-	let userId = req.params;
+	let token  = req.body.token;
+	let userId = req.params.userId;
 
 	if (token) {
 		

@@ -81,7 +81,12 @@ app.controller("ThingController", function($scope, $http, $routeParams, $rootSco
 	};
 
 	$scope.removeSensor = function(sensorId) {
-		$http.delete(getURL() + '/api/sensors/' + sensorId).success(function(response) {
+		$http({
+			url: getURL() + '/api/sensors/' + sensorId,
+			method: 'DELETE',
+			data: {token: $scope.user.token},
+			headers: {"Content-Type": "application/json;charset=utf8"} 
+		}).success(function(response) {
 			for(let i = 0; i < $scope.sensors.length; i++) {
 				if($scope.sensors[i]._id == sensorId) {
 					$scope.sensors.splice(i, 1);

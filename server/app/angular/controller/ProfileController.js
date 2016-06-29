@@ -17,6 +17,7 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 	$http.get(getURL() + '/user').success(function(response) {
 		if(response.email){
 			$scope.user = response;
+			console.log(response);
 			$scope.queryThings($scope.user._id);
 		} else {
 			window.location.href = '/login';
@@ -104,7 +105,8 @@ app.controller("ProfileController", function($scope, $http, $rootScope, $locatio
 				twitterConsumerSecret: $('#profile_settings_twitterConsumerSecret').val(),
 				twitterAccessTokenKey: $('#profile_settings_twitterAccessToken').val(),
 				twitteraccessTokenSecret: $('#profile_settings_twitterAccessSecret').val()
-			}
+			},
+			token: $scope.user.token
 		};
 
 		$http.put(getURL() + '/api/users/' + $scope.user._id, userUpdate).success(function(response) {
