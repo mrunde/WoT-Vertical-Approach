@@ -17,17 +17,21 @@ app.controller("RegisterController", function($scope, $http, $rootScope) {
 	$('#register_error').hide();
 
 	$scope.register = function() {
+		
 		$('#register_success').hide();
 		$('#register_error').hide();
-		$http.post(getURL() + '/register', $scope.user)
-		.success(function(response) {
+
+		$http.post(getURL() + '/register', $scope.user).success(function(response) {
+			
 			$('#register_email').val('');
 			$('#register_password').val('');
-			$('#register_token').val('');
-			if(response.email == $scope.user.email) {
+
+			if (response.email == $scope.user.email) {
+
 				$('#register_success').show(800);
-			}
-			else if(response.message) {
+
+			} else if (response.message) {
+				
 				$('#register_error').html("<strong>Error: </strong>" + response.message);
 				$('#register_error').show(800);
 			}
