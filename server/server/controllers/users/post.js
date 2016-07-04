@@ -1,6 +1,11 @@
 'use strict';
 
+// Load the application's configuration
+const config = require('../../config');
+const secret = config.secret;
+
 // Required modules
+const AES      = require('crypto-js/aes');
 const mongoose = require('mongoose');
 const _        = require('underscore');
 
@@ -14,7 +19,6 @@ const User = require('../../data/user');
  * @apiVersion 1.0.0
  *
  * @apiParam {String} name		Name of the User.
- * @apiParam {String} token		User's unique token.
  * @apiParam {Object} twitter	Twitter login information of the User (optional).
  *
  * @apiSuccess {String} userId 	User's unique ID.
@@ -25,8 +29,10 @@ const User = require('../../data/user');
 exports.request = function(req, res) {
 	let user = new User(_.extend({}, req.body));
 
+	user.token = generateToken(user);
+
 	User.register(new User(req.body), req.body.password, function(err, user) {
-		if(err) {
+		if (err) {
 
 			res.send(err);
 
@@ -36,4 +42,15 @@ exports.request = function(req, res) {
 			
 		}
 	});
+}
+
+/**
+ * Generating a token for the user with the user's email and password, encrypted with the application's secret.
+ * @param  {JSONObject} user User to generate the token for.
+ * @return {String}          Generated token.
+ */
+function generateToken(user) {
+	let token = AES.encrypt(user.email + user.password, secret);
+
+	return token;
 }
