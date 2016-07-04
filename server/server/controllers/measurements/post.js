@@ -13,7 +13,9 @@ const Twitter  = require('twitter');
 const Errors      = require('../../data/errors');
 const Measurement = require('../../data/measurement');
 const Sensor      = require('../../data/sensor');
+const Thing       = require('../../data/thing');
 const User        = require('../../data/user');
+const Waterbody   = require('../../data/waterbody');
 
 /**
  * @api {post} /measurements POST
@@ -38,9 +40,12 @@ exports.request = function(req, res) {
 	let token = req.body.token;
 
 	if (token) {
+
 		User.findOne({ token: token }, function(err, user) {
 			if (err) {
+
 				res.send(Errors.InvalidTokenError);
+
 			} else {
 				let measurement = new Measurement(_.extend({}, req.body));
 
@@ -48,36 +53,92 @@ exports.request = function(req, res) {
 
 				Sensor.findOne({ _id: id, userId: user._id }, function(err, sensor) {
 					if (err) {
+						
 						res.send(Errors.SensorNotFoundError);
+
 					} else {
+						
 						measurement.save(function(err) {
 							if (err) {
+								
 								res.send(Errors.ServerError(err));
+
 							} else {
+								
 								res.json(measurement);
 
 								socket.notify('measurements', measurement);
 
-								// Check whether the new Measurement is greater than the Sensor's warn or risk level and whether the user has Twitter enabled
-								if (measurement.value >= sensor.warnLevel &&
-									user.twitterConsumerKey &&
-									user.twitterConsumerSecret &&
-									user.twitterAccessTokenKey &&
-									user.twitteraccessTokenSecret) {
+								// Check whether tweets should be submitted
+								if (measurement.value >= sensor.warnLevel) {
 
-									let twitterClient = new Twitter({
-										consumer_key:        user.twitterConsumerKey,
-										consumer_secret:     user.twitterConsumerSecret,
-										access_token_key:    user.twitterAccessTokenKey,
-										access_token_secret: user.twitteraccessTokenSecret
+									// Check whether the Thing of the Measurement is allocated to a Waterbody
+									let waterbodyName, systemTwitterClient;
+
+									Thing.findOne({ _id: sensor.thingId }, function(err, thing) {
+										if (err) {
+											
+											console.log(Errors.ServerError(err));
+
+										} else {
+
+											Waterbody.findOne({ _id: thing.waterbodyId }, function(err, waterbody) {
+												if (err) {
+
+													console.log(Errors.ServerError(err));
+
+												} else {
+
+													waterbodyName = waterbody.properties.name;
+
+													systemTwitterClient = new Twitter({
+														consumer_key:        config.twitterConsumerKey,
+														consumer_secret:     config.twitterConsumerSecret,
+														access_token_key:    config.twitterAccessTokenKey,
+														access_token_secret: config.twitteraccessTokenSecret
+													});
+												}
+											});
+										}
 									});
+
+									// Get the User's Twitter login information
+									let userTwitterClient;
+
+									if (user.twitterConsumerKey &&
+										user.twitterConsumerSecret &&
+										user.twitterAccessTokenKey &&
+										user.twitteraccessTokenSecret) {
+
+										userTwitterClient = new Twitter({
+											consumer_key:        user.twitterConsumerKey,
+											consumer_secret:     user.twitterConsumerSecret,
+											access_token_key:    user.twitterAccessTokenKey,
+											access_token_secret: user.twitteraccessTokenSecret
+										});
+									}
 									
 									if (measurement.value >= sensor.riskLevel) {
+										
 										// Risk level reached
-										newRiskLevelTweet(twitterClient, sensor.name, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
+										if (waterbodyName && systemTwitterClient) {
+											newSystemRiskLevelTweet(systemTwitterClient, waterbodyName, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
+										}
+
+										if (userTwitterClient) {
+											newUserRiskLevelTweet(userTwitterClient, sensor.name, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
+										}
+
 									} else {
+										
 										// Warn level reached
-										newWarnLevelTweet(twitterClient, sensor.name, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
+										if (waterbodyName && systemTwitterClient) {
+											newSystemWarnLevelTweet(systemTwitterClient, waterbodyName, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
+										}
+
+										if (userTwitterClient) {
+											newUserWarnLevelTweet(userTwitterClient, sensor.name, sensor._id, measurement.date.toLocaleTimeString(), measurement.value);
+										}
 									}
 								}
 							}
@@ -87,27 +148,49 @@ exports.request = function(req, res) {
 			}
 		});
 	} else {
+		
 		res.send(Errors.TokenNotFoundError);
 	}
-}
-
-// Create a warn level tweet
-function newWarnLevelTweet(twitterClient, name, id, time, value) {
-	tweetStatus(twitterClient, 'WARNING: Sensor "' + name + '" reached #warn_level\nID: #' + id + '\nTime: ' + time + '\nValue: ' + value);
-}
-
-// Create a risk level tweet
-function newRiskLevelTweet(twitterClient, name, id, time, value) {
-	tweetStatus(twitterClient, 'DANGER: Sensor "' + name + '" reached #risk_level\nID: #' + id + '\nTime: ' + time + '\nValue: ' + value);
 }
 
 // Submit a tweet
 function tweetStatus(twitterClient, status) {
 	twitterClient.post('statuses/update', { status: status }, function(error, tweet, response) {
 		if (error) {
+
 			console.log(error);
+
 		} else {
+			
 			console.log(tweet);
 		}
 	});
+}
+
+// --------------------------------------------------
+// System Tweets
+// --------------------------------------------------
+
+// Create a warn level tweet
+function newSystemWarnLevelTweet(twitterClient, waterbodyName, sensorId, time, value) {
+	tweetStatus(twitterClient, 'WARNING: A sensor close to the waterbody "#' + waterbodyName + '" reached #warn_level\nSensor-ID: #' + sensorId + '\nTime: ' + time + '\nValue: ' + value);
+}
+
+// Create a risk level tweet
+function newSystemRiskLevelTweet(twitterClient, waterbodyName, sensorId, time, value) {
+	tweetStatus(twitterClient, 'DANGER: A sensor close to the waterbody "#' + waterbodyName + '" reached #risk_level\nSensor-ID: #' + sensorId + '\nTime: ' + time + '\nValue: ' + value);
+}
+
+// --------------------------------------------------
+// User Tweets
+// --------------------------------------------------
+
+// Create a warn level tweet
+function newUserWarnLevelTweet(twitterClient, sensorName, sensorId, time, value) {
+	tweetStatus(twitterClient, 'WARNING: Sensor "' + sensorName + '" reached #warn_level\nID: #' + sensorId + '\nTime: ' + time + '\nValue: ' + value);
+}
+
+// Create a risk level tweet
+function newUserRiskLevelTweet(twitterClient, sensorName, sensorId, time, value) {
+	tweetStatus(twitterClient, 'DANGER: Sensor "' + sensorName + '" reached #risk_level\nID: #' + sensorId + '\nTime: ' + time + '\nValue: ' + value);
 }
