@@ -27,7 +27,7 @@ exports.request = function(req, res) {
 	Sensor.find({ thingId: id }, function(err, things) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else {
 			

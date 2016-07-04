@@ -28,7 +28,7 @@ exports.request = function(req, res) {
 	Feature.findOne({ _id: id }, function(err, feature) {
 		if (err) {
 
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else if (feature == null) {
 			

@@ -2,7 +2,7 @@ module.exports = {
 	FeatureNotFoundError:     '{ "error": "FeatureNotFound" }',
 	MeasurementNotFoundError: '{ "error": "MeasurementNotFound" }',
 	SensorNotFoundError:      '{ "error": "SensorNotFound" }',
-	ServerError:              '{ "error": "ServerError" }',
+	ServerError:              function(msg) { return '{ "error": "ServerError", "message": "' + msg + '" }'; },
 	ThingNotFoundError:       '{ "error": "ThingNotFound" }',
 	UserNotFoundErrerkey:     '{ "error": "UserNotFound" }',
 	TokenNotFoundError:       '{ "error": "TokenNotFoundError" }',

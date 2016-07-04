@@ -30,7 +30,7 @@ exports.request = function(req, res) {
 	Thing.findOne({ _id: thingId }, function(err, thing) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else if (thing == null) {
 
@@ -52,7 +52,7 @@ exports.request = function(req, res) {
 			}, function(err, things) {
 				if (err) {
 					
-					res.send(Errors.ServerError);
+					res.send(Errors.ServerError(err));
 
 				} else {
 					

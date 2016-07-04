@@ -28,7 +28,7 @@ exports.request = function(req, res) {
 	Waterbody.findOne({"properties.name": name}, function(err, waterbody) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else if (waterbody == null) {
 
@@ -39,7 +39,7 @@ exports.request = function(req, res) {
 			Thing.find({waterbodyId: waterbody._id}, function(err, things) {
 				if(err) {
 					
-					res.send(Errors.ServerError);
+					res.send(Errors.ServerError(err));
 
 				} else {
 					

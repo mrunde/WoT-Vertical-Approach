@@ -48,7 +48,7 @@ exports.request = function(req, res) {
 				user = _.extend(user, req.body);
 				user.save(function(err) {
 					if(err) {
-						res.send(Errors.ServerError);
+						res.send(Errors.ServerError(err));
 					} else {
 						res.json(user);
 					}

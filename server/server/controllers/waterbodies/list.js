@@ -22,7 +22,7 @@ exports.request = function(req, res) {
 	Waterbody.find(function(err, waterbodies) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else {
 			

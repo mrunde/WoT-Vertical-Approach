@@ -28,7 +28,7 @@ exports.request = function(req, res) {
 	User.findOne({ _id: userId }, function(err, user) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else if (user == null) {
 			

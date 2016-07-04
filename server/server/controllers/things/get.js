@@ -29,7 +29,7 @@ exports.request = function(req, res) {
 	Thing.findOne({ _id: id }, function(err, thing) {
 		if (err) {
 
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 			
 		} else if (thing == null) {
 			

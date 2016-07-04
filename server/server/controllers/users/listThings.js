@@ -29,7 +29,7 @@ exports.request = function(req, res) {
 	Thing.find({ userId: userId }, function(err, things) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else {
 			

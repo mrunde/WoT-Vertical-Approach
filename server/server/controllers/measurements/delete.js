@@ -66,7 +66,7 @@ exports.request = function(req, res) {
 										Measurement.remove({ _id: measurementId }, function(err, removed) {
 											if (err) {
 												
-												res.send(Errors.ServerError);
+												res.send(Errors.ServerError(err));
 
 											} else {
 												

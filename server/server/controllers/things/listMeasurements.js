@@ -28,7 +28,7 @@ exports.request = function(req, res) {
 	Sensor.find({ thingId: id }, function(err, sensors) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else {
 			
@@ -46,7 +46,7 @@ function aggregateMeasurements(sensors, pos, result, res){
 		Measurement.find({ sensorId: sensors[pos]._id }, function(err, measurements) {
 			if (err) {
 				
-				res.send(Errors.ServerError);
+				res.send(Errors.ServerError(err));
 
 			} else {
 				

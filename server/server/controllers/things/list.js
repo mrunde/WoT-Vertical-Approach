@@ -22,7 +22,7 @@ exports.request = function(req, res) {
 	Thing.find(function(err, things) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else {
 			

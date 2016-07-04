@@ -52,7 +52,7 @@ exports.request = function(req, res) {
 					} else {
 						measurement.save(function(err) {
 							if (err) {
-								res.send(Errors.ServerError);
+								res.send(Errors.ServerError(err));
 							} else {
 								res.json(measurement);
 

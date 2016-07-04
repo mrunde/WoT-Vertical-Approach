@@ -76,7 +76,7 @@ exports.request = function(req, res) {
 						], function(err, result) {
 							if (err) {
 								
-								res.send(Errors.ServerError);
+								res.send(Errors.ServerError(err));
 
 							} else {
 								

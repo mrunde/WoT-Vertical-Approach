@@ -334,7 +334,7 @@
  * @apiDefine TokenNotFoundError
  * @apiError (403) TokenNotFoundError The <code>userToken</code> for the API request was not found.
  *
- * @apiErrorExample {json} ServerError:
+ * @apiErrorExample {json} TokenNotFoundError:
  *     HTTP/1.1 403 Authorization Error
  *     {
  *       "error": "TokenNotFoundError"
@@ -345,7 +345,7 @@
  * @apiDefine InvalidTokenError
  * @apiError (403) InvalidTokenError The <code>userToken</code> for the API request was invalid.
  *
- * @apiErrorExample {json} ServerError:
+ * @apiErrorExample {json} InvalidTokenError:
  *     HTTP/1.1 403 Authorization Error
  *     {
  *       "error": "InvalidTokenError"
@@ -359,6 +359,7 @@
  * @apiErrorExample {json} ServerError:
  *     HTTP/1.1 500 Server Error
  *     {
- *       "error": "ServerError"
+ *       "error": "ServerError",
+ *       "message": "<< generated error message >>"
  *     }
  */

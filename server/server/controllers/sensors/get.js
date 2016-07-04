@@ -33,7 +33,7 @@ exports.request = function(req, res) {
 	Sensor.findOne({ _id: id }, function(err, sensor) {
 		if (err) {
 
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 			
 		} else if (sensor == null) {
 			

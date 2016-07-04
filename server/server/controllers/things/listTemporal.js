@@ -44,7 +44,7 @@ exports.request = function(req, res) {
 	Sensor.find(function(err, sensors) {
 		if (err) {
 			
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else {
 			
@@ -60,7 +60,7 @@ function aggregateSensors(sensors, pos, result, res, startDate, endDate){
 		Measurement.find({ sensorId: sensors[pos]._id, date: { $gte: startDate, $lte: endDate }}, function(err, measurements) {
 			if (err) {
 				
-				res.send(Errors.ServerError);
+				res.send(Errors.ServerError(err));
 
 			} else {
 				
@@ -85,7 +85,7 @@ function aggregateThings(uniqueThingIds, pos, result, res) {
 		Thing.findOne({ _id: uniqueThingIds[pos] }, function(err, thing) {
 			if (err) {
 				
-				res.send(Errors.ServerError);
+				res.send(Errors.ServerError(err));
 
 			} else {
 

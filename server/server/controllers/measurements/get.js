@@ -29,7 +29,7 @@ exports.request = function(req, res) {
 	Measurement.findOne({ _id: id }, function(err, measurement) {
 		if (err) {
 
-			res.send(Errors.ServerError);
+			res.send(Errors.ServerError(err));
 
 		} else if (measurement == null) {
 			
