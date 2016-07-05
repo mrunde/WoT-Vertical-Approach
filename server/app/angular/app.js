@@ -9,6 +9,9 @@ app.config(function($routeProvider, $locationProvider) {
 			loggedIn: checkLoggedIn
 		}
 	})
+	.when("/docs", {
+		templateUrl: "/docs/index.html"
+	})
 	.when("/imprint", {
 		templateUrl: "/angular/templates/imprint.html",
 		controller: "ImprintController",
