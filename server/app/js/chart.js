@@ -16,6 +16,8 @@ function ChartHandler(container) {
 	this.warnLevel = 0;
 	this.riskLevel = 0;
 
+	this.feature = null;
+
 	this.maxElements = 129600; // 72 hours * 3600 seconds per hour * 0.5 Measurements per second
 
 	/**
@@ -41,7 +43,7 @@ function ChartHandler(container) {
 						data: []
 					},
 					{
-						label: 'Measurements',
+						label: 'Measurement',
 						backgroundColor: 'rgba(31,75,255,0.7)',
 						borderColor: 'rgba(31,75,255,1)',
 						data: []
@@ -76,6 +78,18 @@ function ChartHandler(container) {
 							}
 						}
 					]
+				},
+				tooltips: {
+					enabled: true,
+					mode: 'label',
+					callbacks: {
+						label: function(tooltipItem, data) {
+							return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel + ' ' + chartHandler.feature.unit;
+						},
+						title: function(tooltipItem, data) {
+							return tooltipItem[0].xLabel.format('MMMM Do, YYYY HH:mm:ss');
+						}
+					}
 				}
 			}
 		};
@@ -88,15 +102,17 @@ function ChartHandler(container) {
 	 * @param {String} sensorId Sensor's unique ID.
 	 * @param {Number} warnLevvel Sensor's warn level.
 	 * @param {Number} riskLevel Sensor's risk level.
-	 * @param {String} featureName Name of the Sensor's Feature.
+	 * @param {String} featureId Id of the Sensor's Feature.
 	 */
-	ChartHandler.prototype.requestData = function(sensorId, warnLevel, riskLevel, featureName) {
+	ChartHandler.prototype.requestData = function(sensorId, warnLevel, riskLevel, featureId) {
 
 		// Display the chart
 		if ($('#chart').attr('hidden')) {
 			$('#chart').removeAttr('hidden');
 			$('#chartWell').attr('hidden', true);
 		}
+
+		this.feature = store.features[featureId];
 
 		$.ajax({
 			url: getURL() + '/api/sensors/' + sensorId + '/measurements',
@@ -117,7 +133,7 @@ function ChartHandler(container) {
 				chartHandler.sensorId = sensorId;
 				
 				// Store the Sensor's Measurements
-				chartHandler.setData(measurements, warnLevel, riskLevel, featureName);
+				chartHandler.setData(measurements, warnLevel, riskLevel);
 			}
 		});
 	}
@@ -128,9 +144,8 @@ function ChartHandler(container) {
 	 * @param {Measurement[]} measurements - The measurements to display in the chart.
 	 * @param {Number} warnLevvel Sensor's warn level.
 	 * @param {Number} riskLevel Sensor's risk level.
-	 * @param {String} featureName Name of the Sensor's Feature.
 	 */
-	ChartHandler.prototype.setData = function(measurements, warnLevel, riskLevel, featureName) {
+	ChartHandler.prototype.setData = function(measurements, warnLevel, riskLevel) {
 
 		measurements.sort(this.compareMeasurements);
 

@@ -141,7 +141,7 @@ function requestMeasurementsLatest(id) {
 					
 					let currentFeature = store.features[measurement.featureId];
 
-					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\', \'' + currentSensor.warnLevel + '\', \'' + currentSensor.riskLevel + '\', \'' + currentFeature.name + '\')">' +
+					content += '<tr id="' + measurement.sensorId + '" class="sensor-row" onclick="chartHandler.requestData(\'' + measurement.sensorId + '\', \'' + currentSensor.warnLevel + '\', \'' + currentSensor.riskLevel + '\', \'' + measurement.featureId + '\')">' +
 						'<td class="text-center">' + measurement.sensorId + '</td>' +
 						'<td class="text-center">' + currentSensor.name + '</td>' +
 						'<td class="text-center">' + currentFeature.name + '</td>' +
