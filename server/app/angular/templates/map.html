@@ -87,6 +87,10 @@
 				    	<h4 class="list-group-item-heading">Select by River</h4>
 				    	<p class="list-group-item-text">Query all sensors located at a certain river.</p>
 				  	</a>
+				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('feature')">
+						<h4 class="list-group-item-heading">Select by Feature</h4>
+						<p class="list-group-item-text">Query all sensors measuring this feature.</p>
+				  	</a>
 				</div>
 			</div>
 			<div class="modal-body" id="custom-filter-datetime">
@@ -140,7 +144,23 @@
 					<label for="custom-filter-river-input">Enter River Name</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon">River Name:</span>
-						<input type="text" data-provide="typeahead" id="custom-filter-river-input" class="form-control" placeholder="Werse" aria-describedby="basic-addon">
+						<input type="text" data-provide="typeahead" id="custom-filter-river-input" class="form-control" placeholder="e.g. Werse" aria-describedby="basic-addon">
+					</div>
+				</p>
+				
+				<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
+				<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
+			</div>
+			<div class="modal-body" id="custom-filter-feature">
+				<h4>Select by Feature</h4>
+
+				<p>Select a feature to display all sensors which make measurements with this feature.</p>
+
+				<p>
+					<label for="custom-filter-feature-input">Enter Feature Name</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon">Feature Name:</span>
+						<input type="text" data-provide="typeahead" id="custom-filter-feature-input" class="form-control" placeholder="e.g. Water Level" aria-describedby="basic-addon">
 					</div>
 				</p>
 				

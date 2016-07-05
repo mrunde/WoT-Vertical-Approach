@@ -82,6 +82,8 @@ router.delete('/things/:thingId', things.del.request);
 router.get('/things/:thingId', things.get.request);
 // Get all Things
 router.get('/things', things.list.request);
+// Get all Things with this Feature
+router.get('/things/feature/:featureId', things.listFeature.request);
 // Get all Sensors of one Thing
 router.get('/things/:thingId/sensors', things.listSensors.request);
 // Get all Measurements of one Thing

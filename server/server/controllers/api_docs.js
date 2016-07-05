@@ -320,6 +320,17 @@
  */
 
 /**
+ * @apiDefine DuplicateFeatureFoundError
+ * @apiError (404) DuplicateFeatureFound The Feature already exists.
+ *
+ * @apiErrorExample {json} DuplicateFeatureFound:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "DuplicateFeatureFound"
+ *     }
+ */
+
+/**
  * @apiDefine WaterbodyNotFoundError
  * @apiError (404) WaterbodyNotFound The <code>waterbodyId</code> of the Waterbody was not found.
  *

@@ -6,6 +6,7 @@ const socket   = require('../../server.js');
 const _        = require('underscore');
 
 // Required data schema
+const Errors  = require('../../data/errors');
 const Feature = require('../../data/feature');
 
 /**
@@ -24,13 +25,26 @@ const Feature = require('../../data/feature');
  */
 exports.request = function(req, res) {
 	let feature = new Feature(_.extend({}, req.body));
-	
-	feature.save(function(err) {
+
+	Feature.findOne({ name: feature.name, unit: feature.unit }, function(err, duplicate) {
 		if (err) {
-			res.send(err);
+			
+			res.send(Errors.ServerError(err));
+
+		} else if (duplicate) {
+
+			res.send(Errors.DuplicateFeatureFound);
+
 		} else {
-			res.json(feature);
-			socket.notify('features', feature);
+
+			feature.save(function(err) {
+				if (err) {
+					res.send(err);
+				} else {
+					res.json(feature);
+					socket.notify('features', feature);
+				}
+			});
 		}
 	});
 }

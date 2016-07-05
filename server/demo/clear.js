@@ -1,13 +1,13 @@
 'use strict';
 
 // Load the application's configuration
-var config = require('../server/config');
-const url  = config.express_host + '/api';
+const config = require('../server/config');
+const url    = config.express_host + '/api';
 
 // Required modules
-var async   = require('async');
-var colors  = require('colors');
-var request = require('request');
+const async   = require('async');
+const colors  = require('colors');
+const request = require('request');
 
 console.log('\n////////////////////////////////////////////////////////////\n');
 console.log('          STARTING TO CLEAR DEMO DATA...'.cyan);

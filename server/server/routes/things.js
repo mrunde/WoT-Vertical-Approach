@@ -4,6 +4,7 @@ module.exports = {
 	get:                       require('../controllers/things/get'),
 	getNearest:                require('../controllers/things/getNearest'),
 	list:                      require('../controllers/things/list'),
+	listFeature:               require('../controllers/things/listFeature'),
 	listSensors:               require('../controllers/things/listSensors'),
 	listMeasurements:          require('../controllers/things/listMeasurements'),
 	listMeasurementsLatest:    require('../controllers/things/listMeasurementsLatest'),

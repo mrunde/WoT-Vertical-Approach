@@ -46,6 +46,7 @@ function CustomFilterFactory() {
 		$('#custom-filter-datetime').hide();
 		$('#custom-filter-spatial').hide();
 		$('#custom-filter-river').hide();
+		$('#custom-filter-feature').hide();
 		customFilterProperties = {};
 		$('#custom-filter-selection').show();
 	}
@@ -68,7 +69,10 @@ function CustomFilterFactory() {
 				break;
 			case 'river':
 				this.currentFilter = new RiverFilter();
-				break;	
+				break;
+			case 'feature':
+				this.currentFilter = new FeatureFilter();
+				break;
 		}
 		this.currentFilter.init();
 	}
@@ -283,6 +287,58 @@ function RiverFilter() {
 	RiverFilter.prototype.applyFilter = function() {
 		$.ajax({
 			url: getURL() + '/api/things/spatial/waterbodies/' + customFilterProperties.river,
+			global: false,
+			type: 'GET',
+			async: false,
+			success: function(things) {
+				drawMarkers(things);
+				$('#customFilterModal').modal('hide');
+			}
+		});
+	}
+}
+
+/**
+ * Custom filter class for selection by feature name.
+ * Provides methods and settings to filter things
+ * by feature name. Only things measuring this
+ * feature will be displayed.
+ * Product of the CustomFilterFactory.
+ */
+function FeatureFilter() {
+	this.steps = ['featureSelection', 'applyFilter'];
+	this.currentStep = null;
+
+	FeatureFilter.prototype.init = function() {
+		$('#custom-filter-selection').hide();
+		$('#custom-filter-feature').show(200);
+
+		this.currentStep = 0;
+	}
+
+	FeatureFilter.prototype.next = function() {
+		this.currentStep++;
+
+		if (this.steps[this.currentStep] == 'applyFilter') {
+			let featureName = $('#custom-filter-feature-input').val();
+
+			customFilterProperties.featureId = store.getFeatureByName(featureName);
+
+			this.applyFilter();
+		}
+	}
+
+	FeatureFilter.prototype.back = function() {
+		if (this.steps[this.currentStep] == 'featureSelection') {
+			customFilterFactory.reset();
+		}		
+
+		this.currentStep--;
+	}
+
+	FeatureFilter.prototype.applyFilter = function() {
+		$.ajax({
+			url: getURL() + '/api/things/feature/' + customFilterProperties.featureId,
 			global: false,
 			type: 'GET',
 			async: false,

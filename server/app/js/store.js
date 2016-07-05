@@ -6,6 +6,7 @@
 function Store() {
 	
 	this.features            = [];
+	this.featureNames        = [];
 	this.waterbodies         = [];
 	this.currentThingId      = null;
 	this.currentThingName    = null;
@@ -27,12 +28,21 @@ function Store() {
 				return features;
 			}
 		});
+		
 		this.features = requestFeatures.responseJSON;
 		this.features = this.features.reduce(function(arr, val) {
 			arr[val._id] = {
 				'name': val.name,
 				'unit': val.unit
 			};
+			return arr;
+		}, []);
+
+		this.featureNames = requestFeatures.responseJSON;
+		this.featureNames = this.featureNames.reduce(function(arr, val) {
+			arr[val.name] = {
+				'id': val._id
+			}
 			return arr;
 		}, []);
 
@@ -65,6 +75,14 @@ function Store() {
 			};
 		}
 	};
+
+	Store.prototype.getFeatureByName = function(featureName) {
+		if (this.featureNames[featureName]) {
+			return this.featureNames[featureName].id;
+		} else {
+			return -1;
+		}
+	}
 
 	/**
 	 * Turn the notifcations on or off.
