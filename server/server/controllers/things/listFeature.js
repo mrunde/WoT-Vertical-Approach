@@ -26,59 +26,27 @@ const Thing       = require('../../data/thing');
 exports.request = function(req, res) {
 	let featureId = req.params.featureId;
 
-	Sensor.find(function(err, sensors) {
+	Sensor.find({featureId: featureId}, function(err, sensors) {
 		if (err) {
 			
 			res.send(Errors.ServerError(err));
 
 		} else {
-			
-			aggregateSensors(sensors, 0, [], res, featureId);
+			aggregateThings(removeDuplicateThingIds(sensors), 0, [], res);
 		}
 	});
-}
+};
 
-function aggregateSensors(sensors, pos, result, res, featureId){
-	if (pos == sensors.length) {
-		
-		aggregateThings(removeDuplicateThingIds(result), 0, [], res);
-
-	} else {
-		
-		Measurement.find({ sensorId: sensors[pos]._id, featureId: featureId }, function(err, measurements) {
-			if (err) {
-				
-				res.send(Errors.ServerError(err));
-
-			} else {
-				
-				// if sensor contains measurements, add sensor to result
-				if (measurements.length > 0) {
-
-					result.push(sensors[pos]);
-				}
-				
-				aggregateSensors(sensors, pos+1, result, res, featureId);
-			}
-		});
-	}
-}
-
-function aggregateThings(uniqueThingIds, pos, result, res) {
-	if (pos == uniqueThingIds.length) {
-		
+function aggregateThings(thingIds, pos, result, res) {
+	if(pos == thingIds.length) {
 		res.json(result);
-
 	} else {
-		
-		Thing.findOne({ _id: uniqueThingIds[pos] }, function(err, thing) {
-			if (err) {
-				
+		Thing.findOne({ _id: thingIds[pos]}, function(err, thing) {
+			if(err) {
 				res.send(Errors.ServerError(err));
-
 			} else {
-
-				aggregateThings(uniqueThingIds, pos+1, result.concat(thing), res);
+				result.push(thing);
+				aggregateThings(thingIds, pos+1, result, res);
 			}
 		})
 	}
