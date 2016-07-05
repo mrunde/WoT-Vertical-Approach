@@ -31,7 +31,7 @@ exports.request = function(req, res) {
 
 	user.token = generateToken(user);
 
-	User.register(new User(req.body), req.body.password, function(err, user) {
+	User.register(user, req.body.password, function(err, user) {
 		if (err) {
 
 			res.send(err);

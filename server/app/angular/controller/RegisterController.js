@@ -21,7 +21,7 @@ app.controller("RegisterController", function($scope, $http, $rootScope) {
 		$('#register_success').hide();
 		$('#register_error').hide();
 
-		$http.post(getURL() + '/register', $scope.user).success(function(response) {
+		$http.post(getURL() + '/api/users', $scope.user).success(function(response) {
 			
 			$('#register_email').val('');
 			$('#register_password').val('');
