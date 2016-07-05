@@ -4,10 +4,9 @@
 const mongoose = require('mongoose');
 
 // Required data schema
-const Errors      = require('../../data/errors');
-const Measurement = require('../../data/measurement');
-const Sensor      = require('../../data/sensor');
-const Thing       = require('../../data/thing');
+const Errors = require('../../data/errors');
+const Sensor = require('../../data/sensor');
+const Thing  = require('../../data/thing');
 
 /**
  * @api {get} /things/feature/:featureId GET - all with this Feature
@@ -20,7 +19,6 @@ const Thing       = require('../../data/thing');
  * @apiSuccess {Thing[]} things	Array of Thing information.
  *
  * @apiUse SuccessExample_List_Things
- * @apiUse FeatureNotFound
  * @apiUse ServerError
  */
 exports.request = function(req, res) {
