@@ -71,25 +71,29 @@
 			</div>
 			<div class="modal-body" id="custom-filter-selection">
 				<div class="list-group" id="filter-selection">
-				  	<a href="#" class="list-group-item filter-select" onclick="customFilterFactory.createCustomFilter('temporal')">
+				  	<a href="#" class="list-group-item filter-select" onclick="customFilterFactory.createCustomFilter('Temporal')">
 				    	<h4 class="list-group-item-heading">Temporal Query</h4>
 				    	<p class="list-group-item-text">Query sensors based on the latest measurement.</p>
 				  	</a>
-				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('spatial')">
+				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('Spatial')">
 				    	<h4 class="list-group-item-heading">Spatial Query</h4>
 				    	<p class="list-group-item-text">Query sensors based on their location.</p>
 				  	</a>
-				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('spatiotemporal')">
+				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('Spatio-Temporal')">
 				    	<h4 class="list-group-item-heading">Spatio-Temporal Query</h4>
 				    	<p class="list-group-item-text">Query sensors based on the latest measurement and their location.</p>
 				  	</a>
-				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('river')">
+				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('River Filter')">
 				    	<h4 class="list-group-item-heading">Select by River</h4>
 				    	<p class="list-group-item-text">Query all sensors located at a certain river.</p>
 				  	</a>
-				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('feature')">
+				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('Feature Filter')">
 						<h4 class="list-group-item-heading">Select by Feature</h4>
 						<p class="list-group-item-text">Query all sensors measuring this feature.</p>
+				  	</a>
+				  	<a href="#" class="list-group-item" onclick="customFilterFactory.createCustomFilter('saves')" id="customFilterSaves">
+				  		<h4 class="list-group-item-heading">Saved Filters</h4>
+				  		<p class="list-group-item-text">Your latest custom filters.</p>
 				  	</a>
 				</div>
 			</div>
@@ -166,6 +170,73 @@
 				
 				<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
 				<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
+			</div>
+			<div class="modal-body" id="custom-filter-saves">
+				<h4>Your custom filters</h4>
+
+				<table class="table table-hover" style="overflow: auto;">
+					<thead>
+						<tr>
+							<th>Filter Type</th>
+							<th>Created</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody id="customFilterElements">
+						<tr>
+							<td style="width: 65%;"><a href="#" data-toggle="tooltip" title="Feature Name: Water Level">Feature Filter</a></td>
+							<td>2012-02-02</td>
+							<td>
+								<button type="button" class="btn btn-success">Apply</button>
+								<button type="button" class="btn btn-warning">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td><a href="#" data-toggle="tooltip" title="Feature Name: Water Level">Temporal Filter</a></td>
+							<td>
+								<button type="button" class="btn btn-success">Apply</button>
+								<button type="button" class="btn btn-warning">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td><a href="#" data-toggle="tooltip" title="Feature Name: Water Level">Spatial Filter</a></td>
+							<td>
+								<button type="button" class="btn btn-success">Apply</button>
+								<button type="button" class="btn btn-warning">Remove</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
+				<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Next</button>
+			</div>
+			<div class="modal-body" id="custom-filter-details">
+				<h4>Your filter selection</h4>
+
+				<div class="well" style="overflow: auto;">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Setting</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody id="custom-filter-details-table">
+							<tr>
+								<td>Filter Type</td>
+								<td>River Filter</td>
+							</tr>
+							<tr>
+								<td>River Selection</td>
+								<td>Werse</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<button type="button" onclick="customFilterFactory.back()" class="btn btn-default">Back</button>
+				<button type="button" onclick="customFilterFactory.next()" class="btn btn-success">Apply</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

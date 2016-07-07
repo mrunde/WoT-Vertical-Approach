@@ -3,6 +3,7 @@ const express = require('express');
 
 // Required routes
 const features     = require('./features');
+const filters 	   = require('./filters');	
 const measurements = require('./measurements');
 const sensors      = require('./sensors');
 const things       = require('./things');
@@ -23,6 +24,20 @@ router.get('/features', features.list.request);
 
 // Create one Feature
 router.post('/features', features.post.request);
+
+
+// --------------------------------------------------
+// FILTERS
+// --------------------------------------------------
+
+// Get all filters of a user
+router.get('/filters/:userId', filters.list.request);
+
+// Create one filter
+router.post('/filters', filters.post.request);
+
+// Delete one filter
+router.delete('/filters/:filterId', filters.del.request);
 
 // --------------------------------------------------
 // MEASUREMENTS

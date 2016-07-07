@@ -4,15 +4,31 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	socketEnabled = true;
 
 	$scope.mapInitiated = false;
+
+	// init Filter functions and river autofill
+	customFilterFactory = new CustomFilterFactory();
+	customFilterFactory.init();
+	$("#custom-filter-river-input").typeahead({ source:waterbody_names });
 	
 	// adjust navbar to login status
 	if($rootScope.user) {
 		$('.navbar-right li:nth-child(2)').html('<a href="/profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Profile</a>');
 		$('.navbar-right li:nth-child(3)').html('<a href="/logout" target="_self"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>');
+
+		$http.get(getURL() + '/api/filters/' + $rootScope.user._id).success(function(response) {
+			customFilterSaves = response;
+			for(let i = 0; i < customFilterSaves.length; i++)
+				customFilterSaves[i].settings = JSON.parse(customFilterSaves[i].settings);
+			customFilterFactory.setUser($rootScope.user);
+		});
 	} else {
 		$('.navbar-right li:nth-child(2)').html('<a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up</a>');
 		$('.navbar-right li:nth-child(3)').html('<a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a>');
+
+		// disbale custom filter saves
+		$('#customFilterSaves').replaceWith('<a href="#" class="list-group-item" style="pointer-events: none; curser: default;"><h4 class="list-group-item-heading">Saved Filters</h4><p class="list-group-item-text">Only available to logged in users.</p></a>');
 	}
+
 
 	// Handle filter events
 	$('#filter_all').on('click', function() {
@@ -82,11 +98,6 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 	// init Chart
 	chartHandler = new ChartHandler('waterLevelChart');
 
-	// init Filter functions and river autofill
-	customFilterFactory = new CustomFilterFactory();
-	customFilterFactory.init();
-	$("#custom-filter-river-input").typeahead({ source:waterbody_names });
-
 	// Request all things of the currently logged in user or redirect to login
 	// page if no user is logged in.
 	$scope.requestMyThings = function() {
@@ -114,5 +125,5 @@ app.controller("MapController", function($scope, $http, $location, $rootScope) {
 			requestThings();
 			$scope.mapInitiated = true;
 		}
-	}
+	};
 });
