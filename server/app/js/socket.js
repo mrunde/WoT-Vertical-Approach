@@ -45,7 +45,9 @@ socket.on('measurements', function(measurement) {
 		chartHandler.addMeasurement(measurement);
 
 		// Check whether the new Measurement is greater than the Sensor's warn or risk level
+		// Then notify the user, if notifcations are enabled
 		if (measurement.value >= currentSensor.warnLevel && store.showNotifications) {
+			
 			let toastrOptions = {
 				closeButton       : true,
 				newestOnTop       : true,
@@ -59,13 +61,40 @@ socket.on('measurements', function(measurement) {
 				extendedTimeOut   : '0'
 			};
 
+			let title, message, icon = 'https://raw.githubusercontent.com/mrunde/WoT-Vertical-Approach/master/server/app/img/marker.png';
+
 			if (measurement.value >= currentSensor.riskLevel) {
-				// Risk level reached: Display Toast on Webside
-				toastr.error('Sensor reached risk level\nID:' + measurement.sensorId, 'DANGER!', toastrOptions);
+				// Risk level reached
+				title = 'DANGER!';
+				message = 'Sensor reached risk level\nID: ' + measurement.sensorId;
+
+				if (window.Notification && Notification.permission === 'granted') {
+					let notification = new Notification(title, { body: message, tag: measurement.sensorId, icon: icon });
+				} else {
+					toastr.error(message, title, toastrOptions);
+				}
 			} else {
-				// Warn level reached: Display Toast on Webside
-				toastr.warning('Sensor reached warn level\nID:' + measurement.sensorId, 'WARNING!', toastrOptions);
+				// Warn level reached
+				title = 'WARNING!';
+				message = 'Sensor reached warn level\nID: ' + measurement.sensorId;
+
+				if (window.Notification && Notification.permission === 'granted') {
+					let notification = new Notification(title, { body: message, tag: measurement.sensorId, icon: icon });
+				} else {
+					toastr.warning(message, title, toastrOptions);
+				}
 			}
 		}
+	}
+});
+
+window.addEventListener('load', function () {
+	// Check for browser notification permission
+	if (window.Notification && Notification.permission !== 'granted') {
+		Notification.requestPermission(function(status) {
+			if (Notification.permission !== status) {
+				Notification.permission = status;
+			}
+		});
 	}
 });
