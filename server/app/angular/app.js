@@ -47,6 +47,9 @@ app.config(function($routeProvider, $locationProvider) {
 			loggedIn: checkLoggedInWithRedirect
 		}
 	})
+	.when("/help", {
+		templateUrl: "/angular/templates/help.html"
+	})
 	.otherwise({redirectTo: "/"});
 
 	$locationProvider.html5Mode(true);
