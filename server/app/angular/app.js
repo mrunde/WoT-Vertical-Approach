@@ -48,7 +48,8 @@ app.config(function($routeProvider, $locationProvider) {
 		}
 	})
 	.when("/help", {
-		templateUrl: "/angular/templates/help.html"
+		templateUrl: "/angular/templates/help.html",
+		controller: "HelpController"
 	})
 	.otherwise({redirectTo: "/"});
 
