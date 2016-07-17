@@ -1,149 +1,111 @@
-<div class="container">
-    <br>
-    <br>
+<div class="container" ng-controller="HelpController">
+    <div class="row">
+        <div class="col-sm-3 col-md-3" id="helppage" >
+            <div class="panel-group" id="accordion" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <span class="glyphicon glyphicon-folder-close"></span>
+                                 General Informations
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-pencil text-primary" ></span>
+                                        <a ng-click="changeView('WoTVA')" >Why WoT - Vertical Approch</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-flash text-success"></span>
+                                        <a ng-click="changeView('DevelopStatus')">Development Status</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        This section contains informations about how to use our the page. Simply click on a Question to see the answer. 
-        <br>
-        If you cannot find an answer to your question, do not hesitate to contact us. 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <span class="glyphicon glyphicon-th"></span>
+                                 Setup
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="#">Orders</a>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                <span class="glyphicon glyphicon-user"></span>
+                                 Account
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="#">Change Password</a>
+                                    </td>
+                                </tr>  
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                <span class="glyphicon glyphicon-file"></span>
+                                 Reports
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-usd">
+                                        </span><a href="#">Sales</a>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-" id="helppage">
+            <div class="well">
+                <h1>{{HeadingHelp}}</h1>
+                <br/>
+                <div>{{Contenthelp}}</div>
+            </div>
+        </div>
     </div>
-
-    <br>
-
-    <div class="panel-group" id="accordion">
-
-	        <div class="faqHeader">General questions</div>
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed out" data-toggle="collapse" data-parent="#accordion" href="#collapse001">
-	                    	What is the purpose of this page?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse001" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                    ...
-	                </div>
-	            </div>
-	        </div>
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse002">
-	                    	Who created all this?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse002" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                   You can the Authors names and their Github-Repositories at <a href="/imprint"><i>Imprint</i></a>
-	                </div>
-	            </div>
-	        </div>
-
-	        <div class="faqHeader">How to use it</div>
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse101">
-	                    	Why should I create a User?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse101" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                   ...
-	                </div>
-	            </div>
-	        </div>
-
-        	<div class="faqHeader">User-Management</div>
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse201">
-	                    	Why should I create a User?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse201" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                   ...
-	                </div>
-	            </div>
-	        </div>
-
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse202">
-	                    	How can I create a User?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse202" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                    The steps needed are really simple. All you need to do is:
-	                    <ul>
-	                        <li>Go to the Main-Page</li>
-	                        <li>Click <b>Sign-Up</b> in the top-right corner</li>
-	                        <li>Enter your Email address and Password (Write down your Password  you can't change it afterwards</li>
-	                        <li>Click <b>Signup</b> and you are done</li>
-	                    </ul>
-	                </div>
-	            </div>
-	        </div>
-
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse203">
-	                    	How can I login?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse203" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                   Locate the <b>Login</b>-field in the top-right corner. Click it.<br>
-	                   Enter your email adress and password and <b>Login</b>
-	                </div>
-	            </div>
-	        </div>
-
-
-	        <div class="faqHeader">Twitter-Notifications</div>
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse401">
-	                    	Why using Twitter?
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse401" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                   ...
-	                </div>
-	            </div>
-	        </div>
-
-	        <div class="faqHeader">Custom-Filters</div>
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                <h4 class="panel-title">
-	                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse501">
-	                    	What is a Custom-Filter
-	                    </a>
-	                </h4>
-	            </div>
-	            <div id="collapse501" class="panel-collapse collapse">
-	                <div class="panel-body">
-	                   ...
-	                </div>
-	            </div>
-	        </div>
-    </div> <!-- Accordion-->
-</div> <!-- Container -->
-
+</div>
