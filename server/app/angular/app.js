@@ -49,7 +49,10 @@ app.config(function($routeProvider, $locationProvider) {
 	})
 	.when("/help", {
 		templateUrl: "/angular/templates/help.html",
-		controller: "HelpController"
+		controller: "HelpController",
+		resolve: {
+			loggedIn: checkLoggedIn
+		}
 	})
 	.otherwise({redirectTo: "/"});
 
