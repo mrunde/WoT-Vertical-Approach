@@ -147,6 +147,9 @@ function ChartHandler(container) {
 	 */
 	ChartHandler.prototype.setData = function(measurements, warnLevel, riskLevel) {
 
+		this.warnLevel = warnLevel;
+		this.riskLevel = riskLevel;
+
 		measurements.sort(this.compareMeasurements);
 
 		// If the array contains too many elements, remove the oldest ones

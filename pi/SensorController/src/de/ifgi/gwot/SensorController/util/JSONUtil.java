@@ -16,13 +16,15 @@ public class JSONUtil {
 	 * Encodes an observation to Json.
 	 * @param id The sensorId.
 	 * @param value The measured value.
+	 * @param token User token required for autorization.
 	 * @return Observation encoded as Json String.
 	 */
-	public static String encodeObservation(String id, double value){
+	public static String encodeObservation(String id, double value, String token){
 		JsonObject observation = Json.createObjectBuilder()
 				.add("sensorId", id)
 				.add("date", DateUtil.getISO8601Date())
 				.add("value", value)
+				.add("token", token)
 				.build();
 		return observation.toString();
 	}
@@ -30,12 +32,16 @@ public class JSONUtil {
 	/**
 	 * Encodes a request to create a new thing
 	 * in Json.
+	 * @param latitude
+	 * @param longitude
 	 * @param userId The id of the Thing's user.
+	 * @param token User token required for authentication.
 	 * @return Body of Thing.Post Request as Json String.
 	 */
-	public static String encodePostThingRequest(double latitude, double longitude, String userId){
+	public static String encodePostThingRequest(double latitude, double longitude, String userId, String token){
 		JsonObject register = Json.createObjectBuilder()
 				.add("name", "HCSR04Sensor created by JavaMe")
+				.add("token", token)
 				.add("loc", Json.createObjectBuilder()
 						.add("type", "Point")
 						.add("coordinates", Json.createArrayBuilder()
@@ -122,9 +128,10 @@ public class JSONUtil {
 	 * @param refLevel Reference Level used to calculate the water level from.
 	 * @param warnLevel Water level to trigger warn notifications at.
 	 * @param riskLevel Water level to trigger alerts at.
+	 * @param token User token required for authentication.
 	 * @return The POST body as json string.
 	 */
-	public static String encodePostSensorRequest(String description, String thingId, String featureId, int interval, double refLevel, double warnLevel, double riskLevel){
+	public static String encodePostSensorRequest(String description, String thingId, String featureId, int interval, double refLevel, double warnLevel, double riskLevel, String token){
 		JsonObject sensor = Json.createObjectBuilder()
 				.add("name", description)
 				.add("thingId", thingId)
@@ -133,6 +140,7 @@ public class JSONUtil {
 				.add("refLevel", refLevel)
 				.add("warnLevel", warnLevel)
 				.add("riskLevel", riskLevel)
+				.add("token", token)
 				.build();
 		return sensor.toString();
 	}
@@ -151,37 +159,4 @@ public class JSONUtil {
 		
 		return jsonObject.getString("_id");
 	}
-	
-	/**
-	 * Reads a json encoded configuration message for the sensor.
-	 * If the api key is correct, the new configuration is decoded and
-	 * returned.
-	 * @param json The json encoded configuration String.
-	 * @return HashMap containing the new configuration.
-	 */
-	public static HashMap<String,Object> decodeConfiguration(String json){		
-		HashMap<String, Object> configs = new HashMap<String, Object>();
-		
-		InputStream input = new ByteArrayInputStream(json.getBytes());
-		JsonReader reader = Json.createReader(input);	
-		JsonObject jsonObject = reader.readObject();
-		
-		if(jsonObject.getString("apikey").equals("verticalintegration")){
-			if(jsonObject.containsKey("latitude"))
-				configs.put("latitude", jsonObject.getJsonNumber("latitude").doubleValue());
-			if(jsonObject.containsKey("longitude"))
-				configs.put("longitude", jsonObject.getJsonNumber("longitude").doubleValue());
-			if(jsonObject.containsKey("delay"))
-				configs.put("delay", jsonObject.getJsonNumber("delay").longValue());
-			if(jsonObject.containsKey("waterLevelReference"))
-				configs.put("waterLevelReference", jsonObject.getJsonNumber("waterLevelReference").doubleValue());
-			if(jsonObject.containsKey("run"))
-				configs.put("run", jsonObject.getBoolean("run", true));
-		} else{
-			System.out.println("Wrong API Key.");
-		}
-		
-		return configs;
-	}
-
 }

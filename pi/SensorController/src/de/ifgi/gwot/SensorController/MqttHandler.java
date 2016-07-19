@@ -1,11 +1,18 @@
 package de.ifgi.gwot.SensorController;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
+
+import com.oracle.json.Json;
+import com.oracle.json.JsonObject;
+import com.oracle.json.JsonReader;
 
 public class MqttHandler extends Thread implements MqttCallback {
 
@@ -15,7 +22,7 @@ public class MqttHandler extends Thread implements MqttCallback {
 	private int port = 1883;
 
 	private static final String PUB_TOPIC = "measurements";
-	private String sub_topic = "config";
+	private String sub_topic;
 
 	private HCSR04Device hcsr04Device;
 	private MessageQueue messageQueue;
@@ -44,7 +51,8 @@ public class MqttHandler extends Thread implements MqttCallback {
 		pubClient.connect();
 
 		// connect to configuration channel
-		pubClient.subscribe(sub_topic + hcsr04Device.getConfig().getSensorId());
+		this.sub_topic = "config/" + hcsr04Device.getConfig().getSensorId();
+		pubClient.subscribe(this.sub_topic);
 	}
 	
 	/**
@@ -90,33 +98,28 @@ public class MqttHandler extends Thread implements MqttCallback {
 		System.out.println("Message Arrived. ( " + topic + ", "
 				+ new String(message.getPayload()) + ")");
 		
-//		if(topic.equals(sub_topic)){
-//			try{
-//				HashMap<String,Object> configs = JSONUtil.decodeConfiguration(new String(message.getPayload()));
-//				if(configs.containsKey("latitude"))	
-//					hcsr04.getHCSR04Config().setLatitude((double)configs.get("latitude"));
-//				if(configs.containsKey("longitude"))	
-//					hcsr04.getHCSR04Config().setLongitude((double)configs.get("longitude"));
-//				if(configs.containsKey("delay"))	
-//					hcsr04.getHCSR04Config().setDelay((long)configs.get("delay"));
-//				if(configs.containsKey("waterLevelReference"))	
-//					hcsr04.getHCSR04Config().setWaterLevelReference((double)configs.get("waterLevelReference"));
-//				if(configs.containsKey("run")) {
-//					boolean run = ((boolean)configs.get("run"));
-//					if(hcsr04.getHCSR04Config().isRunning() && !run){
-//						stopMeasuring();
-//					}
-//					else if(!hcsr04.getHCSR04Config().isRunning() && run){
-//						startMeasuring();
-//					}
-//					hcsr04.getHCSR04Config().setRun(run);
-//				}					
-//				
-//				System.out.println("Sensor Configuration changed! " + hcsr04.getHCSR04Config().toString());
-//			} catch(Exception ex){
-//				System.out.println("Corrupted configuration message!");
-//			}						
-//		}
+		try{
+			InputStream input = new ByteArrayInputStream(new String(message.getPayload()).getBytes());
+			JsonReader reader = Json.createReader(input);	
+			JsonObject jsonObject = reader.readObject();
+			
+			if(jsonObject.containsKey("refLevel")){
+				hcsr04Device.getConfig().setWaterLevelReference(jsonObject.getJsonNumber("refLevel").doubleValue());
+			}
+			if(jsonObject.containsKey("warnLevel")){
+				hcsr04Device.getConfig().setWarnLevel(jsonObject.getJsonNumber("warnLevel").doubleValue());
+			}
+			if(jsonObject.containsKey("riskLevel")){
+				hcsr04Device.getConfig().setRiskLevel(jsonObject.getJsonNumber("riskLevel").doubleValue());
+			}
+			if(jsonObject.containsKey("interval")){
+				hcsr04Device.getConfig().setDelay(jsonObject.getJsonNumber("warnLevel").longValue());
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		System.out.println(hcsr04Device.getConfig().toString());
 	}
 
 	@Override

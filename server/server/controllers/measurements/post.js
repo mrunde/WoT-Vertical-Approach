@@ -51,7 +51,7 @@ exports.request = function(req, res) {
 
 				let id = measurement.sensorId;
 
-				Sensor.findOne({ _id: id, userId: user._id }, function(err, sensor) {
+				Sensor.findOne({ _id: id }, function(err, sensor) {
 					if (err) {
 						
 						res.send(Errors.SensorNotFoundError);

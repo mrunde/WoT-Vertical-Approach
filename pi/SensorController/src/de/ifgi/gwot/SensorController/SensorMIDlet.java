@@ -2,11 +2,15 @@ package de.ifgi.gwot.SensorController;
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.microedition.io.CommConnection;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import de.ifgi.gwot.SensorController.gps.GPSCommSensor;
+import de.ifgi.gwot.SensorController.gps.GPSUARTSensor;
+import de.ifgi.gwot.SensorController.gps.Position;
 import de.ifgi.gwot.SensorController.util.HttpUtil;
 import de.ifgi.gwot.SensorController.util.JSONUtil;
 
@@ -18,6 +22,8 @@ public class SensorMIDlet extends MIDlet{
 	
 	private volatile boolean shouldRun = false;
 	private ReadSensors sensorsTask;
+	
+	private static final String SERIAL_PORT = "ttyAMA0";
 	
 	private MqttHandler mqttHandler;
 	
@@ -74,6 +80,7 @@ public class SensorMIDlet extends MIDlet{
 			System.out.println("Mqtt Client could not connect.");
 		}
 		
+		
 		startMeasuring();
 	}
 	
@@ -88,14 +95,9 @@ public class SensorMIDlet extends MIDlet{
 		@Override
 		public void run(){
 			while(shouldRun){
-				long temp1;
-				long temp2;
+
 				for(int i = 0; i < measurements.length; i++){
-					temp1 = System.currentTimeMillis();
 					measurements[i] = hcsr04.pulse();
-					temp2 = System.currentTimeMillis();
-					long time1 = temp2 - temp1;
-					System.out.println("Time to take measurement: " + time1);
 				}
 				Arrays.sort(measurements);
 
@@ -103,10 +105,10 @@ public class SensorMIDlet extends MIDlet{
 				double avg = measurements[(int)(measurements.length / 2)];
 //				double avg = Math.max(measurements[(int)(measurements.length / 2)], 0);
 				
-//				if(avg > 0){
-					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), avg);
+				if(avg > 0){
+					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), avg, SensorMIDlet.this.getAppProperty("token"));
 					mqttHandler.publish(message);
-//				}		
+				}		
 				try {
 					Thread.sleep(hcsr04.getConfig().getDelay());
 				} catch (InterruptedException ex) {
@@ -141,7 +143,7 @@ public class SensorMIDlet extends MIDlet{
 	private void requestConfiguration() throws IOException{
 		// send post thing request
 		String thing = HttpUtil.post(REST_API_URL + "api/things/", JSONUtil.encodePostThingRequest(
-				Double.parseDouble(this.getAppProperty("latitude")), Double.parseDouble(this.getAppProperty("longitude")), this.getAppProperty("User-Id")));
+				Double.parseDouble(this.getAppProperty("latitude")), Double.parseDouble(this.getAppProperty("longitude")), this.getAppProperty("User-Id"), this.getAppProperty("token")));
 		// send get features request
 		String allFeatures = HttpUtil.get(REST_API_URL + "api/features/");
 		
@@ -158,9 +160,17 @@ public class SensorMIDlet extends MIDlet{
 			hcsr04.getConfig().setThingId(thingId);
 			if(!thingId.isEmpty() && !featureId.isEmpty()){
 				// create sensor
+				int interval = 5000;
+				double refLevel = 0;
+				double warnLevel = 5000;
+				double riskLevel = 10000;
 				String sensorId = JSONUtil.decodePostFeatureRequest(HttpUtil.post(REST_API_URL + "api/sensors/", 
-						JSONUtil.encodePostSensorRequest("HCSR04 UltraSonic Water Gauge", thingId, featureId, 5000, 0, 0, 0)));
+						JSONUtil.encodePostSensorRequest("HCSR04 UltraSonic Water Gauge", thingId, featureId, interval, refLevel, warnLevel, riskLevel, this.getAppProperty("token"))));
 				hcsr04.getConfig().setSensorId(sensorId);
+				hcsr04.getConfig().setDelay(interval);
+				hcsr04.getConfig().setWaterLevelReference(refLevel);
+				hcsr04.getConfig().setWarnLevel(warnLevel);
+				hcsr04.getConfig().setRiskLevel(riskLevel);
 				hcsr04.getConfig().setRun(true);
 				this.shouldRun = true;
 				// print config and start measuring
