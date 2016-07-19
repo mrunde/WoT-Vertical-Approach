@@ -3,6 +3,7 @@
 // Required modules
 const mongoose = require('mongoose');
 const _        = require('underscore');
+const mqtt	   = require('../../mqtt/client');
 
 // Required data schema
 const Errors = require('../../data/errors');
@@ -70,6 +71,7 @@ exports.request = function(req, res) {
 										res.send(err);
 									} else {
 										res.json(sensor);
+										mqtt.publish('config/' + sensor._id, JSON.stringify(sensor));
 									}
 								});
 							}
