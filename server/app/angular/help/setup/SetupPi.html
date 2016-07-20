@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class:"no-js">
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<FONT FACE="Segoe UI">
+			<p>Here you can find the source code for the Raspberry Pi's architecture.</p>
+			<h1>Running the SensorController from Eclipse IDE</h1>
+			<ul>
+				<li>
+					Instructions for Raspberry Pi
+					<ul>
+						<li>
+							Download <i>Java ME Embedded</i> from the <a href="http://www.oracle.com/technetwork/java/embedded/javame/embed-me/downloads/java-embedded-java-me-download-2162242.html">Oracle Website</a> and install it on your Raspberry Pi.
+						</li>
+						<li>
+							Run <i>Java ME Embedded</i> on the Pi. Navigate to your installation directory and run sudo <FONT FACE="Consolas">.\usertest.sh</FONT> .
+						</li>
+					</ul>
+				</li>
+				<li>
+					Instructions for Eclipse IDE
+					<ul>
+						<li>
+							Install the <i>Oracle Java ME SDK</i> on your computer. You can find the SDKs on the <a href="http://www.oracle.com/technetwork/java/embedded/javame/embed-me/downloads/java-embedded-java-me-download-2162242.html">Oracle Website</a>.
+						</li>
+						<li>
+							In Eclipse, install the <i>Oracle Java ME SDK Eclipse Plugin</i>
+						</li>
+						<li>
+							Change to the Java ME Perspective by selecting "<i>Window -> Perspective -> Open Perspective -> Java ME</i>".
+						</li>
+						<li>
+							Import the <i>SensorController</i> as <i>Java ME Project</i>
+						</li>
+						<li>
+							Make sure the Raspberry Pi is connected to your computer via the <i>Device Connections Manager</i>. If your device is not yet connected, add the connection with the <i>Device Connections Manager</i>. The <i>Device Connections Manager</i> is installed with the <i>Oracle Java ME SDK</i>. You can add connections by selecting <i>Add new device connection</i>....
+						</li>
+						<li>
+							In Eclipse, change the execution environment to your Pi. Open the <i>Application Descriptor</i> and in the Overview Tab select "<i>Add... -> Manage Devices... -> Manual Install...</i>". In the <i>Manual Device Installation</i> Dialog select <i>Browse</i> and browse to your <i>Java ME SDK</i> installation directory. Close the <i>Preferences</i> Dialog and in the Device Selection of the <i>Add Configuration</i> Dialog select your Raspberry Pi.
+						</li>
+						<li>
+							If you start the <i>SensorController</i> now, it will be temporarily installed and executed on the Raspberry Pi.
+						</li>
+					</ul>
+				</li>
+				<li>
+					Further assistance:
+					<ul>
+						<li>
+							Refer to <a href="https://docs.oracle.com/javame/8.0/get-started-rpi/toc.htm">this tutorial</a> if you have problems installing <i>Java ME Embedded</i> on the Raspberry Pi.
+						</li>
+						<li>
+							Refer to <a href="https://docs.oracle.com/javame/config/cldc/rel/3.3/win/gs/html/getstart_win32/toc.htm">this tutorial</a> if you want to learn more about developing with the <i>Java ME SDK</i> or if you are using NetBeans.
+						</li>
+						<li>
+							Refer to <a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPi_Setup/RaspberryPi_Setup.html">this tutorial</a> if you have problems connecting the Raspberry Pi to your IDE or if you are using NetBeans.
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<h1>Deploying the SensorController on the Raspberry Pi</h1>
+			<ul>
+				<li>
+					Export the <i>SensorController as MIDlet Package</i>. If you are using Eclipse, you can use the <i>Export</i> Dialog.
+				</li>
+				<li>
+					Move the resulting <i>.jar</i> and <i>.jad</i> files to your Raspberry Pi, for example by using <FONT FACE="Consolas">pscp</FONT> .
+				</li>
+				<li>
+					Install the <i>SensorController</i> by running <FONT FACE="Consolas">[path to your Java ME directory]/installSuite.sh [path to SensorController.jar]</FONT> . If the installation is successful, a <i>MIDlet ID</i> is returned.
+				</li>
+				<li>
+					You can now run the <i>SensorController</i> by typing <FONT FACE="Consolas">[path to your Java ME directory]/runSuite.sh [MIDlet ID]</FONT> . If you forget the <i>MIDlet ID</i> you can check all installed MIDlets by running <FONT FACE="Consolas">[path to your Java ME directory]/listMidlets.sh</FONT> .
+				</li>
+				<li>
+					The <i>SensorController</i> will start up.
+				</li>
+			</ul>
+		</FONT>
+	</body>
+</html>

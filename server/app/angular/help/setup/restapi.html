@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<body>
+		<h1>REST API</h1>
+		<p>Here you can see an overview of the available REST API functions. <br> To see the complete Rest API Documentation click <a href="/docs" target="_blank"><b>here</b></a></p>.
+		<h2>Things</h2>
+		<table  style="width:100%">
+			<tr class="testTable">
+				<th>Status</th>
+				<th>URL</th> 
+				<th>Method</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things</td> 
+				<td>GET, POST</td>
+				<td>all things</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/:thingId</td> 
+				<td>DELETE, GET</td>
+				<td>one thing</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/:thingId/sensors</td> 
+				<td>GET</td>
+				<td>all sensors of one thing</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/:thingId/measurements</td> 
+				<td>GET</td>
+				<td>all measurements of one thing</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/measurements/latest</td> 
+				<td>GET</td>
+				<td>latest measurements of all things</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>pi/things/:thingId/measurements/latest</td> 
+				<td>GET</td>
+				<td>latest measurements of one thing</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/:thingId/nearest</td> 
+				<td>GET</td>
+				<td>nearest other thing</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/feature/:featureId</td> 
+				<td>GET</td>
+				<td>all things which measure this feature</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/temporal/:dateFrom/:dateTo</td> 
+				<td>GET</td>
+				<td>all things within one time frame</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/spatial/bbox/:bbox</td> 
+				<td>GET</td>
+				<td>all things within one bounding box</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/spatial/waterbodies/:waterbodyId</td> 
+				<td>GET</td>
+				<td>all things next to one waterbody</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/temporal/:dateFrom/:dateTo/spatial/:bbox</td> 
+				<td>GET</td>
+				<td>all things within one time frame and one bounding box</td>
+			</tr>
+		</table>
+
+		<h2>Sensors</h2>
+
+		<table class="SetupTable" style="width:100%">
+			<tr>
+				<th>Status</th>
+				<th>URL</th> 
+				<th>Method</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/sensors</td> 
+				<td>GET, POST</td>
+				<td>all sensors</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/sensors/:sensorId</td> 
+				<td>DELETE, GET, PUT</td>
+				<td>one sensors</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/sensors/:sensorId/measurements</td> 
+				<td>GET</td>
+				<td>all measurements of one sensor</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/sensors/temporal/:dateFrom/:dateTo</td> 
+				<td>GET</td>
+				<td>all sensors within one time frame</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/sensors/spatial/:bbox</td> 
+				<td>GET</td>
+				<td>all sensors within one bounding box</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/sensors/temporal/:dateFrom/:dateTo/spatial/:bbox</td> 
+				<td>GET</td>
+				<td>all sensors within one time frame and one bounding box</td>
+			</tr>
+		</table>
+
+		<h2>Measurements</h2>
+
+		<table class="SetupTable" style="width:100%">
+			<tr>
+				<th>Status</th>
+				<th>URL</th> 
+				<th>Method</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/measurements</td> 
+				<td>GET, POST</td>
+				<td>all measurements</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/measurements/:measurementId</td> 
+				<td>DELETE, GET</td>
+				<td>one measurement</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/measurements/temporal/:dateFrom/:dateTo</td> 
+				<td>GET</td>
+				<td>all measurements within one time frame</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/measurements/spatial/:bbox</td> 
+				<td>GET</td>
+				<td>all measurements within one bounding box</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/measurements/temporal/:dateFrom/:dateTo/spatial/:bbox</td> 
+				<td>GET</td>
+				<td>all measurements within one time frame and one bounding box</td>
+			</tr>
+		</table>
+
+		<h2>Users</h2>
+
+		<table class="SetupTable" style="width:100%">
+			<tr>
+				<th>Status</th>
+				<th>URL</th> 
+				<th>Method</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/users</td> 
+				<td>POST</td>
+				<td>one user</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/things/:thingId</td> 
+				<td>DELETE, GET, PUT</td>
+				<td>one user</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/users/:userId/things</td> 
+				<td>GET</td>
+				<td>all things of one user</td>
+			</tr>
+		</table>
+
+		<h2>Features</h2>
+
+		<table class="SetupTable" style="width:100%">
+			<tr>
+				<th>Status</th>
+				<th>URL</th> 
+				<th>Method</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/features</td> 
+				<td>GET, POST</td>
+				<td>all features</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/features/:featureId</td> 
+				<td>GET</td>
+				<td>one feature</td>
+			</tr>
+		</table>
+
+		<h2>Waterbodies</h2>
+
+		<table class="SetupTable" style="width:100%">
+			<tr>
+				<th>Status</th>
+				<th>URL</th> 
+				<th>Method</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/waterbodies</td> 
+				<td>GET</td>
+				<td>all waterbodies</td>
+			</tr>
+			<tr>
+				<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+				<td>api/waterbodies/:waterbodyId</td> 
+				<td>GET</td>
+				<td>one waterbody</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+	</body>
+</html>
