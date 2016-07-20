@@ -118,9 +118,9 @@ function requestMeasurementsLatest(id) {
 						'<th class="text-center">Feature</th>' +
 						'<th class="text-center">Latest</th>' +
 						'<th class="text-center">Value</th>' +
-						'<th class="text-center">Ref.</th>' +
 						'<th class="text-center bg-warning">Warn</th>' +
 						'<th class="text-center bg-danger">Risk</th>' +
+						'<th class="text-center">Interval</th>'
 					'</tr>';
 				
 				measurements.forEach(function(measurement, key) {
@@ -147,9 +147,9 @@ function requestMeasurementsLatest(id) {
 						'<td class="text-center">' + currentFeature.name + '</td>' +
 						'<td class="text-center">' + currentDateAsString + '</td>' +
 						'<td class="text-right">' + measurement.value + ' ' + currentFeature.unit + '</td>' +
-						'<td class="text-right">' + currentSensor.refLevel + ' ' + currentFeature.unit + '</td>' +
 						'<td class="text-right">' + currentSensor.warnLevel + ' ' + currentFeature.unit + '</td>' +
 						'<td class="text-right">' + currentSensor.riskLevel + ' ' + currentFeature.unit + '</td>' +
+						'<td class="text-right">' + currentSensor.interval + ' ms</td>' +
 					'</tr>';
 				});
 				content += '</table>';
