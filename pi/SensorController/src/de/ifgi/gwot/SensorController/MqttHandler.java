@@ -113,7 +113,7 @@ public class MqttHandler extends Thread implements MqttCallback {
 				hcsr04Device.getConfig().setRiskLevel(jsonObject.getJsonNumber("riskLevel").doubleValue());
 			}
 			if(jsonObject.containsKey("interval")){
-				hcsr04Device.getConfig().setDelay(jsonObject.getJsonNumber("warnLevel").longValue());
+				hcsr04Device.getConfig().setDelay(jsonObject.getJsonNumber("interval").longValue());
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
