@@ -2,15 +2,11 @@ package de.ifgi.gwot.SensorController;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.microedition.io.CommConnection;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import de.ifgi.gwot.SensorController.gps.GPSCommSensor;
-import de.ifgi.gwot.SensorController.gps.GPSUARTSensor;
-import de.ifgi.gwot.SensorController.gps.Position;
 import de.ifgi.gwot.SensorController.util.HttpUtil;
 import de.ifgi.gwot.SensorController.util.JSONUtil;
 
@@ -20,10 +16,14 @@ public class SensorMIDlet extends MIDlet{
 	private static final int TRIGGER_PIN = 20;
 	private static final int ECHO_PIN = 21;
 	
+	GPSSwitch switch1;
+	GPSCommSensor gps;
+	
 	private volatile boolean shouldRun = false;
 	private ReadSensors sensorsTask;
 	
-	private static final String SERIAL_PORT = "ttyAMA0";
+	private double latitude = Double.parseDouble(this.getAppProperty("latitude"));
+	private double longitude = Double.parseDouble(this.getAppProperty("longitude"));
 	
 	private MqttHandler mqttHandler;
 	
@@ -51,7 +51,9 @@ public class SensorMIDlet extends MIDlet{
 	 * Initiates the GPIO Pins and starts a thread to take measurements.
 	 */
 	@Override
-	protected void startApp() throws MIDletStateChangeException {	
+	protected void startApp() throws MIDletStateChangeException {
+		
+		
 		// init ultrasound sensor
 		try {
 			hcsr04 = new HCSR04Device(TRIGGER_PIN, ECHO_PIN);
@@ -59,6 +61,30 @@ public class SensorMIDlet extends MIDlet{
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Unable to init Pins.");
+		}
+		
+		//init gps sensor
+		switch1 = new GPSSwitch();
+		try {
+			switch1.start();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			gps = new GPSCommSensor("ttyS0");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			Position pos = gps.getPosition();
+			this.latitude = pos.getLatitude();
+			this.longitude = pos.getLongitude();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		// request configuration from server
@@ -101,12 +127,11 @@ public class SensorMIDlet extends MIDlet{
 				}
 				Arrays.sort(measurements);
 
-				// use the modal as the best measurement
+				// use the modal as the measurement
 				double avg = measurements[(int)(measurements.length / 2)];
-//				double avg = Math.max(measurements[(int)(measurements.length / 2)], 0);
 				
 				if(avg > 0){
-					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), avg, SensorMIDlet.this.getAppProperty("token"));
+					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), Math.abs(hcsr04.getConfig().getWaterLevelReference() - avg), SensorMIDlet.this.getAppProperty("token"));
 					mqttHandler.publish(message);
 				}		
 				try {
@@ -143,7 +168,7 @@ public class SensorMIDlet extends MIDlet{
 	private void requestConfiguration() throws IOException{
 		// send post thing request
 		String thing = HttpUtil.post(REST_API_URL + "api/things/", JSONUtil.encodePostThingRequest(
-				Double.parseDouble(this.getAppProperty("latitude")), Double.parseDouble(this.getAppProperty("longitude")), this.getAppProperty("User-Id"), this.getAppProperty("token")));
+				latitude, longitude, this.getAppProperty("User-Id"), this.getAppProperty("token")));
 		// send get features request
 		String allFeatures = HttpUtil.get(REST_API_URL + "api/features/");
 		
