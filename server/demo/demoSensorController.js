@@ -18,6 +18,9 @@ const thingName   = process.argv[3] || 'Demo';
 const thingLocLat = process.argv[4] || 51.964113;
 const thingLocLng = process.argv[5] || 7.624862;
 
+// REST API authentication token
+let token;
+
 console.log('\n////////////////////////////////////////////////////////////\n');
 console.log('            STARTING DEMONSTRATION...'.cyan);
 console.log('\n////////////////////////////////////////////////////////////\n');
@@ -40,6 +43,7 @@ async.waterfall([
 		}, function(error, response, body) {
 			if (!error) {
 				console.log('  New User', 'created.'.green);
+				token = body.token;
 			} else {
 				console.log('  New User creation', 'failed'.red);
 			}
@@ -59,7 +63,8 @@ async.waterfall([
 				coordinates: [ thingLocLat, thingLocLng ]
 			},
 			userId: userId,
-			waterbodyId: '5752d2d7e5d703480187e0d9' // TODO should be requested from the server, too
+			waterbodyId: '5752d2d7e5d703480187e0d9',
+			token: token
 		};
 		
 		// Post the new Thing
@@ -85,7 +90,8 @@ async.waterfall([
 
 		const featureJson = {
 			name: 'demoFeature',
-			unit: 'foo'
+			unit: 'foo',
+			token: token
 		};
 
 		// Post the new Feature
@@ -116,7 +122,8 @@ async.waterfall([
 			warnLevel: 6,
 			riskLevel: 8,
 			thingId: thingId,
-			featureId: featureId
+			featureId: featureId,
+			token: token
 		};
 
 		// Post the new Sensor
@@ -157,7 +164,8 @@ async.waterfall([
 			let measurementJson = {
 				date: Date.now(),
 				value: value,
-				sensorId: sensorId
+				sensorId: sensorId,
+				token: token
 			};
 			
 			// Post the new Measurement
@@ -167,7 +175,7 @@ async.waterfall([
 				json: measurementJson
 			}, function(error, response, body) {
 				if (!error) {
-					console.log('  New Measurement', ('#' + counter).cyan, 'created.'.green, '\nValue:', value.cyan);
+					console.log('  New Measurement', ('#' + counter).cyan, 'created.'.green, '\nValue:', body.value.cyan);
 					counter++;
 				} else {
 					console.log('  New Measurement creation', 'failed'.red);
