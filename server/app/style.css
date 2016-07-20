@@ -114,3 +114,7 @@ a:link, a:visited, a:hover, a:active {
 .visibleClass {
   visibility:hidden;
 }
+
+.sensor-row {
+  cursor: pointer;
+}

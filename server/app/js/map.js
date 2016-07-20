@@ -112,16 +112,18 @@ function requestMeasurementsLatest(id) {
 				store.currentThingSensors = [];
 
 				content = '<table class="table table-hover table-condensed table-responsive">' +
-					'<tr>' +
-						'<th class="text-center">ID</th>' +
-						'<th class="text-center">Sensor</th>' +
-						'<th class="text-center">Feature</th>' +
-						'<th class="text-center">Latest</th>' +
-						'<th class="text-center">Value</th>' +
-						'<th class="text-center">Ref.</th>' +
-						'<th class="text-center bg-warning">Warn</th>' +
-						'<th class="text-center bg-danger">Risk</th>' +
-					'</tr>';
+					'<thead>' + 
+						'<tr>' +
+							'<th class="text-center">ID</th>' +
+							'<th class="text-center">Sensor</th>' +
+							'<th class="text-center">Feature</th>' +
+							'<th class="text-center">Latest</th>' +
+							'<th class="text-center">Value</th>' +
+							'<th class="text-center">Ref.</th>' +
+							'<th class="text-center bg-warning">Warn</th>' +
+							'<th class="text-center bg-danger">Risk</th>' +
+						'</tr>' + 
+					'</thead>';
 				
 				measurements.forEach(function(measurement, key) {
 					let currentDate         = new Date(measurement.date);
