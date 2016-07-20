@@ -2,7 +2,7 @@
 
 var contentOfFile = null;
 
-$("#thingDownload").click( function() {
+function downloadData() {
  	$.ajax({
 		url: getURL() + '/api/things/' + store.currentThingId,
 		global: false,
@@ -16,7 +16,7 @@ $("#thingDownload").click( function() {
 				alert("Query of requested Thing didn't work.");
 		}
 	});  
-});
+}
 
 function querySensors() {
 	$.ajax({
