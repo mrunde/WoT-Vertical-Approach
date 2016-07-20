@@ -112,3 +112,7 @@ a:link, a:visited, a:hover, a:active {
 .panel-body .table {
   margin-bottom: 0px; 
 }
+
+.visibleClass {
+  visibility:hidden;
+}

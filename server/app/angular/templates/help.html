@@ -124,11 +124,6 @@
                                         <a ng-click="changeView('TwitterConfig')">Twitter Configuration</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <a ng-click="changeView('TwitterRSS')">Twitter RSS-Feed </a>
-                                    </td>
-                                </tr> 
                             </table>
                         </div>
                     </div>
@@ -145,9 +140,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 col-md-" id="helppage"  ng-app="internalhelp">
+        <div class="col-sm-9 col-md-" id="helppage">
             <div class="well">
-                <div ng-bind-html="HelpPart"></div>
+                <div class="visibleClass" id="DefaultDiv" hidden>
+                    <p>This section contains informations about how to use our the page. Simply click on a Topic in the Overview to display a possible approach. "</p>
+                </div>
+                <div class="visibleClass" id="GeneralWoTVADiv" hidden>
+                    <h2>What is WoT - VA? </h2>
+                    <hr/>
+                    <p>(W)eb (o)f (T)hings - (V)ertical (Integration)</p>
+                    <p> In the „Geospatial Web of Things“ study project the idea of the internet of things was applied for mobile water gauges. All together there were three groups working on the project, each with a different approach. Our group, the “Physical Smart Thing”-group (also called the Vertical Integration-Group), had a focus on implementing all smart capabilities on the thing itself.<p/>
+                    <p>This webside is the result of the combinded effort of all group members. In the hope that this piece of Software will be used one day to prevent surprising floods, we build page with much effort. Even though we did our best to programm without any erros, there might be still some undected ones. If you find any, feel free to fork our code at <a href="https://github.com/mrunde/WoT-Vertical-Approach">https://github.com/mrunde/WoT-Vertical-Approach</a> and enhance it as you like!<p/>
+                    <br/>
+                    <p> Greetings: Moritz Migge, Marius Runde, Daniel Ummelmann & Axel Virnich</p>
+                </div>
+                <div class="visibleClass" id="WhyTwitterDiv" hidden>
+                    <h1>Why are we using Twitter</h1>
+                    <hr/>
+                    <p class="justify">Twitter is an easy to use tool, which allows to share the most important infos really to a large viewership. Mobile Apps for all common platforms allows a user to check the newest news on the way. <br/> And the best part about it:  You don't have to have a Twitter Account to display follow our tweets. All these characteristics make it the perfect plattform for us to publish warning messages.</p>
+                </div>
+                <div class="visibleClass" id="TwitterConfigDiv" hidden>
+                    <h1>Why are we using Twitter</h1>
+                    <hr/>
+                    <p class="justify">Twitter is an easy to use tool, which allows to share the most important infos really to a large viewership. Mobile Apps for all common platforms allows a user to check the newest news on the way. <br/> And the best part about it:  You don't have to have a Twitter Account to display follow our tweets. All these characteristics make it the perfect plattform for us to publish warning messages.</p>
+                </div>
+
             </div>
         </div>
     </div>
