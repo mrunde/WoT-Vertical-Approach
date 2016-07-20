@@ -94,6 +94,8 @@ function Store() {
 		} else {
 			this.showNotifications = true;
 		}
+
+		$('#show-notifications-checkbox').prop('checked', this.showNotifications);
 	}
 }
 

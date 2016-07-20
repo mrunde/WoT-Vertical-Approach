@@ -14,12 +14,9 @@ body {
 	border-radius: 0px;
 }
 
-#content {
-	margin: 0px;
-}
-
 #info {
-	margin: 15px 0px;
+	padding-bottom: 0px;
+  margin: 15px 0px;
 }
 
 #chart {
@@ -37,6 +34,7 @@ a:link, a:visited, a:hover, a:active {
 #livemap {
 	height: 100%;
 	width: 100%;
+  padding-right: -15px;
 }
 
 .menu-ui {
