@@ -2,15 +2,11 @@ package de.ifgi.gwot.SensorController;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.microedition.io.CommConnection;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import de.ifgi.gwot.SensorController.gps.GPSCommSensor;
-import de.ifgi.gwot.SensorController.gps.GPSUARTSensor;
-import de.ifgi.gwot.SensorController.gps.Position;
 import de.ifgi.gwot.SensorController.util.HttpUtil;
 import de.ifgi.gwot.SensorController.util.JSONUtil;
 
@@ -22,8 +18,6 @@ public class SensorMIDlet extends MIDlet{
 	
 	private volatile boolean shouldRun = false;
 	private ReadSensors sensorsTask;
-	
-	private static final String SERIAL_PORT = "ttyAMA0";
 	
 	private MqttHandler mqttHandler;
 	
