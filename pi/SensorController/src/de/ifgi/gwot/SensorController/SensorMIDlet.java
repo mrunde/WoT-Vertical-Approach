@@ -95,12 +95,11 @@ public class SensorMIDlet extends MIDlet{
 				}
 				Arrays.sort(measurements);
 
-				// use the modal as the best measurement
+				// use the modal as the measurement
 				double avg = measurements[(int)(measurements.length / 2)];
-//				double avg = Math.max(measurements[(int)(measurements.length / 2)], 0);
 				
 				if(avg > 0){
-					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), avg, SensorMIDlet.this.getAppProperty("token"));
+					String message = JSONUtil.encodeObservation(hcsr04.getConfig().getSensorId(), Math.abs(hcsr04.getConfig().getWaterLevelReference() - avg), SensorMIDlet.this.getAppProperty("token"));
 					mqttHandler.publish(message);
 				}		
 				try {

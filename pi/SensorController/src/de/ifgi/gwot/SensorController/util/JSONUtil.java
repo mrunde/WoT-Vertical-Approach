@@ -2,7 +2,6 @@ package de.ifgi.gwot.SensorController.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 
 import com.oracle.json.Json;
 import com.oracle.json.JsonArray;
