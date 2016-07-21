@@ -26,7 +26,7 @@
 								<tr>
 									<td>
 										<span class="glyphicon glyphicon-flash text-success"></span>
-										<a ng-click="changeView('GeneralDevelopStatus')">Development Status</a>
+										<a ng-click="changeView('GeneralDevelopStatus')">Project Development Status</a>
 									</td>
 								</tr> 
 							</table>
@@ -82,6 +82,28 @@
 								<tr>
 									<td>
 										<a ng-click="changeView('ProfileCreate')">Create a Profile & Login</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<a ng-click="changeView('ProfileAddThing')">How to add a Thing to your Profil</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<a ng-click="changeView('ProfileThingConfigure')">How to configure a Thing</a>
 									</td>
 								</tr>
 							</table>
@@ -163,16 +185,27 @@
 			<div class="visibleClass" id="GeneralWoTVADiv" style="display: none;">
 				<h1>What is WoT - VA? </h1>
 				<hr/>
-				<p>(W)eb (o)f (T)hings - (V)ertical (Integration)</p>
+				<p>(W)eb (o)f (T)hings - (V)ertical (Integration)</p> 
 				<p > In the „Geospatial Web of Things“ study project the idea of the internet of things was applied for mobile water gauges. All together there were three groups working on the project, each with a different approach. Our group, the “Physical Smart Thing”-group (also called the Vertical Integration-Group), had a focus on implementing all smart capabilities on the thing itself.</p>
-				<p>This webside is the result of the combinded effort of all group members. In the hope that this piece of Software will be used one day to prevent surprising floods, we build page with much effort. Even though we did our best to programm without any erros, there might be still some undected ones. If you find any, feel free to fork our code at <a href="https://github.com/mrunde/WoT-Vertical-Approach">https://github.com/mrunde/WoT-Vertical-Approach</a> and enhance it as you like!</p>
-				<br/>
+				
+				<br/>Github-Project: <a href="https://github.com/mrunde/WoT-Vertical-Approach">https://github.com/mrunde/WoT-Vertical-Approach</a>
+				<br/><br/>
 				<p> Greetings: Moritz Migge, Marius Runde, Daniel Ummelmann & Axel Virnich</p>
 				<hr/>
 				<img src='../angular/help/general/pic_setup.jpg' style="height:400px" align="middle">
 				<br>
 				<br>
 			</div>
+			<div class="visibleClass" id="GeneralDevelopStatusDiv" style="display: none;">
+				<h1>Project Development Status  </h1>
+				<hr/>
+				<p>This webside is the result of the combinded effort of all group members. In the hope that this piece of Software will be used one day to prevent surprising floods, we build page with much effort. Even though we did our best to programm without any erros, there might be still some undected ones. If you find any, feel free to fork our code at <a href="https://github.com/mrunde/WoT-Vertical-Approach">https://github.com/mrunde/WoT-Vertical-Approach</a> and enhance it as you like!</p>
+				<hr/>
+				<img src='../angular/help/general/pic_setup.jpg' style="height:400px" align="middle">
+				<br>
+				<br>
+			</div>
+			
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
@@ -566,6 +599,44 @@
 					</li>
 				</ul>
 			</div>
+			<div class="visibleClass" id="ProfileAddThingDiv" style="display: none;">
+				<h1>How to add a Thing to your Profile</h1>
+				<hr/>
+				<p> Adding a Thing to your profile is only possible by using the REST-API. The full documention can be foun <a href="/docs" target="_blank"><b>here</b></a>.</p>
+				<p> This help sections provides a brief overview which steps have to be perfomed to add a thing to your account:</p>
+				<ul>
+					<li> 
+						Adding a Thing to your Account
+						<ul>
+							<li>
+								Post-Request-URL: "YourServerUrl"/<b>things</b><br/>
+							</li>
+							<li>
+								Needed Body Parameters
+								<ul>
+									<li>"name" as a String providing the name of the Thing.</li>
+									<li>"loc" as a Point providing the Location of the Thing.</li>
+									<li>"userId" as a String providing the User's unique ID.</li>
+									<li>"token" as a String	providing the User's unique token for API requests.</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<br/>
+					<li>
+						Servers Success-Response:<br/>
+						<img src='../angular/help/profile/successThing.jpg'>
+					</li>
+				</ul>
+			</div>
+			<div class="visibleClass" id="ProfileThingConfigureDiv" style="display: none;">
+				<h1>How to configure your Sensor</h1>
+				<hr/>
+				<p>This help section is assuming that you successfully installed your thing and added a sensor via the RESP-API. If you know click the "Edit Thing Settings" Button in the Profile overview, you should see something similar to this:</p>
+						<img src='../angular/help/general/sensor_config.jpg'>
+				<p> This page provides an overview of the availible sensors and their settings. You can change all values with the exception of the featureId and the Id itself (the Ids are automatically generated by MongoDB and therefore cannot be changed).</p>
+				<img src='../angular/help/general/sensor_config_para.jpg'>
+			</div>
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
@@ -577,16 +648,21 @@
 				<br/><br/>
 				<ul>
 					<li> 
-						All / Last 24h / Last Week<br>
-
+						<b>All / Last 24h / Last Week<br></b>
+						By clicking one of the Filters shown above all Things on the map are tested the specific filter criterion. <br/>
+						You can switch between the Filters as often as you like, only one filter at a time we be applied.
 					</li>
 					<br/>
 					<li> 
-						My Things<br>
+						<b>My Things<br></b>
+						The My Filter requires a logged-in user to relate (a) thing(s) to a user. After a succesful login and a applied filter, all things belonging to the logged-in user are displayed. </br>
+						You can reverse the filter by clicking the "All"-Filter.
 					</li>
 					<br/>
 					<li> 
-						Custom <br/>
+						<b>Custom <br/></b>
+						Custom-Filters are a cool way to scan the availible data in one's sole discretion. After clicking the the custom filter button you can now choose which filter you want to apply. There is always a short desription below the title. <br/>
+						If you want to more about the custom filters, click  <a ng-click="changeView('FilterCustomDiv')"><b>here</b></a>
 					</li>
 				</ul>
 			</div>
@@ -594,7 +670,46 @@
 				<h1>Using Custom Filters</h1>
 				<hr/>
 				<p>
-					<img src='../angular/help/filters/2.jpg' style="height: 400px">
+					We implemented a total of 5 Custom-Filters, which can be specified by any user and a filter only for logged in users, which shows the filters saved by the logged in user: <br/>
+					<ul>
+					<li> 
+						<b>Query sensors based on the latest measurement<br/></b>
+						This filter allows a user to filter for things which where activly sending measurments during a specific period. <br/>
+						<img src='../angular/help/filters/temporalo.jpg'>
+					</li>
+					<br/>
+					<li> 
+						<b>Query sensors based on the their location<br/></b>
+						This filter allows you to filter for things which are locate in a specific area. <br/>
+						Click 'Next' to enter drawing mode. Use the Bounding Box to select the filter area. You can resize and move the Bounding Box to adjust it to your needs. By double click the bounding box you can now set a time frame to filter for. Once you selected the two points, click continue to apply the filter.
+					</li>
+					<br/>
+					<li> 
+						<b>Query sensors based on the latest measurement and their location<br/></b>
+						This is a filter which is combining the two filters before: Spatial and temporal.<br/>
+						Click 'Next' to enter drawing mode. Use the Bounding Box to select the filter area. You can resize and move the Bounding Box to adjust it to your needs. When you are done, double click the bounding box to choose a time period .
+						
+					</li>
+					<br/>
+					<li> 
+						<b>Select a river to display all sensors that are located at or close to that river.<br/></b>
+						This filter can query all sensors located at a certain river. To apply it enter a valid river name and click apply. Now all things connected with this river will be displayed on the map</p><br/>
+						<img src='../angular/help/filters/rivero.jpg'>
+					</li>
+					<br/>
+					<li> 
+						<b>Select by Feature<br/></b>
+						Query all sensors located at a certain river.<
+						Select a feature to display all sensors which make measurements with this feature. Simly enter the Feature Name and click Next & Apply to use this filter.<br/>
+						<img src='../angular/help/filters/rivero.jpg'>
+					</li>
+					<br/>
+					<li> 
+						<b>Saved Filters<br/></b>
+						The Custom Filter allows a logged-in user to select and applyed early created filters. Click "Details to display the filter options and apply a single filter.<br/>
+						<img src='../angular/help/filters/customfilter.jpg'>
+					</li>
+				</ul>
 				</p>
 			</div>
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->

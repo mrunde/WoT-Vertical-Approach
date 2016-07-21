@@ -30,6 +30,8 @@ app.controller("HelpController", function($scope, $http, $rootScope, $templateRe
 		    	document.getElementById('GeneralWoTVADiv').style.display = 'inline-block';
 		       	break;
 		    case 'GeneralDevelopStatus':
+		    	SetVisability();
+		    	document.getElementById('GeneralDevelopStatusDiv').style.display = 'inline-block';
 		       	break;
 		// Setup
 			case 'SetupServer':
@@ -48,6 +50,14 @@ app.controller("HelpController", function($scope, $http, $rootScope, $templateRe
 			case 'ProfileCreate':
 				SetVisability();
 		    	document.getElementById('ProfileCreateDiv').style.display = 'inline-block';
+		       	break;
+		    case 'ProfileAddThing':
+				SetVisability();
+		    	document.getElementById('ProfileAddThingDiv').style.display = 'inline-block';
+		       	break;
+			case 'ProfileThingConfigure':
+				SetVisability();
+		    	document.getElementById('ProfileThingConfigureDiv').style.display = 'inline-block';
 		       	break;
 		// Filters
 		   	case 'FilterUsage':;
