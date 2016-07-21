@@ -14,7 +14,9 @@ app.controller("HelpController", function($scope, $http, $rootScope, $templateRe
 		$('.navbar-right li:nth-child(2)').html('<a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up</a>');
 		$('.navbar-right li:nth-child(3)').html('<a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a>');
 	}
-	var content = "";
+
+	// Default behavior
+	document.getElementById('GeneralWoTVADiv').style.display = 'inline-block';
 
     // Load Requested Help-Content
 	// Default
@@ -24,32 +26,46 @@ app.controller("HelpController", function($scope, $http, $rootScope, $templateRe
 		switch(val) {
 		//  General Informations
 		    case 'GeneralWoTVA':
-		    	document.getElementById('GeneralWoTVADiv').style.visibility = 'visible';
-		       	break;
-		    case 'GeneralPageElements':
-		       	break;
-		    case 'GeneralRestAPI':
+		    	SetVisability();
+		    	document.getElementById('GeneralWoTVADiv').style.display = 'inline-block';
 		       	break;
 		    case 'GeneralDevelopStatus':
 		       	break;
-		// User-Management
-			case 'CreateUser':
-		       	break;
-		    case 'UserLogin':
+		// Setup
+			case 'SetupServer':
+				SetVisability();
+		    	document.getElementById('SetupServerDiv').style.display = 'inline-block';
+				break;
+			case 'SetupPi':
+				SetVisability();
+		    	document.getElementById('SetupPiDiv').style.display = 'inline-block';
+				break;
+			case 'SetupRESTAPI':
+				SetVisability();
+		    	document.getElementById('SetupRESTAPIDiv').style.display = 'inline-block';
+				break;
+		// Profile-Management
+			case 'ProfileCreate':
+				SetVisability();
+		    	document.getElementById('ProfileCreateDiv').style.display = 'inline-block';
 		       	break;
 		// Filters
-			case 'FilterWhy':
-		       	break;
 		   	case 'FilterUsage':;
+		   		SetVisability();
+		    	document.getElementById('FilterUsageDiv').style.display = 'inline-block';
 		   		break;
 		   	case 'FilterCustom':
+		   		SetVisability();
+		    	document.getElementById('FilterCustomDiv').style.display = 'inline-block';
 		   		break;
 		// Twitter
 			case 'WhyTwitter':
-				document.getElementById('WhyTwitterDiv').style.visibility = 'visible';
+				SetVisability();
+				document.getElementById('WhyTwitterDiv').style.display = 'inline';
 		        break;
 		    case 'TwitterConfig':
-		    	document.getElementById('TwitterConfigDiv').style.visibility = 'visible';
+		    	SetVisability();
+		    	document.getElementById('TwitterConfigDiv').style.display = 'inline';
 		    	break;
 		// Imprint
 			case 'HelpImprint':
@@ -58,8 +74,19 @@ app.controller("HelpController", function($scope, $http, $rootScope, $templateRe
 		        break;
 		// Default
 		    default:
-		    	document.getElementById('DefaultDiv').style.visibility = 'visible';
+		    	SetVisability();
+		    	document.getElementById('DefaultDiv').style.display = 'inline';
 				break;
 		}
 	}
 });
+
+
+// Set Visibility of all Help-Elements to "none"
+function SetVisability() {
+	var x = document.querySelectorAll(".visibleClass");
+	var xlength = document.querySelectorAll(".visibleClass").length;
+	for(var i = 0; i < xlength; i++) {
+		x[i].style.display = 'none';
+	}
+}

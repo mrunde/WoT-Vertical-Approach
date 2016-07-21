@@ -14,9 +14,12 @@ body {
 	border-radius: 0px;
 }
 
+#content {
+	margin: 0px;
+}
+
 #info {
-	padding-bottom: 0px;
-  margin: 15px 0px;
+	margin: 15px 0px;
 }
 
 #chart {
@@ -34,7 +37,6 @@ a:link, a:visited, a:hover, a:active {
 #livemap {
 	height: 100%;
 	width: 100%;
-  padding-right: -15px;
 }
 
 .menu-ui {
@@ -111,10 +113,15 @@ a:link, a:visited, a:hover, a:active {
   margin-bottom: 0px; 
 }
 
-.visibleClass {
-  visibility:hidden;
+.pngGreen  {
+  margin: 5px;
 }
 
-.sensor-row {
-  cursor: pointer;
+.visibleClass table tr td {
+  border: 1px solid;
+  border-collapse: collapse;
+  margin: 5px;
+  text-align: left;
+  text-align-margin: 5px;
+  padding-left: 2px;
 }

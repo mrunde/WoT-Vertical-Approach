@@ -1,174 +1,650 @@
+<!doctype html>
+<html lang="en">
+
 <div class="container" ng-controller="HelpController">
-    <div class="row">
-        <div class="col-sm-3 col-md-3" id="helppage" >
-            <div class="panel-group" id="accordion" >
+	<div class="row">
+		<div class="col-sm-3 col-md-3" id="helppage">
+			<div class="panel-group" id="accordion" >
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+								<span class="glyphicon glyphicon-folder-close"></span>
+								 General Informations
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<span class="glyphicon glyphicon-pencil text-primary" ></span>
+										<a ng-click="changeView('GeneralWoTVA')" >WoT - Vertical Approch</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
+										<a ng-click="changeView('GeneralDevelopStatus')">Development Status</a>
+									</td>
+								</tr> 
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOneAndAHalf">
+								<span class="glyphicon glyphicon-folder-close"></span>
+								Setup & Documentation
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOneAndAHalf" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<span class="glyphicon glyphicon-pencil text-primary" ></span>
+										<a ng-click="changeView('SetupServer')" >Running the Webserver</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
+										<a ng-click="changeView('SetupPi')">Raspberry Pi 3 Setup</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
+										<a ng-click="changeView('SetupRESTAPI')">REST-API</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+								<span class="glyphicon glyphicon-user"></span>
+								 Profile-Management
+							</a>
+						</h4>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<a ng-click="changeView('ProfileCreate')">Create a Profile & Login</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+								<span class="glyphicon glyphicon-user"></span>
+								 Filters
+							</a>
+						</h4>
+					</div>
+					<div id="collapseThree" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<a ng-click="changeView('FilterUsage')">How to use Filters</a>
+									</td>
+								</tr> 
+								<tr>
+									<td>
+										<a ng-click="changeView('FilterCustom')">Custom-Filters </a>
+									</td>
+								</tr> 
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+								<span class="glyphicon glyphicon-file"></span>
+								 Twitter
+							</a>
+						</h4>
+					</div>
+					<div id="collapseFour" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>
+										<a ng-click="changeView('WhyTwitter')">Why are we using Twitter?</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a ng-click="changeView('TwitterConfig')">Twitter Configuration</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a href="/imprint"><i class="fa fa-gavel" aria-hidden="true" ></i>&nbsp;Imprint</a>
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-9 col-md-9" id="helppage">
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+			<div class="visibleClass" id="DefaultDiv" style="display: none;">
+				<p>This section contains informations about how to use our the page. Simply click on a Topic in the Overview to display a possible approach. "</p>
+			</div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+			<div class="visibleClass" id="GeneralWoTVADiv" style="display: none;">
+				<h1>What is WoT - VA? </h1>
+				<hr/>
+				<p>(W)eb (o)f (T)hings - (V)ertical (Integration)</p>
+				<p > In the „Geospatial Web of Things“ study project the idea of the internet of things was applied for mobile water gauges. All together there were three groups working on the project, each with a different approach. Our group, the “Physical Smart Thing”-group (also called the Vertical Integration-Group), had a focus on implementing all smart capabilities on the thing itself.</p>
+				<p>This webside is the result of the combinded effort of all group members. In the hope that this piece of Software will be used one day to prevent surprising floods, we build page with much effort. Even though we did our best to programm without any erros, there might be still some undected ones. If you find any, feel free to fork our code at <a href="https://github.com/mrunde/WoT-Vertical-Approach">https://github.com/mrunde/WoT-Vertical-Approach</a> and enhance it as you like!</p>
+				<br/>
+				<p> Greetings: Moritz Migge, Marius Runde, Daniel Ummelmann & Axel Virnich</p>
+				<hr/>
+				<img src='../angular/help/general/pic_setup.jpg' style="height:400px" align="middle">
+				<br>
+				<br>
+			</div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+			<div class="visibleClass" id="SetupServerDiv" style="display: none;">
+				<h1>Running the Web Server</h1>
+				<hr/>
+				<FONT FACE="Segoe UI">
+					<p> Before you start to install the seperate components you have to fork our repository.<br/> Enter the following line of code into your command prompt to do so:
+					<br/><br/>
+						<i> git clone https://github.com/mrunde/WoT-Vertical-Approach.git </i> 
+					<br/>
+					<p> Afterwards perform the following steps:</p>
+					<ul>
+						<li>
+							Install all node modules with npm install
+						</li>
+						<li>
+							Install bower, gulp and pm2 globally, if you haven't done so before with npm install -g bower gulp pm2
+						</li>
+						<li>
+							Install all bower modules with bower install
+						</li>
+						<li>
+							Perform the gulp tasks with gulp
+						</li>
+						<li>
+							Then you can start the web server with pm2 start server\server.js
+						</li>
+					</ul>
+					In case the API documentation is not generated at the first time, please run the gulp task again.
+			</div>
+			<div class="visibleClass" id="SetupPiDiv" style="display: none;">
+				<h1>How to setup a smart thing (Raspberry Pi 3)</h1>
+				<hr/>
+				 <FONT FACE="Segoe UI">
+					<p>This is an Installation-Guide for the Architecture of a Raspberry Pi 3.</p>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                <span class="glyphicon glyphicon-folder-close"></span>
-                                 General Informations
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-pencil text-primary" ></span>
-                                        <a ng-click="changeView('GeneralWoTVA')" >WoT - Vertical Approch</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-flash text-success"></span>
-                                        <a ng-click="changeView('GeneralPageElements')">Overview of Page Elements</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-flash text-success"></span>
-                                        <a ng-click="changeView('GeneralRestAPI')">About Rest-Requests</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-flash text-success"></span>
-                                        <a ng-click="changeView('GeneralDevelopStatus')">Development Status</a>
-                                    </td>
-                                </tr> 
-                            </table>
-                        </div>
-                    </div>
-                </div>
+					<h1>Running the SensorController from Eclipse IDE</h1>
+					<ul>
+						<li>
+							Instructions for Raspberry Pi
+							<ul>
+								<li>
+									Download <i>Java ME Embedded</i> from the <a href="http://www.oracle.com/technetwork/java/embedded/javame/embed-me/downloads/java-embedded-java-me-download-2162242.html">Oracle Website</a> and install it on your Raspberry Pi.
+								</li>
+								<li>
+									Run <i>Java ME Embedded</i> on the Pi. Navigate to your installation directory and run sudo <FONT FACE="Consolas">.\usertest.sh</FONT> .
+								</li>
+							</ul>
+						</li>
+						<li>
+							Instructions for Eclipse IDE
+							<ul>
+								<li>
+									Install the <i>Oracle Java ME SDK</i> on your computer. You can find the SDKs on the <a href="http://www.oracle.com/technetwork/java/embedded/javame/embed-me/downloads/java-embedded-java-me-download-2162242.html">Oracle Website</a>.
+								</li>
+								<li>
+									In Eclipse, install the <i>Oracle Java ME SDK Eclipse Plugin</i>
+								</li>
+								<li>
+									Change to the Java ME Perspective by selecting "<i>Window -> Perspective -> Open Perspective -> Java ME</i>".
+								</li>
+								<li>
+									Import the <i>SensorController</i> as <i>Java ME Project</i>
+								</li>
+								<li>
+									Make sure the Raspberry Pi is connected to your computer via the <i>Device Connections Manager</i>. If your device is not yet connected, add the connection with the <i>Device Connections Manager</i>. The <i>Device Connections Manager</i> is installed with the <i>Oracle Java ME SDK</i>. You can add connections by selecting <i>Add new device connection</i>....
+								</li>
+								<li>
+									In Eclipse, change the execution environment to your Pi. Open the <i>Application Descriptor</i> and in the Overview Tab select "<i>Add... -> Manage Devices... -> Manual Install...</i>". In the <i>Manual Device Installation</i> Dialog select <i>Browse</i> and browse to your <i>Java ME SDK</i> installation directory. Close the <i>Preferences</i> Dialog and in the Device Selection of the <i>Add Configuration</i> Dialog select your Raspberry Pi.
+								</li>
+								<li>
+									If you start the <i>SensorController</i> now, it will be temporarily installed and executed on the Raspberry Pi.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Further assistance:
+							<ul>
+								<li>
+									Refer to <a href="https://docs.oracle.com/javame/8.0/get-started-rpi/toc.htm">this tutorial</a> if you have problems installing <i>Java ME Embedded</i> on the Raspberry Pi.
+								</li>
+								<li>
+									Refer to <a href="https://docs.oracle.com/javame/config/cldc/rel/3.3/win/gs/html/getstart_win32/toc.htm">this tutorial</a> if you want to learn more about developing with the <i>Java ME SDK</i> or if you are using NetBeans.
+								</li>
+								<li>
+									Refer to <a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPi_Setup/RaspberryPi_Setup.html">this tutorial</a> if you have problems connecting the Raspberry Pi to your IDE or if you are using NetBeans.
+								</li>
+							</ul>
+						</li>
+					</ul>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                <span class="glyphicon glyphicon-user"></span>
-                                 User-Management
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a ng-click="changeView('UserCreateAcc')">Creating an Account</a>
-                                    </td>
-                                </tr>
-                                 <tr>
-                                    <td>
-                                        <a ng-click="changeView('UserLogin')">How to Login</a>
-                                    </td>
-                                </tr> 
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                <span class="glyphicon glyphicon-user"></span>
-                                 Filters
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a ng-click="changeView('FilterWhy')">Why Filters</a>
-                                    </td>
-                                </tr>
-                                 <tr>
-                                    <td>
-                                        <a ng-click="changeView('FilterUsage')">How to use Filters</a>
-                                    </td>
-                                </tr> 
-                                <tr>
-                                    <td>
-                                        <a ng-click="changeView('FilterCustom')">Custom-Filters </a>
-                                    </td>
-                                </tr> 
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                                <span class="glyphicon glyphicon-file"></span>
-                                 Twitter
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a ng-click="changeView('WhyTwitter')">Why are we using Twitter?</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a ng-click="changeView('TwitterConfig')">Twitter Configuration</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="/imprint"><i class="fa fa-gavel" aria-hidden="true" ></i>&nbsp;Imprint</a>
-                            <!--
-                                <a ng-click="changeView('HelpImprint')"><i class="fa fa-gavel" aria-hidden="true" ></i>&nbsp;Imprint</a> 
-                            -->
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9 col-md-" id="helppage">
-            <div class="well">
-                <div class="visibleClass" id="DefaultDiv" hidden>
-                    <p>This section contains informations about how to use our the page. Simply click on a Topic in the Overview to display a possible approach. "</p>
-                </div>
-                <div class="visibleClass" id="GeneralWoTVADiv" hidden>
-                    <h2>What is WoT - VA? </h2>
-                    <hr/>
-                    <p>(W)eb (o)f (T)hings - (V)ertical (Integration)</p>
-                    <p> In the „Geospatial Web of Things“ study project the idea of the internet of things was applied for mobile water gauges. All together there were three groups working on the project, each with a different approach. Our group, the “Physical Smart Thing”-group (also called the Vertical Integration-Group), had a focus on implementing all smart capabilities on the thing itself.<p/>
-                    <p>This webside is the result of the combinded effort of all group members. In the hope that this piece of Software will be used one day to prevent surprising floods, we build page with much effort. Even though we did our best to programm without any erros, there might be still some undected ones. If you find any, feel free to fork our code at <a href="https://github.com/mrunde/WoT-Vertical-Approach">https://github.com/mrunde/WoT-Vertical-Approach</a> and enhance it as you like!<p/>
-                    <br/>
-                    <p> Greetings: Moritz Migge, Marius Runde, Daniel Ummelmann & Axel Virnich</p>
-                </div>
-                <div class="visibleClass" id="WhyTwitterDiv" hidden>
-                    <h1>Why are we using Twitter</h1>
-                    <hr/>
-                    <p class="justify">Twitter is an easy to use tool, which allows to share the most important infos really to a large viewership. Mobile Apps for all common platforms allows a user to check the newest news on the way. <br/> And the best part about it:  You don't have to have a Twitter Account to display follow our tweets. All these characteristics make it the perfect plattform for us to publish warning messages.</p>
-                </div>
-                <div class="visibleClass" id="TwitterConfigDiv" hidden>
-                    <h1>Why are we using Twitter</h1>
-                    <hr/>
-                    <p class="justify">Twitter is an easy to use tool, which allows to share the most important infos really to a large viewership. Mobile Apps for all common platforms allows a user to check the newest news on the way. <br/> And the best part about it:  You don't have to have a Twitter Account to display follow our tweets. All these characteristics make it the perfect plattform for us to publish warning messages.</p>
-                </div>
 
-            </div>
-        </div>
-    </div>
+					<h1>Deploying the SensorController on the Raspberry Pi</h1>
+
+					<ul>
+						<li>
+							Export the <i>SensorController as MIDlet Package</i>. If you are using Eclipse, you can use the <i>Export</i> Dialog.
+						</li>
+						<li>
+							Move the resulting <i>.jar</i> and <i>.jad</i> files to your Raspberry Pi, for example by using <FONT FACE="Consolas">pscp</FONT> .
+						</li>
+						<li>
+							Install the <i>SensorController</i> by running <FONT FACE="Consolas">[path to your Java ME directory]/installSuite.sh [path to SensorController.jar]</FONT> . If the installation is successful, a <i>MIDlet ID</i> is returned.
+						</li>
+						<li>
+							You can now run the <i>SensorController</i> by typing <FONT FACE="Consolas">[path to your Java ME directory]/runSuite.sh [MIDlet ID]</FONT> . If you forget the <i>MIDlet ID</i> you can check all installed MIDlets by running <FONT FACE="Consolas">[path to your Java ME directory]/listMidlets.sh</FONT> .
+						</li>
+						<li>
+							The <i>SensorController</i> will start up.
+						</li>
+					</ul>
+				</FONT>      
+			</div>
+			<div class="visibleClass" id="SetupRESTAPIDiv" style="display: none;">
+			   <h1>REST API</h1>
+					Here you can see an overview of the available REST API functions. <br> To see the complete Rest API Documentation click <a href="/docs" target="_blank"><b>here</b></a>.
+					<h2>Things</h2>
+					<table  style="width:100%">
+						<tr class="testTable">
+							<th>Status</th>
+							<th>URL</th> 
+							<th>Method</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things</td> 
+							<td>GET, POST</td>
+							<td>all things</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/:thingId</td> 
+							<td>DELETE, GET</td>
+							<td>one thing</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/:thingId/sensors</td> 
+							<td>GET</td>
+							<td>all sensors of one thing</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/:thingId/measurements</td> 
+							<td>GET</td>
+							<td>all measurements of one thing</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/measurements/latest</td> 
+							<td>GET</td>
+							<td>latest measurements of all things</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>pi/things/:thingId/measurements/latest</td> 
+							<td>GET</td>
+							<td>latest measurements of one thing</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/:thingId/nearest</td> 
+							<td>GET</td>
+							<td>nearest other thing</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/feature/:featureId</td> 
+							<td>GET</td>
+							<td>all things which measure this feature</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/temporal/:dateFrom/:dateTo</td> 
+							<td>GET</td>
+							<td>all things within one time frame</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/spatial/bbox/:bbox</td> 
+							<td>GET</td>
+							<td>all things within one bounding box</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/spatial/waterbodies/:waterbodyId</td> 
+							<td>GET</td>
+							<td>all things next to one waterbody</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/temporal/:dateFrom/:dateTo/spatial/:bbox</td> 
+							<td>GET</td>
+							<td>all things within one time frame and one bounding box</td>
+						</tr>
+					</table>
+
+					<h2>Sensors</h2>
+
+					<table class="SetupTable" style="width:100%">
+						<tr>
+							<th>Status</th>
+							<th>URL</th> 
+							<th>Method</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/sensors</td> 
+							<td>GET, POST</td>
+							<td>all sensors</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/sensors/:sensorId</td> 
+							<td>DELETE, GET, PUT</td>
+							<td>one sensors</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/sensors/:sensorId/measurements</td> 
+							<td>GET</td>
+							<td>all measurements of one sensor</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/sensors/temporal/:dateFrom/:dateTo</td> 
+							<td>GET</td>
+							<td>all sensors within one time frame</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/sensors/spatial/:bbox</td> 
+							<td>GET</td>
+							<td>all sensors within one bounding box</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/sensors/temporal/:dateFrom/:dateTo/spatial/:bbox</td> 
+							<td>GET</td>
+							<td>all sensors within one time frame and one bounding box</td>
+						</tr>
+					</table>
+
+					<h2>Measurements</h2>
+
+					<table class="SetupTable" style="width:100%">
+						<tr>
+							<th>Status</th>
+							<th>URL</th> 
+							<th>Method</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/measurements</td> 
+							<td>GET, POST</td>
+							<td>all measurements</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/measurements/:measurementId</td> 
+							<td>DELETE, GET</td>
+							<td>one measurement</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/measurements/temporal/:dateFrom/:dateTo</td> 
+							<td>GET</td>
+							<td>all measurements within one time frame</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/measurements/spatial/:bbox</td> 
+							<td>GET</td>
+							<td>all measurements within one bounding box</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/measurements/temporal/:dateFrom/:dateTo/spatial/:bbox</td> 
+							<td>GET</td>
+							<td>all measurements within one time frame and one bounding box</td>
+						</tr>
+					</table>
+
+					<h2>Users</h2>
+
+					<table class="SetupTable" style="width:100%">
+						<tr>
+							<th>Status</th>
+							<th>URL</th> 
+							<th>Method</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/users</td> 
+							<td>POST</td>
+							<td>one user</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/things/:thingId</td> 
+							<td>DELETE, GET, PUT</td>
+							<td>one user</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/users/:userId/things</td> 
+							<td>GET</td>
+							<td>all things of one user</td>
+						</tr>
+					</table>
+
+					<h2>Features</h2>
+
+					<table class="SetupTable" style="width:100%">
+						<tr>
+							<th>Status</th>
+							<th>URL</th> 
+							<th>Method</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/features</td> 
+							<td>GET, POST</td>
+							<td>all features</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/features/:featureId</td> 
+							<td>GET</td>
+							<td>one feature</td>
+						</tr>
+					</table>
+
+					<h2>Waterbodies</h2>
+
+					<table class="SetupTable" style="width:100%">
+						<tr>
+							<th>Status</th>
+							<th>URL</th> 
+							<th>Method</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/waterbodies</td> 
+							<td>GET</td>
+							<td>all waterbodies</td>
+						</tr>
+						<tr>
+							<td><img src="/angular/help/img/greenH.png" alt="image not shown" style="height:50%" class="pngGreen"></td>
+							<td>api/waterbodies/:waterbodyId</td> 
+							<td>GET</td>
+							<td>one waterbody</td>
+						</tr>
+					</table>
+					<br>
+					<br>
+
+				</FONT>
+			</div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+			<div class="visibleClass" id="ProfileCreateDiv" style="display: none;">
+				<h1>How to create a Profile and Login</h1>
+				<hr/>
+				<p>Creating a profile is fairly easy. The following steps will guide you through the process:</p>
+				<ul>
+					<li> 
+						Click on the "Sign Up" Button in the top-right corner
+						<br/>
+						<img src='../angular/help/profile/1.jpg'>
+					</li>
+					<br/>
+					<li> Enter your (valid) email adress and a password. Afterwards click "Login".<br/>
+						<b> Attention! You can not reset your password after the registration! We recommend to write it down somewhere!</b>
+						<img src='../angular/help/profile/2.jpg'>
+						<br/>
+					</li>
+					<br/>
+					<li> Now switch to the Login-Page by clicking the corresponding button and enter your login data. You should now see the following screen:
+						<br/>
+						<img src='../angular/help/profile/3.jpg'>
+						<br/>
+					</li>
+				</ul>
+			</div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+			<div class="visibleClass" id="FilterUsageDiv" style="display: none;">
+				<h1>How to use Filters</h1>
+				<hr/>
+				<p>We implemented Filters, because they provide an easy way to blend out unnecessary informations. <br/> The following ones are included per default:</p>
+				<img src='../angular/help/filters/1.jpg'>
+				<br/><br/>
+				<ul>
+					<li> 
+						All / Last 24h / Last Week<br>
+
+					</li>
+					<br/>
+					<li> 
+						My Things<br>
+					</li>
+					<br/>
+					<li> 
+						Custom <br/>
+					</li>
+				</ul>
+			</div>
+			<div class="visibleClass" id="FilterCustomDiv" style="display: none;">
+				<h1>Using Custom Filters</h1>
+				<hr/>
+				<p>
+					<img src='../angular/help/filters/2.jpg' style="height: 400px">
+				</p>
+			</div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+			<div class="visibleClass" id="WhyTwitterDiv" style="display: none;">
+				<h1>Why are we using Twitter</h1>
+				<hr/>
+				<p class="justify">Twitter is an easy to use tool, which allows to share the most important infos really to a large viewership. Mobile Apps for all common platforms allows a user to check the newest news on the way. <br/> And the best part about it:  You don't have to have a Twitter Account to display follow our tweets. All these characteristics make it the perfect plattform for us to publish warning messages.</p>
+			</div>
+			<div class="visibleClass" id="TwitterConfigDiv" style="display: none;">
+				<h1>Twitter Configuration</h1>
+				<hr/>
+
+				<p>The following tutorial shows in brief steps how to create Twitter-Notifications (e.g. Flood-Warnings). <br/>
+				<i> Hint: A Twitter Account is needed to publish Notifications. <a href='https://twitter.com/signup'>You can create one here.</a></i></p>
+
+				<ul>
+					<li>
+						<p>Go to the Twitter-Application-Management area and create a new Application <br/>
+						<a href='https://apps.twitter.com/app/new'>Click here to create a new Twitter-Application.</a></p>
+						<img src='../angular/help/twitter/1.jpg'>
+					</li>
+					<br>
+					<li>
+						<p> Enter all necessary informations in the folowing dialog</p>
+						<img style='height: 400px' src='../angular/help/twitter/2.jpg'>
+					</li>
+					<br>
+					<li>
+						<p>Now, after you successfully created an application you will receive access to Application keys and Access Tokens (avaiblibe under “Keys and Access Tokens” </p>
+						<img style='width: 800px' src='../angular/help/twitter/4.jpg'>
+						<p> in the applications options.</p>
+						<img style='width: 800px' src='../angular/help/twitter/3.jpg'>
+					</li>
+					<br/>
+					<li>
+						<p>Finally add the Keys and Tokens to your WoT-Acount:<br/> 
+						Login into your account and click the button “Edit Profile Settings”. <img style='height:80px' src='../angular/help/twitter/5.jpg'></p>
+
+						<P>In the following dialog you can enter your keys and tokens as shown in your Twitter Account.</p>
+						<img style='width: 500px' src='../angular/help/twitter/6.jpg'>
+					</li>
+				</ul>
+			</div>
+			<div class="visibleClass" id="WhyTwitterDiv" style="display: none;">
+				<h1>Why are we using Twitter</h1>
+				<hr/>
+				<p class="justify">Twitter is an easy to use tool, which allows to share the most important infos really to a large viewership. Mobile Apps for all common platforms allows a user to check the newest news on the way. <br/> And the best part about it:  You don't have to have a Twitter Account to display follow our tweets. All these characteristics make it the perfect plattform for us to publish warning messages.</p>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-<script type="text/javascript" src="/angular/controller/HelpController.js"></script>
