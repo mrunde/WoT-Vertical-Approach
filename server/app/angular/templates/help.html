@@ -4,17 +4,17 @@
 <div class="container" ng-controller="HelpController">
 	<div class="row">
 		<div class="col-sm-3 col-md-3" id="helppage">
-			<div class="panel-group" id="accordion" >
+			<div class="panel-group">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							<a>
 								<span class="glyphicon glyphicon-folder-close"></span>
-								 General Informations
+								<a ng-click="changeView('GeneralWoTVA')">General Informations</a>
 							</a>
 						</h4>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse in">
+					<div id="collapseOne">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
@@ -36,18 +36,18 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOneAndAHalf">
+							<a>
 								<span class="glyphicon glyphicon-folder-close"></span>
-								Setup & Documentation
+								<a ng-click="changeView('GeneralWoTVA')">Setup & Documentation</a>
 							</a>
 						</h4>
 					</div>
-					<div id="collapseOneAndAHalf" class="panel-collapse collapse in">
+					<div id="collapseOneAndAHalf">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>
-										<span class="glyphicon glyphicon-pencil text-primary" ></span>
+										<span class="glyphicon glyphicon-flash text-success" ></span>
 										<a ng-click="changeView('SetupServer')" >Running the Webserver</a>
 									</td>
 								</tr>
@@ -70,39 +70,42 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+							<a>
 								<span class="glyphicon glyphicon-user"></span>
-								 Profile-Management
+								<a ng-click="changeView('GeneralWoTVA')" >Profile-Management</a>
 							</a>
 						</h4>
 					</div>
-					<div id="collapseTwo" class="panel-collapse collapse in">
+					<div id="collapseTwo">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('ProfileCreate')">Create a Profile & Login</a>
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
-					<div id="collapseTwo" class="panel-collapse collapse in">
+					<div id="collapseTwo">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('ProfileAddThing')">How to add a Thing to your Profil</a>
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
-					<div id="collapseTwo" class="panel-collapse collapse in">
+					<div id="collapseTwo">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('ProfileThingConfigure')">How to configure a Thing</a>
 									</td>
 								</tr>
@@ -114,22 +117,24 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-								<span class="glyphicon glyphicon-user"></span>
-								 Filters
+							<a>
+								<span class="glyphicon glyphicon-filter"></span>
+								<a ng-click="changeView('GeneralWoTVA')">Filters</a>
 							</a>
 						</h4>
 					</div>
-					<div id="collapseThree" class="panel-collapse collapse in">
+					<div id="collapseThree">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('FilterUsage')">How to use Filters</a>
 									</td>
 								</tr> 
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('FilterCustom')">Custom-Filters </a>
 									</td>
 								</tr> 
@@ -140,22 +145,24 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+							<a>
 								<span class="glyphicon glyphicon-file"></span>
-								 Twitter
+								<a ng-click="changeView('GeneralWoTVA')">Twitter</a>
 							</a>
 						</h4>
 					</div>
-					<div id="collapseFour" class="panel-collapse collapse in">
+					<div id="collapseFour">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('WhyTwitter')">Why are we using Twitter?</a>
 									</td>
 								</tr>
 								<tr>
 									<td>
+										<span class="glyphicon glyphicon-flash text-success"></span>
 										<a ng-click="changeView('TwitterConfig')">Twitter Configuration</a>
 									</td>
 								</tr>
