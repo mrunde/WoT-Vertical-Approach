@@ -1,7 +1,7 @@
 'use strict';
 
 // Resize the map based on screen sizes to display it with 100% height
-const navMargin      = 52;
+const navMargin      = 53;
 const btnGroupHeight = 34;
 const colPadding     = 15;
 
