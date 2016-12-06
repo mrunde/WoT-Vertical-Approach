@@ -7,7 +7,7 @@
 
 ## Authors:
 
-:octocat: [Moritz Migge](https://github.com/McMorri)<br>
+:octocat: [Moritz Migge](https://github.com/mmigge)<br>
 :octocat: [Marius Runde](https://github.com/mrunde)<br>
 :octocat: [Daniel Ummelmann](https://github.com/ummelmann)<br>
 :octocat: [Axel Virnich](https://github.com/avi92)
